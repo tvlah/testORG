@@ -1,0 +1,11 @@
+<apex:page id="exportPage" standardController="CSPOFA__Orchestration_Process_Template__c" extensions="CSPOFA.XMLImportExportController"
+            contentType="application/octet-stream"
+            showHeader="false"
+            sidebar="false"
+            standardStylesheets="false"
+            cache="true"
+            >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+            <apex:outputText >{!XMLExport}</apex:outputText>
+            <apex:outputText value="{!CSPOFA__Orchestration_Process_Template__c.Name}" rendered="false"/>
+</apex:page>

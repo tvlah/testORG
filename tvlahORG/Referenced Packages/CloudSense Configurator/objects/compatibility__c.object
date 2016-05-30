@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Enable_Dynamic_Lookup_Queries__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable dynamic lookup queries, where values are retrieved in real-time from the configuration screen. Prior to version 1.108 lookup queries were processed only on screen transitions via the server - untick this box to revert to this behaviour.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable dynamic lookup queries, where values are retrieved in real-time from the configuration screen. Prior to version 1.108 lookup queries were processed only on screen transitions via the server - untick this box to revert to this behaviour.</inlineHelpText>
+        <label>Enable Dynamic Lookup Queries</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Configurator Compatibility Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

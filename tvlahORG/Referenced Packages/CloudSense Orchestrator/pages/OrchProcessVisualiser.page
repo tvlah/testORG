@@ -1,0 +1,29 @@
+<apex:page id="ProcessVisualiserPage" standardController="CSPOFA__Orchestration_Process__c" tabStyle="CSPOFA__Orchestration_Process__c" sidebar="false" >
+	<apex:outputText value="{!CSPOFA__Orchestration_Process__c.Name}" rendered="false"/>
+	<apex:outputText value="{!CSPOFA__Orchestration_Process__c.CSPOFA__Process_Type__c}" rendered="false"/>
+	<apex:outputText value="{!CSPOFA__Orchestration_Process__c.CSPOFA__Status__c}" rendered="false"/>
+	<apex:outputText value="{!CSPOFA__Orchestration_Process__c.CSPOFA__Process_On_Hold__c}" rendered="false"/>
+	<apex:outputText value="{!CSPOFA__Orchestration_Process__c.CSPOFA__jeopardy_created_flag__c}" rendered="false"/>
+	<apex:pageMessages id="messages"/>
+	<body id="body">
+		<apex:pageBlock id="processPageBlock" >
+
+			<div id="space" style="float:left; height:10px; width:100%;">
+			</div>
+
+			<apex:outputLabel id="processInfo" style="display:block; font-size:1.5em; color:#00B7FF;">
+				PROCESS: <a href="/{!Orchestration_Process__c.Id}" style="color:#00B7FF;">{!CSPOFA__Orchestration_Process__c.Name}</a>
+				{!IF(Orchestration_Process__c.Process_Type__c != NULL, '[' + Orchestration_Process__c.Process_Type__c + ']','')}
+				{!IF(Orchestration_Process__c.Status__c != NULL,' |  STATUS: ' + Orchestration_Process__c.Status__c + '  |','  |')}
+				{!IF(Orchestration_Process__c.Process_On_Hold__c = true,' ON HOLD |','')}
+				{!IF(Orchestration_Process__c.jeopardy_created_flag__c = true,' IN JEOPARDY |','')}
+				<apex:outputText id="createdDate" style="font-size:0.7em;" value="  Created: {0,date,yyyy.MM.dd 'at' HH:mm:ss}">
+					<apex:param id="createdDateParam" value="{!CSPOFA__Orchestration_Process__c.CreatedDate}">  </apex:param>
+				</apex:outputText>
+			</apex:outputLabel>
+
+			<apex:composition template="CSPOFA__VisualiserTemplate">
+			</apex:composition>
+		</apex:pageBlock>
+	</body>
+</apex:page>

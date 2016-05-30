@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <fields>
+        <fullName>guid__c</fullName>
+        <deprecated>false</deprecated>
+        <description>GUID for JSON export/import</description>
+        <externalId>true</externalId>
+        <inlineHelpText>GUID for JSON export/import</inlineHelpText>
+        <label>GUID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <validationRules>
+        <fullName>Guid_Format_Check</fullName>
+        <active>true</active>
+        <description>Validates the format of GUID, but allows for it to remain blank.</description>
+        <errorConditionFormula>AND(NOT( REGEX( guid__c , &quot;\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}&quot;) )
+, NOT(ISBLANK(guid__c )))</errorConditionFormula>
+        <errorDisplayField>guid__c</errorDisplayField>
+        <errorMessage>Required format of the GUID is xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+With x being any alphanumeric character (letter or digit).</errorMessage>
+    </validationRules>
+</CustomObject>

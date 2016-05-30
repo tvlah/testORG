@@ -1,0 +1,86 @@
+<apex:page standardController="cscfga__Product_Definition__c" extensions="cspduia.AddSectionController" showHeader="false" sidebar="false" standardStylesheets="true">
+    <apex:includeScript value="{!$Resource.cspduia__jQuery}" />
+    <apex:includeScript value="{!$Resource.cspduia__JQueryUI}" />
+    <style type="text/css">
+    	body {
+			background: #ddd;
+		}
+		fieldset {
+			background: #eee;
+		}
+        .close-image {
+            display: block;
+            float:right;
+            position:relative;
+            top:0px;
+            margin-right: 10px;
+            right: 0px;
+            cursor: pointer;
+            width:24px;
+            height:24px;
+            z-index:10;
+        }
+    </style>
+    <script type="text/javascript">
+    	function postSaveDone() {
+    		var msg = '{"action": "SectionCreated", "screenId":"'+ jQuery('.selected-screen').find(":selected").val()+'"';
+			msg += '}';
+			window.top.postMessage(msg, '*');
+    	}
+    </script>
+    <apex:form >
+            <img class="close-image" title="Close dialog" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'close.png')}" id="closedialog" onClick="postSaveDone();"/>
+            <table cellspacing="8" border="0" id="containerTable">
+            	<tr>
+            		<td align="left">
+            			<p>
+				            Please enter the details of the new Section definition you want to create
+				        </p>
+            		</td>
+            	</tr>
+                <tr>
+                    <td  style="vertical-align: top;">
+                        <fieldset style="width:700px;">
+                        	<legend>Property inspector</legend>
+                            <apex:outputPanel id="idSection">
+                                <table style="width:70%;">
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <apex:commandButton value="Add Section"  action="{!saveSection}" onComplete="postSaveDone();" />
+                                        </td>
+                                    </tr>
+                                    <apex:repeat value="{! $ObjectType.cscfga__Screen_Section__c.FieldSets.SectionFieldSet }" var="att">
+                                        <tr>
+                                            <td align="left">
+                                                <apex:outputText value="{!att.label}" />
+                                            </td>
+                                            <td align="left">
+                                                <apex:inputField value="{!sectionToCreate[att.fieldPath]}" required="{!OR(att.required, att.dbrequired)}"/>
+                                                <br/>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                    <tr>
+                                    	<td align="left">
+                                    		Configuration Screen
+                                    	</td>
+                                    	<td align="left">
+                                    		<apex:selectList styleClass="selected-screen" value="{!selectedScreen}" multiselect="false" size="1">
+									        	<apex:selectOptions Value="{!screenList}"/>
+									        </apex:selectList>
+                                    	</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <apex:commandButton value="Add Section"  action="{!saveSection}" onComplete="postSaveDone();" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+            
+    </apex:form>
+</apex:page>

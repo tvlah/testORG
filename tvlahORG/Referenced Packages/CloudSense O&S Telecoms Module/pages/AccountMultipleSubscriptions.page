@@ -1,0 +1,59 @@
+<apex:page StandardController="Account" extensions="csordtelcoa.AccountMultipleSubscriptionsController" id="fullPage" showHeader="true" sidebar="true">
+    <apex:form id="pageForm">
+        <apex:sectionHeader title="Multiple subscriptions generation" subtitle="Create change request for multiple subscriptions" />
+        <apex:pageMessages />
+        <apex:pageBlock id="pageBlock" title="">
+            <apex:pageBlockButtons id="changeRequestButtons" location="top">
+                <apex:commandButton value="{!$Setup.Orders_Subscriptions_Options__c.Create_Mac_Opportunities_Button_Label__c}" title="Generate MAC Opportunity" action="{!CreateMultipleSubscriptionMacOpportunity}" rendered="{!IF($Setup.Orders_Subscriptions_Options__c.Create_Mac_Opportunities__c && NOT(InvokeProcess),true,false)}"/>
+                <apex:commandButton value="{!$Setup.Orders_Subscriptions_Options__c.Create_Mac_Baskets_Button_Label__c}" title="Generate MAC Basket" action="{!CreateMultipleSubscriptionMacBasket}" rendered="{!IF($Setup.Orders_Subscriptions_Options__c.Create_Mac_Baskets__c && NOT(InvokeProcess),true,false)}"/>
+                <apex:commandButton value="Create Processes for multiple subscriptions" title="Create Processes for multiple subscriptions" action="{!createProcesses}" rendered="{!InvokeProcess}"/>
+                <apex:commandButton value="Cancel" title="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock id="pageBlockOptions" title="Parameters">
+        	<apex:pageBlockSection id="pageBlockSection">
+	        	<apex:pageBlockSectionItem rendered="{!IF($Setup.Orders_Subscriptions_Options__c.Create_Mac_Opportunities__c && NOT(InvokeProcess),true,false)}">
+	        		<apex:outputLabel value="Opportunity name" for="title" /> 
+	        		<apex:inputText value="{!title}" id="title" size="80"  />
+	       		</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem rendered="{!IF($Setup.Orders_Subscriptions_Options__c.Create_Mac_Baskets__c && NOT(InvokeProcess),true,false)}">
+	        		<apex:outputLabel value="Product basket name" for="productBasketTitle" /> 
+	        		<apex:inputText value="{!productBasketTitle}" id="productBasketTitle" size="80"  />
+	       		</apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Select Change Type" for="changeType"/>
+                    <apex:selectList value="{!changeType}"  size="1" multiselect="false" required="true" id="changeType"> 
+                        <apex:actionSupport event="onchange" action="{!rerenderButtons}" rerender="pageForm" />
+                        <apex:selectOptions value="{!ChangeTypes}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!IF($Setup.Orders_Subscriptions_Options__c.Create_Mac_Opportunities__c && NOT(InvokeProcess) && oppRecordTypes.size > 0,true,false)}">
+                    <apex:outputLabel value="Select Opportunity Record Type" for="oppRecrodType"/>
+                    <apex:selectList value="{!oppRecordType}"  size="1" multiselect="false" required="true" id="oppRecrodType"> 
+                        <apex:selectOptions value="{!oppRecordTypes}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!InvokeProcess}">
+                    <apex:outputLabel value="Process Name" for="processName"/>
+                    <apex:inputText id="processName" value="{!processName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItemDate" rendered="{!RequestDate}">
+                    <apex:outputLabel value="{!requestedDateLabel}" for="cancellationDate"/>
+                    <apex:outputpanel id="outputPanelDate">
+                        <apex:inputText value="{!dateString}" size="10" id="date" onfocus="DatePicker.pickDate(false, this , false);" />
+                        <apex:outputLink value="javascript:DatePicker.insertDate('{!Today()}', 'fullPage:pageForm:pageBlockOptions:pageBlockSection:pageBlockSectionItemDate:date', true);"> 
+                            <apex:outputText value="[ {!Today()} ]"/> 
+                        </apex:outputLink>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>	       		
+       		</apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock id="pageBlockSubscriptions" title="Subscriptions">
+			<apex:outputpanel id="customCheckboxPanel" layout="block">  
+	            <apex:selectCheckboxes value="{!choices}" layout="pageDirection">  
+            		<apex:selectOptions value="{!list}"/><br/>  
+	            </apex:selectCheckboxes>  
+			</apex:outputpanel>         
+        </apex:pageBlock>    
+	</apex:form>
+</apex:page>

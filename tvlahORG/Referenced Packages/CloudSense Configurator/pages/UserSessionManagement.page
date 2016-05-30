@@ -1,0 +1,70 @@
+<apex:page Controller="cscfga.UserSessionManagementController"   showHeader="true"  >
+
+    <!--
+    //#####################################################################
+    //# Apex page to Manage User sessions and kick off jobs
+    //#
+    //# CPS 30/07/2010
+    //#
+    -->
+
+    <apex:form >
+    
+    <apex:pageBlock title="Manage Session Details and Housekeeping">
+    
+              <apex:pageBlockButtons location="top">                   
+                  <apex:commandButton value="Save and Schedule Housekeeping Job"  action="{!scheduleJob}" immediate="false"  />
+                  <apex:commandButton value="Delete Scheduled Job"  action="{!deleteJob}" immediate="true" Rendered="{!chronJobId != null}" />
+                  <apex:commandButton value="View All Jobs"  action="/08e" immediate="true"  />
+              </apex:pageBlockButtons>
+
+            <apex:pageBlock title="Session Housekeeping Details">
+                
+                        
+                
+                <table width="700">
+                    <tr>
+                        <td width="300">Housekeeping Job schedule (Chron job format)</td>
+                        <td><apex:InputText value="{!chronJobScheduleString}"    /> 
+                        (e.g. "0 0 0 * * ?" ( 
+                        <a href="http://adminschoice.com/crontab-quick-reference" target="_blank">more info...</a> 
+                        ) </td>
+                    </tr>
+                    <tr>
+                        <td>Minimum idle time for purging sessions (mins):</td>
+                        <td><apex:InputText value="{!sessionTimeOutMinutes}"/></td>
+                    </tr>
+
+                    <tr>
+                        <td>Last scheduled housekeeping job id:</td>
+                        <td>{!chronJobId}</td>
+                    </tr>
+                
+                </table>
+
+
+    
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Anonymous Website Details">
+                <table width="700">
+                    <tr>
+                        <td width="300">Anonymous website profile id:</td>
+                        <td><apex:InputText value="{!anonymousProfileId}"/></td>
+                    </tr>
+                
+                </table>
+
+
+    </apex:pageBlock>
+    
+	<apex:pageblock title="">
+              	<apex:messages />
+			</apex:pageblock>
+           </apex:pageBlock>
+   
+        
+    </apex:form>
+
+
+</apex:page>

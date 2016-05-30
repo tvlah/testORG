@@ -1,0 +1,47 @@
+<apex:page controller="cscfga.SelectAttributeTemplateController"  >
+
+
+    <apex:form >
+    
+    
+      <apex:pageBlock title="Select Attributes Template to add to '{!ProductDefName}'" id="blockMain">
+
+            <apex:pageBlockTable var="item" value="{!Templates}">
+                <apex:column width="50" >
+                    <apex:facet name="header">Select</apex:facet>
+                    <apex:outputPanel >                
+                        <apex:inputCheckbox value="{!item.isSelected}"/>
+                    </apex:outputPanel>
+                </apex:column>
+
+
+                <apex:column >
+                    <apex:facet name="header">Attributes Template</apex:facet>
+                    <apex:outputPanel >
+                         {!item.template.Name}
+                    </apex:outputPanel>
+                </apex:column>
+
+             </apex:pageBlockTable> 
+                   
+        </apex:pageBlock>
+
+        <br />
+        <apex:pageBlock >
+            <apex:commandButton action="{!addToProductDefinition}"  value="Add to Product Definition"></apex:commandButton>
+    
+        </apex:pageBlock>
+
+        <apex:pageBlock >                    
+            <apex:outputPanel id="msgMain" rendered="{!saveMessage} != ''">
+               <b>Messages:</b>  {!saveMessage}
+            </apex:outputPanel>            
+        </apex:pageBlock>
+    
+    
+    
+    </apex:form>
+
+
+
+</apex:page>

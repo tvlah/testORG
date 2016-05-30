@@ -1,0 +1,9 @@
+<apex:page id="exportPage" standardController="CSPOFA__Orchestration_Process_Template__c" extensions="CSPOFA.SVGExportController"
+            contentType="application/octet-stream"
+            showHeader="false"
+            sidebar="false"
+            standardStylesheets="false"
+            cache="true"
+            >
+            <apex:outputText >{!SVGDataForExport}</apex:outputText>
+</apex:page>

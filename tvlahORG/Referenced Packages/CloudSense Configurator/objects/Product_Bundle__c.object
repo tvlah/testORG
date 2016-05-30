@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <content>CloneBundle</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <content>DeleteBundle</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>ConfigurationBundleEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>SelectProductCategoryFromBundle</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>ConfigurationBundleDetail</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Bundle_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Displays status of the Bundle.</inlineHelpText>
+        <label>Bundle Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Is Valid</fullName>
+                <color>#78C953</color>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contains Errors or Incomplete</fullName>
+                <color>#CC0000</color>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contains Expired Products</fullName>
+                <color>#FF9900</color>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IsValid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ContainsErrors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ContainsExpiredProducts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Opportunity this Bundle is associated with.</inlineHelpText>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Product Bundles</relationshipLabel>
+        <relationshipName>Product_Bundles</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Shared_Context_Configuration__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Product Configuration that is used as a Shared Context which is associated with this Bundle.</inlineHelpText>
+        <label>Shared Context Configuration</label>
+        <referenceTo>Product_Configuration__c</referenceTo>
+        <relationshipLabel>Product Bundles</relationshipLabel>
+        <relationshipName>Product_Bundles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Synchronised_with_Opportunity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, it indicates that the bundle is synchronized with the opportunity.</inlineHelpText>
+        <label>Synchronised with Opportunity</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Total_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of non-recurring and one year&apos;s worth of recurring prices of all items contained in this Bundle.</inlineHelpText>
+        <label>Total Price</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Product Bundle</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Product Bundles</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Copy_to_another_opportunity</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>300</height>
+        <linkType>page</linkType>
+        <masterLabel>Copy to another opportunity</masterLabel>
+        <openType>sidebar</openType>
+        <page>CloneBundle</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Sync_with_Opportunity</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Sync with Opportunity</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (&quot;{!Product_Bundle__c.Bundle_Status__c}&quot; == &quot;Valid&quot;) {
+	//#added in order to add prefix on communities and where it is required
+	var namespacePrefix = &apos;&apos;;
+  	var scripts = document.getElementsByTagName(&quot;script&quot;);
+	for (var i = 0; i &lt; scripts.length; ++i) {
+		if (scripts[i].src.indexOf(&quot;cs_core&quot;) !== -1) {
+	 		var srcParts = scripts[i].src.split(&quot;/&quot;);
+	 		var srcLastPart = srcParts[srcParts.length - 1];
+	 		namespacePrefix = srcLastPart.split(&quot;cs_core&quot;)[0];
+	 	}
+	}
+
+	var openurl=&quot;apex/&quot; + namespacePrefix + &quot;bundleOpportunitySync&quot; + &quot;?id={!Product_Bundle__c.Id}&amp;s=1&quot;;
+
+	window.location.href=openurl;
+} else {
+     alert(&quot;This bundle contains errors and cannot be synchronised with an Opportunity.&quot;);
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>whatever</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>whatever</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>var part = window.location.href.match(/[^\/]+(\/[^\/]+)\/.+/),
+portal;
+if (part) {
+portal = part[1];
+} else {
+portal = &apos;&apos;;
+}
+window.location.href = portal + &quot;/cscfga__selectproductcategory?retURL=%2F{!Opportunity.Id}&amp;save_new=1&amp;scontrolCaching=1&amp;sfdc.override=1&quot;</url>
+    </webLinks>
+</CustomObject>

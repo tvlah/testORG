@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Action_Label_Assoc_Display_Length__c</fullName>
+        <defaultValue>60</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Action Label Assoc Display Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Action_Label_Display_Length__c</fullName>
+        <defaultValue>20</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Action Label Display Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attribute_Name_Display_Length__c</fullName>
+        <defaultValue>40</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Attribute Name Display Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predicate_Label_Assoc_Display_Length__c</fullName>
+        <defaultValue>60</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Predicate Label Assoc Display Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predicate_Label_Display_Length__c</fullName>
+        <defaultValue>20</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Predicate Label Display Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rule_Description_Display_Length__c</fullName>
+        <defaultValue>60</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Rule Description Display Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Product Designer Options</label>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,275 @@
+<apex:page StandardController="csord__Subscription__c" extensions="csordtelcoa.SubscriptionDeltaViewerController" action="{!checkForDelta}" id="fullPage" showHeader="true" sidebar="true" standardStylesheets="true" >
+	<apex:pageMessages />
+    <apex:form id="fullform">
+        <apex:includeScript value="{!$Resource.csordtelcoa__jQuery}" />
+        <apex:includeScript value="{!URLFOR($Resource.csordtelcoa__jQueryTreeTable, 'jquery.treetable.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.csordtelcoa__jQueryTreeTable, 'jquery.treetable.css')}" />
+        <style>
+            table.treetable {
+              border: 1px solid #888;
+              border-collapse: collapse;
+              font-size: 1.0em;
+              line-height: 1;
+              margin: .6em 0 1.8em 0;
+              width: 100%;
+            }
+            
+            table.treetable caption {
+              font-size: .9em;
+              font-weight: bold;
+              margin-bottom: .2em;
+            }
+            
+            table.treetable thead {
+              background: #aaa url({!URLFOR($Resource.jQueryTreeTable, 'bg-table-thead.png')}) repeat-x top left;
+              font-size: .9em;
+            }
+            
+            table.treetable thead tr th {
+              border: 1px solid #888;
+              font-weight: bold;
+              padding: .3em 1em .1em 1em;
+              text-align: left;
+            }
+            
+            table.treetable tbody tr td {
+              cursor: default;
+              padding: .3em 1em;
+            }
+            
+            table.treetable span {
+              background-position: center left;
+              background-repeat: no-repeat;
+              padding: .2em 0 .2em 1.5em;
+            }
+            
+            table.treetable tr.collapsed span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand.png')});
+            }
+            
+            table.treetable tr.expanded span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse.png')});
+            }
+            
+            table.treetable tr.branch {
+                background-color: #f9f9f9;
+            }
+            
+            table.treetable tr.selected {
+              background-color: #ddd;
+              color: #fff;
+            }
+            
+            table.treetable tr.collapsed.selected span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand-light.png')});
+            }
+            
+            table.treetable tr.expanded.selected span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse-light.png')});
+            }
+            
+            table.treetable tr.accept {
+              background-color: #a3bce4;
+              color: #fff
+            }
+            
+            table.treetable tr.collapsed.accept td span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand-light.png')});
+            }
+            
+            table.treetable tr.expanded.accept td span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse-light.png')});
+            }
+
+            .state-indicator-image {
+                cursor: pointer;
+            }
+        </style> 
+        <script>
+            var categoryId;
+            var productId; 
+            var catalogueLines;
+            var currentNode;
+            var showSlpashScreen = true;
+            //
+            $('document').ready(function () {   
+                // unblock when ajax activity stops 
+                $(document).ajaxStop($.unblockUI);
+                //
+                getSubscriptionDelta();
+            });
+            //
+            function getSubscriptionDelta() {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.SubscriptionDeltaViewerController.loadStructure}',
+                    '{!csord__Subscription__c.Id}',
+                    handleGetSubscriptionDeltaResponse,
+                    {escape: false}
+                );
+            }
+            //
+            function handleGetSubscriptionDeltaResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    subscriptionDelta = result;
+                    //
+                    //console.log('**result: '+result);
+                    var table = ''+
+                            '<table id="subscriptionDeltaTree" class="treetable">'+
+                            '   <thead>'+
+                            '       <tr>'+
+                            '           <th>Name</th>'+
+                            '           <th>Original Attribute Value</th>'+
+                            '           <th>New Attribute Value</th>'+
+                            '           <th>Delta Status</th>'+
+                            '       </tr>'+
+                            '   </thead>'+
+                            '   <tbody id="subscriptionDeltaTreeBody">'+
+                            '       '+
+                            '   </tbody>'+
+                            '</table>';
+	                  $('#subscriptionDeltaTreeDiv').append(table);
+                    if (subscriptionDelta != undefined) {
+	                    var subRow = ''+
+                            '       <tr id="'+subscriptionDelta.subscriptionId+'" data-tt-id="'+subscriptionDelta.subscriptionId+'">'+
+                            '            <td><a href="/'+subscriptionDelta.subscription.Id+'" target="_blank">'+subscriptionDelta.subscription.Name+'</a></td>'+
+                            '            <td></td>'+
+                            '            <td></td>'+
+                            '            <td></td>'+
+                            '       </tr>';
+                      $('#subscriptionDeltaTreeBody').append(subRow);
+	                    //
+	                    for(var i = 0; i < subscriptionDelta.serviceDeltaList.length; i++) {
+	                    	var serviceDelta = subscriptionDelta.serviceDeltaList[i];
+  	                		var row;
+  	                		row  = '<tr id="'+serviceDelta.service.Id+'" data-tt-id="'+serviceDelta.service.Id+'"';
+  	                		row += ' data-tt-parent-id="'+subscriptionDelta.subscriptionId+'"';
+  	                		row += '>';
+  	                		row += '<td><a href="/'+serviceDelta.service.Id+'" target="_blank">'+serviceDelta.service.Name+'</a></td>';
+  	                		row += '<td></td>';
+  	                		row += '<td></td>';
+  	                		row += '<td>'+serviceDelta.serviceDeltaStatus+'</td>';
+  	                		row += '</tr>';
+  	                		$('#subscriptionDeltaTreeBody').append(row);
+							          //
+  	                		row  = '<tr id="lineItems-'+serviceDelta.service.Id+'" data-tt-id="lineItems-'+serviceDelta.service.Id+'"';
+  	                		row += ' data-tt-parent-id="'+serviceDelta.service.Id+'"';
+  	                		row += '>';
+  	                		row += '<td>Line Items</td>';
+  	                		row += '<td></td>';
+  	                		row += '<td></td>';
+  	                		row += '<td></td>';
+  	                		row += '</tr>';
+	                		  $('#subscriptionDeltaTreeBody').append(row);
+	                		  for(var j = 0; j < serviceDelta.serviceLineItemDeltaList.length; j++) {
+  	                			var lineItem = serviceDelta.serviceLineItemDeltaList[j];
+  	                			row  = '<tr id="'+lineItem.serviceLineItem.Id+'" data-tt-id="'+lineItem.serviceLineItem.Id+'"';
+  		                		row += ' data-tt-parent-id="lineItems-'+serviceDelta.service.Id+'"';
+  		                		row += '>';
+  		                		row += '<td>'+lineItem.serviceLineItem.Name+'</td>';
+  		                		row += '<td></td>';
+  		                		row += '<td></td>';
+  		                		row += '<td>'+lineItem.serviceLineItemDeltaStatus+'</td>';
+  		                		row += '</tr>';
+  		                		$('#subscriptionDeltaTreeBody').append(row);
+  	                		}
+  	                		if(serviceDelta.assetDeltaList != undefined) {
+	  	                		row  = '<tr id="assets-'+serviceDelta.service.Id+'" data-tt-id="assets-'+serviceDelta.service.Id+'"';
+	  	                		row += ' data-tt-parent-id="'+serviceDelta.service.Id+'"';
+	  	                		row += '>';
+	  	                		row += '<td>Assets</td>';
+	  	                		row += '<td></td>';
+	  	                		row += '<td></td>';
+	  	                		row += '<td></td>';
+	  	                		row += '</tr>';
+	                		  	$('#subscriptionDeltaTreeBody').append(row);
+	                		  	for(var j = 0; j < serviceDelta.assetDeltaList.length; j++) {
+	  	                			var asset = serviceDelta.assetDeltaList[j];
+	  	                			row  = '<tr id="'+asset.asset.Id+'" data-tt-id="'+asset.asset.Id+'"';
+	  		                		row += ' data-tt-parent-id="assets-'+serviceDelta.service.Id+'"';
+	  		                		row += '>';
+	  		                		row += '<td>'+asset.asset.Name+'</td>';
+	  		                		row += '<td>'+asset.originalValue+'</td>';
+	  		                		row += '<td>'+asset.newValue+'</td>';
+	  		                		row += '<td>'+asset.assetDeltaStatus+'</td>';
+	  		                		row += '</tr>';
+	  		                		$('#subscriptionDeltaTreeBody').append(row);
+	  	                		}
+  	                		}
+							          //
+  	                		if (serviceDelta.productConfigurationDelta != undefined) {
+  		                		row  = '<tr id="ProductConfig-'+serviceDelta.service.Id+'" data-tt-id="ProductConfig-'+serviceDelta.service.Id+'"';
+  		                		row += ' data-tt-parent-id="'+serviceDelta.service.Id+'"';
+  		                		row += '>';
+  		                		row += '<td>Product Configuration Attributes</td>';
+  		                		row += '<td></td>';
+  		                		row += '<td></td>';
+  		                		row += '<td></td>';
+  		                		row += '</tr>';
+  		                		$('#subscriptionDeltaTreeBody').append(row);
+  		                		for(var k = 0; k < serviceDelta.productConfigurationDelta.productConfigurationAttributeDeltaList.length; k++) {
+  		                			var att = serviceDelta.productConfigurationDelta.productConfigurationAttributeDeltaList[k];
+  		                			if (att.originalValue != undefined && att.newValue != undefined) {
+  			                			row  = '<tr id="'+att.attribute.Id+'" data-tt-id="'+att.attribute.Id+'"';
+  				                		row += ' data-tt-parent-id="ProductConfig-'+serviceDelta.service.Id+'"';
+  				                		row += '>';
+  				                		row += '<td>'+att.name+'</td>';
+  				                		row += '<td>'+att.originalValue+'</td>';
+  				                		row += '<td>'+att.newValue+'</td>';
+  				                		row += '<td>'+att.attributeDeltaStatus+'</td>';
+  				                		row += '</tr>';
+  				                		$('#subscriptionDeltaTreeBody').append(row);
+  			                		}
+  		                		}
+  	                		}
+	                	  }
+                    }
+                    //
+                    $("#subscriptionDeltaTree").treetable({ expandable: true, column: 0,
+                                                           onNodeCollapse: function() {
+                                                           },
+                                                           onNodeExpand: function() {
+                                                           }, 
+                                                           onNodeInitialized: function() {
+                                                                // Do nothing for now
+                                                           }
+                                                          });
+                    //
+                    // ------------------------------------------------------------
+                    // Highlight selected row
+                    $("#subscriptionDeltaTree tbody").on("mousedown", "tr", function () {
+                        $(".selected").not(this).removeClass("selected");
+                        $(this).toggleClass("selected");
+                    });
+                    //
+                    /****
+                    $.each(subscriptionDelta, function(key,valueObj) {
+                        //console.log(key+'-'+valueObj);
+                        $.each(valueObj, function(key2,vObj) {
+                            console.log(key2+'-'+vObj);
+                        });
+                    });
+                    ****/
+                }
+            } 
+        </script>  
+        <apex:sectionHeader title="Subscription Delta" subtitle="Explore Delta Changes for Subscrption: '{!csord__Subscription__c.Name}'" />
+        <apex:pageBlock title="">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Return To Subscription" title="Return To Subscription" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <div id="parentDiv" style="min-height: 500px;">
+                <div style="display:inline-block;width:100%;">
+                    <div style="display:inline-block; margin-top:15px;">
+                        <a href="#" style="color:#aaa; float:left;" onclick="jQuery('#subscriptionDeltaTree').treetable('expandAll'); return false;">Expand all</a>
+                        <a href="#" style="color:#aaa; float:left; margin-left:5px;" onclick="jQuery('#subscriptionDeltaTree').treetable('collapseAll'); return false;">Collapse all</a>
+                    </div>
+                </div>
+                <div id="subscriptionDeltaTreeDiv">
+                </div>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

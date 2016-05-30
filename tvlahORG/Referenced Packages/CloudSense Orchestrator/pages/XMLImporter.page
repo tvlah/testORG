@@ -1,0 +1,79 @@
+<apex:page id="importPage" Controller="CSPOFA.XMLImportExportController">
+
+	<apex:form id="form">
+
+	<apex:pageBlock id="blockImport" title="Import Orchestration Process Template">
+
+		<apex:pageBlock id="blockSelectFile" title="Select XML file to import">
+
+			<p id="message">Import a file previously exported from the Cloudsense Orchestrator as XML</p> <br />
+
+			<table id="table" width="600">
+
+				<tr>
+					<td> XML file to Import (required): </td>
+					<td id="importFileCell"> <apex:inputFile id="import_file"
+								accept="*.xml"
+								required="true"
+								fileName="{!fileName}"
+								value="{!fileContents}">
+					 </apex:inputFile>
+					 </td>
+				</tr>
+
+				<tr>
+					<td id="buttonUploadCell" colspan="2">
+						<apex:commandButton id="buttonUpload" title="Upload XML" value="Upload XML" action="{!saveXmlAsObjects}"/>
+					</td>
+				  </tr>
+
+				  <tr>
+					  <td id="outputMessageCell" colspan="2">
+						  <br />
+						  <apex:outputText id="outputMessage" value="{!message}"  rendered="{!isClick}"/>
+					  </td>
+				  </tr>
+
+			</table>
+
+		</apex:pageBlock>
+
+		<apex:pageBlock id="blockSelectFileJson" title="Select JSON file to import">
+
+			<p id="messageJSON">Import a file previously exported from the Cloudsense Orchestrator as JSON</p> <br />
+
+			<table id="table" width="600">
+
+				<tr>
+					<td> JSON file to Import (required): </td>
+					<td id="importFileCellJSON"> <apex:inputFile id="import_file"
+								accept="*.json"
+								required="true"
+								fileName="{!fileNameJson}"
+								value="{!fileContentsJson}">
+					 </apex:inputFile>
+					 </td>
+				</tr>
+
+				<tr>
+					<td id="buttonUploadCell" colspan="2">
+						<apex:commandButton id="buttonUpload" title="Upload JSON" value="Upload JSON" action="{!saveJsonAsObjects}"/>
+					</td>
+				  </tr>
+
+				  <tr>
+					  <td id="outputMessageCell" colspan="2">
+						  <br />
+						  <apex:outputText id="outputMessageJson" value="{!messageJson}"  rendered="{!isClick}"/>
+					  </td>
+				  </tr>
+
+			</table>
+
+		</apex:pageBlock>
+
+	</apex:pageBlock>
+
+	</apex:form>
+
+</apex:page>

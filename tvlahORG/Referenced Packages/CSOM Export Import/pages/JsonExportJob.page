@@ -1,0 +1,25 @@
+<apex:page id="page" controller="csexpimp1.JsonExportController">
+	<apex:includeScript value="/soap/ajax/34.0/connection.js"/>
+	<apex:includeScript value="/soap/ajax/34.0/apex.js"/>
+	<apex:includeScript value="{!$Resource.cscfga__jQuery_1_4_2_min}"/>
+	<apex:includeScript value="{!$Resource.csexpimp1__csom_exp}"/>
+	<script type="text/javascript">
+		sforce.connection.sessionId = "{!$Api.Session_ID}";
+		jQuery(document).ready(function() {
+			var recordIds = JSON.parse('{!recordIds}');
+			JsonExpImp.startJsonListExport("{!objectType}", recordIds, '{!JSENCODE(exportName)}');
+		});
+	</script>
+	<apex:form id="form">
+		<apex:pageBlock id="block" title="Exporting to JSON">
+			<apex:pageBlockButtons id="pageBlockButtons" location="bottom">
+				<apex:commandButton value="Back" id="backButton" onclick="window.open('{!retUrl}', '_top'); return false;"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockTable value="{!recordNames}" var="recordName">
+				<apex:column headerValue="Record Name">
+					<apex:outputText value="{!recordName}"/>
+				</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

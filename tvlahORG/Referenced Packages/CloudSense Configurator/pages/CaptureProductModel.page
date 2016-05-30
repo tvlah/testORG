@@ -1,0 +1,2 @@
+<apex:page standardController="cscfga__Product_Definition__c" extensions="cscfga.StatelessUIController" action="{!captureProductModel}">
+</apex:page>

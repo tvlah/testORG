@@ -1,0 +1,64 @@
+<apex:page standardController="cscfga__Product_Category__c" extensions="cscfga.ProfilePermissionsController">
+
+
+    <apex:form >
+                <apex:pageBlock title="{!$Label.catper_Set_access_permissions_for} '{!cscfga__Product_Category__c.Name}'" id="blockMain">
+
+                    <!-- buttons -->                    
+                  <apex:pageBlockButtons location="top">
+                           <apex:commandButton action="{!doSave}"  value="{!$Label.catper_Save}"></apex:commandButton>
+                           <apex:commandButton action="{!doCancel}"  value="{!$Label.catper_Back_to_Category}" immediate="true"></apex:commandButton>
+                  </apex:pageBlockButtons>
+             
+    
+                  <table>
+                      <tr>
+                          <td width="300">{!$Label.catper_Restrict_access_for_category}</td><td><apex:inputCheckbox id="chkRestrictAccess" value="{!restrictAccess}" /></td>
+                      </tr>                          
+                      <tr>
+                        <td>{!$Label.catper_Cascade_permissions_to_all_children}</td><td><apex:inputCheckBox id="chkCascadePermisions" value="{!cascadePermissions}"/></td>                          
+                      </tr>
+                  </table>
+                   <b><apex:messages /></b>
+                  
+          </apex:pageBlock>
+          
+         <apex:pageBlock id="blockProfile" title="{!$Label.catper_Access_permission_for_profiles}" >
+
+                 <div style="width:600px; height:340px; overflow:auto; border:1px">
+        
+                    <apex:pageBlockTable var="item" value="{!SelectedProfiles}">
+                        <apex:column width="50" >
+                            <apex:facet name="header">{!$Label.catper_Access_Granted}</apex:facet>
+                            <apex:outputPanel >                
+                                <apex:inputCheckbox value="{!item.isSelected}"  selected="{!item.isSelected}"/>
+                            </apex:outputPanel>
+                        </apex:column>
+        
+                        <apex:column width="300">
+                            <apex:facet name="header">{!$Label.catper_Profile}</apex:facet>
+                            <apex:outputPanel >
+                                     {!item.displayText}
+                            </apex:outputPanel>
+                        </apex:column>
+        
+                     </apex:pageBlockTable> 
+                   </div>                   
+
+        </apex:pageBlock>          
+
+          
+          
+          
+      
+        
+
+    
+   
+    
+    
+    </apex:form>
+
+
+
+</apex:page>

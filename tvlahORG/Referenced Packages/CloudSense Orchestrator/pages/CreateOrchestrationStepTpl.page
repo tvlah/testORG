@@ -1,0 +1,5 @@
+<apex:page id="stepTemplatePage" standardController="CSPOFA__Orchestration_Step_Template__c" title="Create Orchestration Template Step" extensions="CSPOFA.StepTemplatePageController" tabStyle="CSPOFA__Orchestration_Process_Template__c">
+	<apex:outputPanel id="components">
+		<c:StepTemplate id="stepTemplate" parentController="{!this}" handleName="STEP" attShowButtons="true" attStepRecord="{!stepRecord}" attCancelUrl="{!returnUrl}" attSaveUrl="{!returnUrl}"/>
+	</apex:outputPanel>
+</apex:page>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <fields>
+        <fullName>Do_Not_Produce_Service_Line_Items__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Do Not Produce Line Items</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Contextualized__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Denotes if a Service spawned from a Product Configuration with this Product Definition can be modified independently</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Denotes if a Service spawned from a Product Configuration with this Product Definition can be modified independently</inlineHelpText>
+        <label>Is Contextualized</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Product_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Subscription</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Delivery</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Screen_Flow_For_Service_Changes__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Screen Flow For Service Changes</label>
+        <referenceTo>cscfga__Screen_Flow__c</referenceTo>
+        <relationshipLabel>Product Definitions</relationshipLabel>
+        <relationshipName>Product_Definitions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Subscription_Association__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Subscription Association</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Subscription1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subscription2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subscription3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subscription4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subscription5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+</CustomObject>

@@ -1,0 +1,35 @@
+<apex:page id="processDriver" controller="CSPOFA.ProcessDriverController" standardStylesheets="true">
+	<apex:form id="theForm">
+		<apex:actionPoller action="{!runJobs}" interval="10" rendered="{!runJobsAutomatically}" rerender="theForm" id="theRefresher"/>
+
+		<apex:sectionHeader title="Orchestrator Engine Management"></apex:sectionHeader>
+		<apex:pageMessage rendered="{!externalPollingEnabled}" summary="External polling is enabled. To prevent race conditions, the Process Driver cannot be used while external polling is enabled. It can be disabled in the Orchestrator Constants custom settings." severity="info" strength="2"/>
+
+		<apex:pageBlock title="Engine background processing">
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton id="buttonStartEngine" value="Start" action="{!startEngine}" disabled="{!OR(isEngineRunning,externalPollingEnabled)}" rerender="theForm"/>
+				<apex:commandButton id="buttonStopEngine" value="Stop" action="{!stopEngine}" disabled="{!NOT(isEngineRunning)}" rerender="theForm"/>
+			</apex:pageBlockButtons>
+			<apex:outputText >Frequency is set in the Orchestrator Constants custom settings ('Default queue run frequency').</apex:outputText>
+			<br />
+			<apex:outputText rendered="{!isEngineRunning}">Orchestrator Engine has been started with frequency: {!engineFrequency}s.</apex:outputText>
+		</apex:pageBlock>
+		
+		<apex:pageBlock title="Poll engine every 10 secs">
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton id="buttonStartPolling" value="Poll Engine Automatically" action="{!startPolling}" disabled="{!OR(isEngineRunning,externalPollingEnabled,runJobsAutomatically)}" rerender="theForm"/>
+				<apex:commandButton id="buttonStopPolling" value="Stop polling" action="{!stopPolling}" disabled="{!NOT(runJobsAutomatically)}" rerender="theForm"/>
+			</apex:pageBlockButtons>
+			<apex:outputText value="Initiate automatic polling of the Orchestration Engine every 10 seconds while this page remains open."></apex:outputText>
+			<br />
+			<apex:outputText rendered="{!runJobsAutomatically}" value="Last invocation: {!lastPoll}"></apex:outputText>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Run engine once">
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton value="Run Now" id="buttonRunNow" action="{!runJobs}" disabled="{!OR(isEngineRunning,externalPollingEnabled)}" rerender="theForm"/>
+			</apex:pageBlockButtons>
+			<apex:outputText >Initiate a single Orchestrator Engine run.</apex:outputText>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

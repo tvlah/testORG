@@ -1,0 +1,1600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Attribute_Field_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Attribute Field Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attribute_Field__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Attribute Field to which this Action will be applied. Only relevant to &apos;Set Attribute Field&apos; Actions.</inlineHelpText>
+        <label>Attribute Field</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Attribute_Field_Definition__c.Attribute_Definition__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Target__c</valueField>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Attribute_Field_Definition__c</referenceTo>
+        <relationshipLabel>Actions</relationshipLabel>
+        <relationshipName>Actions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>JavaScript__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The JavaScript code to be executed. Only relevant to &apos;Execute JavaScript&apos; Actions.</inlineHelpText>
+        <label>JavaScript</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>15</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <defaultValue>&quot;No action defined&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>An auto-generated display label describing this Action.</inlineHelpText>
+        <label>Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Product Definition to which this Action will be applied. Only relevant to Actions which work at the product level.</inlineHelpText>
+        <label>Target Product</label>
+        <referenceTo>Product_Definition__c</referenceTo>
+        <relationshipLabel>Actions</relationshipLabel>
+        <relationshipName>Actions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Target_Reference__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Target Reference</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Attribute Definition specifying the eventual Attribute to which this Action will be applied. Only relevant to Actions which work at the Attribute level.</inlineHelpText>
+        <label>Target</label>
+        <referenceTo>Attribute_Definition__c</referenceTo>
+        <relationshipLabel>Actions Targeting This Attribute</relationshipLabel>
+        <relationshipName>Actions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The type of this Action.</inlineHelpText>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Set Product Family</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The value to be used by this Action. If the &apos;value is expression&apos; box is checked, this value should contain a valid expression to be evaluated.  Use &amp; for concatenation.</inlineHelpText>
+        <label>Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Value_is_expression__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the contents of the Value field will be interpreted as an expression.</inlineHelpText>
+        <label>Value is expression</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Action</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Label__c</columns>
+        <columns>Target__c</columns>
+        <columns>Type__c</columns>
+        <columns>Value__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>Action {0}</displayFormat>
+        <label>Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Actions</pluralLabel>
+    <recordTypes>
+        <fullName>Add_Attribute_to_Line_Items</fullName>
+        <active>true</active>
+        <description>Add this attribute to the list of line items</description>
+        <label>Add Attribute to Line Items</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Constrain_List_Values</fullName>
+        <active>true</active>
+        <description>Constrain the options available in a list (select list or radio buttons) to the &apos;Available Select Options&apos; selected against this Action</description>
+        <label>Constrain List Values</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Disable_Attribute</fullName>
+        <active>true</active>
+        <description>Disable this attribute; it will be greyed out on screen and its value will not be relevant to the configuration</description>
+        <label>Disable Attribute</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Display_Info_Message</fullName>
+        <active>true</active>
+        <description>Display an information message on screen</description>
+        <label>Display Info Message</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Execute_JavaScript</fullName>
+        <active>true</active>
+        <description>Execute custom JavaScript code</description>
+        <label>Execute JavaScript</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Make_Attribute_Mandatory</fullName>
+        <active>true</active>
+        <description>Make this attribute mandatory - it must have a value for the configuration to be complete</description>
+        <label>Make Attribute Mandatory</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Make_Attribute_Optional</fullName>
+        <active>true</active>
+        <description>Make this attribute optional - it does not need a value for the configuration to be complete</description>
+        <label>Make Attribute Optional</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Make_Attribute_Read_Only</fullName>
+        <active>true</active>
+        <description>Prevent the user from changing the value of this attribute</description>
+        <label>Make Attribute Read-Only</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Mark_Configuration_Invalid</fullName>
+        <active>true</active>
+        <description>Mark this configuration invalid, with an explanatory message in the action value</description>
+        <label>Mark Configuration Invalid</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Remove_Attribute_from_Line_Items</fullName>
+        <active>true</active>
+        <description>Remove this attribute from the list of line items</description>
+        <label>Remove Attribute from Line Items</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Require_Data_Refresh</fullName>
+        <active>true</active>
+        <description>Require the user to refresh data from the server before completing the configuration</description>
+        <label>Require Data Refresh</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Billing_Frequency</fullName>
+        <active>true</active>
+        <description>Set the billing frequency of recurring line items on this attribute&apos;s configuration</description>
+        <label>Set Billing Frequency</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Configuration_Name</fullName>
+        <active>true</active>
+        <description>Set the name of the product configuration this attribute belongs to</description>
+        <label>Set Configuration Name</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Contract_Term</fullName>
+        <active>true</active>
+        <description>Set the Contract Term against a configuration</description>
+        <label>Set Contract Term</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Contract_Term_Period</fullName>
+        <active>true</active>
+        <description>Set the period of the Contract Term for a configuration</description>
+        <label>Set Contract Term Period</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Discount_Type</fullName>
+        <active>true</active>
+        <description>Set the discount type of this attribute</description>
+        <label>Set Discount Type</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set Product Family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Line_Item_Sequence</fullName>
+        <active>true</active>
+        <description>Set the sequence value of this attribute in the list of line items</description>
+        <label>Set Line Item Sequence</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_List_Price</fullName>
+        <active>true</active>
+        <description>Set the list price of this attribute</description>
+        <label>Set List Price</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set Product Family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Price</fullName>
+        <active>true</active>
+        <description>Set the sales price of this attribute</description>
+        <label>Set Price</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Product_Family</fullName>
+        <active>true</active>
+        <description>Set the Product Family of the product configuration this attribute belongs to</description>
+        <label>Set Product Family</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set Product Family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Recurrence_Frequency</fullName>
+        <active>true</active>
+        <description>Set the frequency of recurring line items on this attribute&apos;s configuration</description>
+        <label>Set Recurrence Frequency</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Value</fullName>
+        <active>true</active>
+        <description>Set the value of this attribute</description>
+        <label>Set Value</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Set_Value_Attribute_Field</fullName>
+        <active>true</active>
+        <description>Set the value of a field on this attribute</description>
+        <label>Set Value of Attribute Field</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Add attribute to line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Constrain list values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disable attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hide attribute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute mandatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Make attribute optional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove attribute from line items</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set config name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set line item sequence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set value</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>RECORDTYPE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Target__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Target_Reference__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Product_Definition__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Value__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>RECORDTYPE</lookupFilterFields>
+        <lookupFilterFields>Target__c</lookupFilterFields>
+        <lookupFilterFields>Target_Reference__c</lookupFilterFields>
+        <lookupFilterFields>Product_Definition__c</lookupFilterFields>
+        <lookupFilterFields>Value__c</lookupFilterFields>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

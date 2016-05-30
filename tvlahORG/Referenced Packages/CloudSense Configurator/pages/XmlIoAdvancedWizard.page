@@ -1,0 +1,411 @@
+<apex:page Controller="cscfga.XmlIoAdvancedWizardController" showHeader="true" >
+ 
+    <!--
+    //#####################################################################
+    //# Apex page to import XML Product Definitions via a Wizard
+    //#
+    //# CPS 19/10/2010
+    //#
+    -->
+
+    <apex:form id="XmlImportForm">
+    <c:EmbedScripts />
+    
+    
+    <apex:pageBlock title="Import Product Definitions from XML" id="ImportMainBlock">
+    
+    
+            <!--
+            #
+            # WIZARD STEP 1
+            #
+            -->
+            <apex:pageBlock title="Step 1: Select XML file to import" rendered="{!wizardStep == 1}">
+                
+
+                <p>Import a file previously exported from the Cloudsense Configurator</p> <br />
+
+
+                <table width="600">
+                    
+                    <tr>
+
+                          <td width="250"> File to Import (required):     </td>                               
+                          <td>  <apex:inputFile id="import_file" accept="*.xml" 
+                                    required="true" fileName="{!fileName}" 
+                                    value="{!fileContents}"   >
+                                   </apex:inputFile>
+                                   <apex:message for="import_file"/>
+                           </td> 
+                            
+                   
+                   </tr>
+                   <tr>
+                       <td>Enter Import Comments (required): </td>
+                       <td>
+                           <apex:inputText Title="Enter import comments"
+                                       id="comments_text"
+                                       accesskey=""
+                                       required="true"
+                                       value="{!importComments}"
+                                       Size="40"
+                                       maxlength="100"
+                                       />
+                           <apex:message for="comments_text"/>
+                       </td>                   
+                   </tr>
+                   <tr>
+                       <td>Enter suffix to append to Categories and Product Definition names (optional): </td>
+                       <td>
+                           <apex:inputText Title="Enter name suffix (optional)"
+                                       id="name_suffix"
+                                       accesskey=""
+                                       required="false"
+                                       value="{!nameSuffix}"
+                                       Size="20"
+                                       maxlength="20"
+                                       />
+                       </td>                   
+                   </tr>
+  
+
+                   
+                   <tr>
+                        <td colspan="2">                    
+                            <apex:commandButton title="Next >" value="Next >" action="{!wzUploadFile}"/>   
+                        </td>
+                   </tr>
+                                
+                </table>    
+
+            </apex:pageBlock>
+
+        
+            <!--
+            #
+            # WIZARD STEP 2
+            #
+            -->        
+            <apex:pageBlock title="Step 2: Select definitions to import" rendered="{!wizardStep == 2}" id="Step2Block">
+                
+                <p>Choose which definitions below should be imported from the XML file:</p> <br />
+
+                    <table width="650">
+                        <tr>
+                            <td width="400">Set default import action for all Product Definitions:</td>
+                            <td>
+                                <apex:commandLink value="Ignore" action="{!resetAlltoIgnore}"/> &nbsp;|&nbsp;
+                                <apex:commandLink value="Import as new" action="{!resetAlltoImport}"/>&nbsp;|&nbsp;
+                                <apex:commandLink value="Archive & replace" action="{!resetAlltoArchive}"/>                                 
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="width:700px; height:300px; overflow:auto; border:1px">
+        
+                    <apex:pageBlockTable var="item" value="{!itemsToImport}" id="pbProductTable">
+                        <apex:column width="220" >
+                            <apex:facet name="header">Category</apex:facet>
+                            <apex:outputPanel >
+                                {!item.CategoryName}                                                                            
+                            </apex:outputPanel>
+                        </apex:column>
+                         <apex:column width="220" >
+                            <apex:facet name="header">Product Definition</apex:facet>
+                            <apex:outputPanel >               
+                                {!item.ProductDefinitionName}                                                                           
+                            </apex:outputPanel>
+                        </apex:column>       
+                        <apex:column width="200">
+                            <apex:facet name="header">Action</apex:facet>
+                            <apex:outputPanel id="opAction">
+                                    <apex:selectList size="1" value="{!item.importAction}" id="selAction"> 
+                                            <apex:selectOption itemLabel="Import as new"                  itemValue="1" itemDescription="Import as a new Product Definition in a new Category." /> 
+                                            <apex:selectOption itemLabel="Import, replace & archive"     itemvalue="2" itemDescription="Import and replace & archive Product Definitions with the same Definition Name and Category Name." />     
+                                            <apex:selectOption itemLabel="Do not import (ignore)"                  itemValue="0" itemDescription="Do not import this Product Definition" /> 
+                                    </apex:selectList>
+                            </apex:outputPanel>
+                        </apex:column>
+                        <apex:column width="180">
+                            <apex:facet name="header">Target Category</apex:facet>
+                            <apex:outputPanel id="opTargetCat">
+                                   <apex:selectList size="1"  value="{!item.selectedTargetCategory}" id="selTargetCat" onchange="updateEnablements.call(this)"> 
+                                    <apex:selectOptions value="{!item.targetCategoryOptions}" >
+                                    </apex:selectOptions>
+                                   </apex:selectList>
+                            </apex:outputPanel>
+                        </apex:column>
+        
+                     </apex:pageBlockTable> 
+                   </div>
+                    <br />
+                <table width="600">                                       
+                   <tr>                                      
+                        <td colspan="2">                    
+                              <apex:commandButton title="Next >" value="Next >" action="{!wzSummary}"/>  &nbsp;&nbsp;
+                              <apex:commandButton title="Start again" value="Start Again" action="{!wzStartAgain}" />  
+                        </td>
+                   </tr>
+                </table>
+                
+                <script type="text/javascript">
+                	// manage available select options in import action picklist: when the selected
+                	// Target category is a new one, the archive option should not be available
+                	function updateEnablements() {
+                		var selectedOption = $j(this).find("option:selected");
+               			var actionSelect = $j(this).parents("tr").eq(0).find("[id$='selAction']");
+               			var importArchiveOption = actionSelect.find("[text='Import, replace & archive']");
+                		if (selectedOption.text().indexOf("Create new: ") === 0 || selectedOption.text().indexOf("New: ") === 0) {
+                			importArchiveOption.attr("disabled", "disabled");
+                			if (importArchiveOption.attr("selected")) {
+                				actionSelect[0].selectedIndex = 0;
+                			}
+                		} else {
+                			importArchiveOption.removeAttr("disabled");
+                		}
+                	}
+                	
+                	$j(document).ready(function() {
+                		$j("[id$='selTargetCat']").each(updateEnablements);
+                	});
+                </script>
+         </apex:pageBlock>
+
+
+
+     
+            <!--
+            #
+            # WIZARD STEP 3
+            #
+            -->        
+            <apex:pageBlock title="Step 3: Verify definitions to be imported" rendered="{!wizardStep == 3}">
+                
+                <p>Check and confirm that the Product Definitions below are to be imported.
+                 <br />
+                 Note that Product Definitions marked in <font color="red">red</font> will not be imported and will not be available
+                 for use in the Configurator or as available product options within attributes.
+                </p> <br />
+
+                    <p>Product Definitions with their associated Available Product Options to be imported, archived or ignored:</p><br />
+                    <div style="width:600px; height:300px; overflow:auto; border:1px">
+        
+                    <apex:dataList var="item" value="{!itemsToImport}" id="item">
+                               
+                               <b>                                 
+                                    
+                                    <apex:outputPanel rendered="{!item.importAction == 0}">
+                                            <font color="red">
+                                                {!item.CategoryName} / {!item.ProductDefinitionName}  - (Ignore)
+                                            </font>   
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!item.importAction == 1}">
+                                                {!item.CategoryName} / {!item.ProductDefinitionName} (New)  
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!item.importAction == 2}">
+                                        {!item.CategoryName} / {!item.ProductDefinitionName} - (Archive and Replace) 
+                                    </apex:outputPanel>
+                              
+                               </b> 
+                                
+                                <apex:outputText rendered="{!item.availableproductoptions.size > 0}">
+                                    <br/>
+                                    Available Product Options:
+                                </apex:outputText>
+                                
+                                
+
+                                    <apex:dataList var="apo" value="{!item.availableproductoptions}" id="childList">
+                                            <apex:outputText rendered="{!apo.importAction == 0}">
+                                                <font color="red">{!apo.CategoryName} / {!apo.ProductDefinitionName} - (Ignore)</font>                                               
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!apo.importAction == 1}">
+                                                {!apo.CategoryName} / {!apo.ProductDefinitionName} - (New)
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!apo.importAction == 2}">
+                                                {!apo.CategoryName} / {!apo.ProductDefinitionName} - (Archive and Replace) 
+                                            </apex:outputText>
+
+                                    </apex:dataList>
+                                    <br />
+                            
+                                       
+                            
+                                
+                     </apex:dataList> 
+
+                   </div>
+                    <br />
+
+                <table width="600">                                       
+                   
+                    
+                   <tr>                                      
+                        <td colspan="2">                    
+                              <apex:commandButton title="< Back" value="< Back" action="{!wzBack}"/>
+                              <apex:commandButton title="Next >" value="Next >" action="{!wzShowOMsAndLUCs}"/>                                
+                              &nbsp;&nbsp;
+                              <apex:commandButton title="Start again" value="Start Again" action="{!wzStartAgain}"/>  
+                        </td>
+                   </tr>
+                </table>
+
+                   
+
+         </apex:pageBlock>
+
+             <!--
+            #
+            # WIZARD STEP 4
+            #
+            -->        
+            <apex:pageBlock title="Step 4: Setup Object Mappings and Lookup Configurations" rendered="{!wizardStep == 4}">
+                
+                <p>Review which Object Mappings and Lookup Configurations will be updated by the XML.
+                <br /> NOTE: that items marked with <font color="red">Replace existing</font> will be updated
+                as follows:
+                <ul>
+                    <li><b>Object Mappings:</b> Existing Object Mappings will be updated, but the Field Mappings will be removed and replaced with those in the XML.</li>
+                    <li><b>Lookup Configurations:</b>  Existing Lookup Configurations will be updated, but the Lookup Queries will be removed and replaced with those in the XML.</li>
+                </ul>
+                 
+                </p> <br />
+ 
+
+                    <div style="width:650px; height:300px; overflow:auto; border:1px">
+        
+                    <apex:pageBlockTable var="item" value="{!itemsToImportOrResuse}">
+                        <apex:column width="120"  style="vertical-align:text-top;">
+                            <apex:facet name="header">Object Type</apex:facet>
+                               <b>{!item.ObjectType}</b>                                
+                        </apex:column>
+                        
+                         <apex:column width="320" style="vertical-align:text-top;" >
+                            <apex:facet name="header">Object</apex:facet>
+                                <b>{!item.Name}</b>                                                
+                                    <br />
+                                    
+                                    <apex:outputText rendered="{!item.objectType == 'Object Mapping' && item.ImportChildren.Size > 0}">Field Mappings:</apex:outputText>
+                                    <apex:outputText rendered="{!item.objectType == 'Lookup Config'} && item.ImportChildren.Size > 0">Lookup Queries:</apex:outputText>
+                                    <apex:dataList var="child" value="{!item.ImportChildren}" id="childList" rendered="{!item.ImportChildren.Size > 0}">
+                                            <font>{!child.Name} </font>                                              
+                                    </apex:dataList>
+                                                                                                                                                                
+                        </apex:column>       
+                        
+                        <apex:column width="200" style="vertical-align:text-top;">
+                            <apex:facet name="header">Action</apex:facet>
+                                <apex:outputText rendered="{!item.matchFound}"><font color="red" ><b>Replace existing</b></font></apex:outputText>
+                                <apex:outputText rendered="{!item.matchFound == false}">Add as new</apex:outputText>                         
+                        </apex:column>
+        
+                     </apex:pageBlockTable> 
+                   </div>
+                    <br />
+
+                <table width="600">                                       
+                                      
+                   <tr>                                      
+                        <td colspan="2">                    
+                              <apex:commandButton title="< Back" value="< Back" action="{!wzBack}"/>
+                              <apex:commandButton title="Next >" value="Next >" action="{!wzListRelatedProductParents }"/>  
+                               &nbsp;&nbsp;
+                              <apex:commandButton title="Start again" value="Start Again" action="{!wzStartAgain}"/>  
+                        </td>
+                   </tr>
+                </table>
+
+
+            </apex:pageBlock>
+
+
+
+             <!--
+            #
+            # WIZARD STEP 5 - SHOW OPTIONS FOR MAPPING TO PARENT RELATED OBJECTS
+            #
+            -->        
+            <apex:pageBlock title="Step 5: Re-link imported definitions to parents as Related Products" rendered="{!wizardStep == 5}">
+                
+                <p>The following items can be automatically linked as Related Products to existing items in this Organisation:
+                <br />Use the check box below to re-link items as Related Products during the import.</p> 
+
+                <apex:outputPanel rendered="{!hasRelatedParents}">
+                
+                    <p><b>Automatically re-link as parent Related Products &nbsp;
+
+                           <apex:inputCheckbox Title="If products being imported were set as related items in the previous org, then they can be re-linked with their parents."
+                                       id="remap_relatedParents"
+                                       value="{!rejoinProductOptionsToParents}"
+                                       />                
+                    </b></p>
+                </apex:outputPanel>
+                <br />
+
+                <apex:OutputPanel rendered="{!hasRelatedParents}">
+                     <apex:dataList var="item" value="{!parentRelatedProducts}" id="item">                                              
+                            <b><apex:outputText value="{!item}"> </apex:outputText></b>
+                     </apex:dataList> 
+                </apex:OutputPanel>
+
+                <apex:outputPanel rendered="{! !hasRelatedParents}">
+                    <p><b>No related parent products found. </b></p>
+                </apex:outputPanel>
+
+                <br />
+                <br />
+                
+
+                <table width="600">
+                   <tr>                                      
+                        <td colspan="2">                    
+                              <apex:commandButton title="Import" value="Import" action="{!wzImportXML}"/>
+                              &nbsp;&nbsp;
+                              <apex:commandButton title="Start again" value="Start Again" action="{!wzStartAgain}"/>     
+                        </td>
+                   </tr>
+                
+                </table>    
+
+            </apex:pageBlock>
+
+
+
+             <!--
+            #
+            # WIZARD STEP 6 - DONE
+            #
+            -->        
+            <apex:pageBlock title="Step 6: Import finished" rendered="{!wizardStep == 6}">
+                
+                <p>Import process finished. Check messages below for additional information.</p> <br />
+
+                <table width="600">
+                   <tr>                                      
+                        <td colspan="2">                    
+                              <apex:commandButton title="Finish" value="Finish" action="/home/home.jsp"/>
+                                &nbsp;&nbsp;
+                              <apex:commandButton title="Start Again" value="Start Again" action="{!wzStartAgain}"/>     
+                        </td>
+                   </tr>
+                
+                </table>    
+
+            </apex:pageBlock>
+
+
+   </apex:pageBlock>
+        
+
+
+    <apex:pageBlock >
+            <apex:pageBlockSection >
+               <p> {!Message}  </p>
+               <p> <apex:messages ></apex:messages> </p>
+            </apex:pageBlockSection>
+    </apex:pageBlock>    
+
+
+    </apex:form>
+
+</apex:page>

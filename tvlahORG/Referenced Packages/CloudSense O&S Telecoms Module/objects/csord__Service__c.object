@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <fields>
+        <fullName>Delta_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Delta Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Continuing In Subscription</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Added To Subscription</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deleted From Subscription</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Main_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Parent_Product_Configuration__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Parent Product Configuration</label>
+        <referenceTo>cscfga__Product_Configuration__c</referenceTo>
+        <relationshipLabel>Services (Parent Product Configuration)</relationshipLabel>
+        <relationshipName>Services1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Basket__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product Basket</label>
+        <referenceTo>cscfga__Product_Basket__c</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Bundle__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product Bundle</label>
+        <referenceTo>cscfga__Product_Bundle__c</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Configuration__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product Configuration</label>
+        <referenceTo>cscfga__Product_Configuration__c</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Replaced_Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Replaced Service</label>
+        <referenceTo>csord__Service__c</referenceTo>
+        <relationshipLabel>Services (Replaced Service)</relationshipLabel>
+        <relationshipName>Replaced_Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Replacement_Product_Configuration__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Lookup to the Product Configuration that will be used for generation of a Service that will replace this Service instance</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the Product Configuration that will be used for generation of a Service that will replace this Service instance</inlineHelpText>
+        <label>Replacement Product Configuration</label>
+        <referenceTo>cscfga__Product_Configuration__c</referenceTo>
+        <relationshipLabel>Replaced Services</relationshipLabel>
+        <relationshipName>Replaced_Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Replacement_Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Replacement Service</label>
+        <referenceTo>csord__Service__c</referenceTo>
+        <relationshipLabel>Services (Replacement Service)</relationshipLabel>
+        <relationshipName>Replacement_Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Service_Number_Sequence__c</fullName>
+        <deprecated>false</deprecated>
+        <displayFormat>{000000000}</displayFormat>
+        <externalId>false</externalId>
+        <label>Service Number Sequence</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Service_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Service Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <webLinks>
+        <fullName>Modify_Service_Configuration</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Modify Service Configuration</masterLabel>
+        <openType>sidebar</openType>
+        <page>ModifyServiceConfiguration</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>View_Product_Configuration_Attributes</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>View Product Configuration Attributes</masterLabel>
+        <openType>sidebar</openType>
+        <page>ViewProductConfigAttributes</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

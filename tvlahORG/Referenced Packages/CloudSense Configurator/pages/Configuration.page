@@ -1,0 +1,625 @@
+<apex:page doctype="html-5.0" standardcontroller="cscfga__Product_Basket__c" extensions="cscfga.UISupport,cscfga.Settings"
+	showHeader="true" sidebar="true" title="Edit Product Configuration" action="{!checkRuntimeVersion}">
+
+	<c:FixUIStyles />
+	<style type="text/css">
+		.lookupInput img.deleteIcon, .lookupInput div.deleteIcon {
+			background-image: url({!URLFOR($Resource.cscfga__delete_icon)});
+		}
+	</style>
+	<apex:stylesheet value="{!$Resource.cscfga__Configuration_css}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.cscfga__select2,'select2.min.css')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.cscfga__Indicator,'css/indicator.css')}"></apex:stylesheet>
+	<div id="indicatorContainer" style="top: 0;bottom: 0;right: 0;left: 0;position: absolute; display:none;">{!$Label.embscr_Loading}</div>
+
+	<div id="screensList" style="margin: 8px 0 16px" />
+
+	<div id="CSValidationMessageBox" class="message warningM3">
+		<table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">
+			<tr valign="top">
+				<td>
+					<img alt="WARNING" class="msgIcon" src="/s.gif" title="WARNING" />
+				</td>
+				<td class="messageCell">
+					<div class="messageText">
+						<h4>Warning:</h4>
+						<span id="CSValidationMessage"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="CSInfoMessageBox" class="message infoM3">
+		<table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">
+			<tr valign="top">
+				<td>
+					<img alt="INFO" class="msgIcon" src="/s.gif" title="INFO" />
+				</td>
+				<td class="messageCell">
+					<div class="messageText">
+						<div id="CSInfoMessage"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+	<!--
+	################################################
+	# Dummy input date field to enable hand-rolled
+	# date pickers to be built dynamically. Adding
+	# this control forces SF to build the DatePicker
+	# table at the end of the page containing the
+	# content for the datepicker div.
+	################################################
+	-->
+	<div id="configurationContainer" />
+
+	<script type="text/javascript" src="{!URLFOR($Resource.jshashtable)}" />
+	<script type="text/javascript" src="{!URLFOR($Resource.jQuery_min)}"></script>
+	<script type="text/javascript" src="{!URLFOR($Resource.jquery_numberformatter)}" />
+	<script type="text/javascript" src="{!URLFOR($Resource.Underscore)}"></script>
+	<script type="text/javascript" src="{!URLFOR($Resource.select2,'select2.min.js')}" />
+	<script type="text/javascript" src="{!URLFOR($Resource.datejs,'date-en-GB.min.js')}" />
+	<script type="text/javascript" src="{!URLFOR($Resource.datejs,'date-' & userLocale & '.min.js')}" />
+	<script type="text/javascript" src="{!URLFOR($Resource.cs_min)}"></script>
+	<script type="text/javascript" src="{!URLFOR($Resource.cs_online)}"></script>
+	<script type="text/javascript">
+		var params = {
+			basketId: '{!JSENCODE(basketId)}',
+			configId: '{!JSENCODE(configId)}',
+			definitionId: '{!JSENCODE(definitionId)}',
+			linkedId: '{!JSENCODE(linkedId)}',
+			retURL: '{!JSENCODE(retURL)}',
+			isDtp: '{!JSENCODE(isDtp)}',
+			screenflow: '{!JSENCODE(screenFlowName)}'
+		};
+
+		if (jQuery.browser.msie) {
+			jQuery(document).ready(function() {
+				jQuery('body').append('<div id="popupOverlay"><div id="lookupContainer"></div></div>');
+			});
+		}
+
+		require(['src/cs-full'], function() {
+			function customErrorHandler(message) {
+				if (CS && CS.Log && typeof CS.Log.error === 'function') {
+					CS.Log.error(message);
+				}
+				if (window.alert) {
+					window.alert(message);
+				}
+				jQuery('#configurationContainer').html('<h1>' + message + '</h1>');
+				if (CS && CS.indicator && CS.indicator.stop) {
+					CS.indicator.stop();
+				}
+			}
+
+			var delegate = {
+				errorHandler: function(e) {
+					customErrorHandler(e);
+				},
+
+				getLinkedObjectId: function() { return '{!JSENCODE(linkedObjectId)}'; },
+
+				getScreenFlowNameParameter: function() { return '{!JSENCODE(screenFlowName)}'; },
+
+				loadConfiguration: function(id, definitionId, callback) {
+					Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.getProductConfiguration}',
+						id,
+						function(result, event) {
+							try {
+								var configData = JSON.parse(result);
+								callback(definitionId, configData, '{!$RemoteAction.UISupport.loadLookupRecord}');
+							} catch (e) {
+								CS.Log.error('Could not load product configuration id ' + id + ': ' + e.message);
+							}
+						},
+						{escape: false}
+					);
+				},
+
+				loadProductTemplateHtml: function(id, screenFlowName, callback) {
+					if (typeof screenFlowName === 'function') {
+						callback = screenFlowName;
+						screenFlowName = '';
+					}
+					var json = Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.getProductTemplate}',
+						id, screenFlowName, template,
+						function(result, event) {
+							if (event.status) {
+								callback(JSON.parse(result).html);
+							} else {
+								callback(new Error(event.message));
+							}
+						},
+						{escape: false}
+					);
+				},
+
+				loadDefinition: function(id, callback) {
+					var json = Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.getProductModel}',
+						id,
+						function(result, event) {
+							if (event.status) {
+								callback(JSON.parse(result));
+							} else {
+								customErrorHandler(event.message);
+							}
+						},
+						{escape: false}
+					);
+				},
+
+				loadLinkedObjectProperties: function(linkedObjectId, productDefinitionId, callback) {
+					var json = Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.getLinkedObjectProperties}',
+						linkedObjectId, productDefinitionId,
+						function(result, event) {
+							callback(JSON.parse(result));
+						},
+						{escape: false}
+					);
+				},
+
+				loadScreenflowPredicates: function(productDefinitionId, callback) {
+					var json = Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.getScreenflowPredicateFunctions}',
+						productDefinitionId,
+						function(result, event) {
+							if (event.status) {
+								callback(JSON.parse(result));
+							} else {
+								customErrorHandler(event.message);
+							}
+						},
+						{escape: false}
+					);
+				},
+
+				lookupQuery: {!$RemoteAction.UISupport.lookupQuery},
+
+				loadRelatedProductSelectionData: function(params, callback) {
+					var json = Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.getRelatedProductSelectionData}',
+						params,
+						function(result, event) {
+							callback(result);
+						},
+						{escape: false}
+					);
+				},
+
+				loadLookupRecord: function(params, callback) {
+					var json = Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.loadLookupRecord}',
+						params,
+						function(result, event) {
+							callback(result);
+						},
+						{escape: false}
+					);
+				},
+
+				loadCustomLookupReferencedAttributes: function(productDefinitionId, callback) {
+					var json = Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.loadCustomLookupReferencedAttributes}',
+						productDefinitionId,
+						function(result, event) {
+							callback(JSON.parse(result));
+						},
+						{escape: false}
+					);
+				},
+
+				getSelectListLookup: function(params, callback) {
+					var json = Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.getSelectListLookup}',
+						JSON.stringify(params), '', '', '',
+						function(result, event) {
+							callback(result, event);
+						},
+						{escape: false}
+					);
+				},
+
+				storeConfiguration: function(payload, callback) {
+					Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.UISupport.storeConfigs}',
+						payload,
+						function(result, event) {
+							if (event.status) {
+								result._success = true;
+							} else {
+								if (!result) {
+									result = {};
+								}
+								result._success = false;
+								result._message = event.message;
+							}
+							callback(result, function redirect() {
+								window.location.href = CS.params.retURL;
+							});
+						}
+					);
+				}
+			},
+			template = '{!JSENCODE(template)}';
+
+			CS.Settings = {
+				"configAllowsLiveReload" : {!configAllowsLiveReload},
+				"isProfilingEnabled" : {!isProfilingEnabled},
+				"isWarnEnabled" : {!isWarnEnabled},
+				"isInfoEnabled" : {!isInfoEnabled},
+				"isDebugEnabled" : {!isDebugEnabled},
+				"isEntryLoggingEnabled" : {!isEntryLoggingEnabled},
+				"isSoqlLoggingEnabled" : {!isSoqlLoggingEnabled},
+				"isScreenLoggingEnabled" : {!isScreenLoggingEnabled},
+				"isBrowserLoggingEnabled" : {!isBrowserLoggingEnabled},
+				"cascadeDeleteDisabled" : {!cascadeDeleteDisabled},
+				"isLoadingOverlayEnabled" : {!isLoadingOverlayEnabled},
+				"isDocumentLoggingEnabled" : {!isDocumentLoggingEnabled},
+				"displayTCVColumn" : {!displayTCVColumn},
+				"displayRecurringInvoiceColumn" : {!displayRecurringInvoiceColumn},
+				"copyOppOwnerToConfigs" : {!copyOppOwnerToConfigs},
+				"showRateLineItemsInSeparateColumn" : {!showRateLineItemsInSeparateColumn},
+				"showListPriceAndDiscountAmount" : {!showListPriceAndDiscountAmount},
+				"isMultiLingualSupportEnabled" : {!isMultiLingualSupportEnabled},
+				"enableDynamicLookupQueries" : {!enableDynamicLookupQueries},
+				"indicatorTimeout" : {!indicatorTimeout}
+			};
+
+			CS.Labels = {
+				"selectlistlookup_Please_select_value" : "{!$Label.selectlistlookup_Please_select_value}",
+				"selectlistlookup_Please_enter_search" : "{!$Label.selectlistlookup_Please_enter_search}"
+			};
+
+			params.linkedId = CS.Util.stripIdFromUrl(params.linkedId);
+
+			//AF temp
+			CS.params = params;
+
+			// set user language for number/date formatter
+			if (typeof CS !== 'undefined' && CS['DataConverter'] instanceof Object) {
+				CS.DataConverter.userLanguage = '{!userLanguage}';
+			}
+
+			launchConfigurator(CS, delegate, params, function() {
+				// no op
+			});
+
+		});
+
+		function finish() {
+			var self = this;
+			CS.Util.waitFor(
+				function until() {
+					CS.Log.info('*** finish(): Waiting for rules to finish... ');
+					return (typeof CS.rulesTimer === 'undefined');
+				},
+				function payload() {
+					var validationResult = CS.Service.validateCurrentConfig(true);
+					var configurationStatus = CS.getConfigurationProperty('', 'status');
+
+					if (configurationStatus === '{!CONFIGURATION_STATUS_INVALID}' || !(validationResult.isValid)) {
+						updateFinishButtonUI(self);
+
+						// There are validation errors within the configuration. The configuration can still be saved but the basket cannot be synchronised with an Opportunity until the errors have been corrected.
+						CS.markConfigurationInvalid('{!$Label.configuration_There_are_validation_errors}');
+					} else {
+						saveConfiguration(self);
+					}
+				}
+			);
+		}
+
+		function saveConfiguration(buttonElement) {
+			var basketSpec = {
+				Id: params.basketId,
+				linkedId: params.linkedId
+			};
+			if (typeof buttonElement === 'undefined') {
+				buttonElement = this;
+			}
+
+			CS.Log.info('Persisting configuration...');
+			CS.Service.persistConfiguration(basketSpec, (function(p){
+				return function(result, redirectCallback) {
+					if (result._success) {
+						CS.Log.info('Configuration persisted');
+						window.location.assign(buildAfterFinishUrl(p, result));
+					} else {
+						CS.markConfigurationInvalid(result._message);
+						updateFinishButtonUI(buttonElement, true);
+					}
+				}
+			})(params)
+			);
+		}
+	</script>
+
+	<script type="text/html" id="CS.MultiSelectLookup__tpl">
+	<%	var attr = attrWrapper.attr;
+		var prefix = CS.Util.configuratorPrefix;
+		var isActive = attr[prefix + 'is_active__c'];
+		var disabled = attrWrapper.attr[prefix + 'Is_Read_Only__c'] ? 'disabled="disabled"' : '';
+	%>
+		<div class="apexp">
+			<div class="individualPalette">
+				<div class="Custom24Block">
+					<div class="bPageBlock brandSecondaryBrd apexDefaultPageBlock secondaryPalette">
+						<div class="pbHeader">
+							<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td class="pbTitle">
+										<h2 class="mainTitle">
+											<span><%= attrDefinition.Name %></span>
+										</h2>
+									</td>
+									<td class="pbButton ">
+									<% if (isActive) { %>
+										<button data-cs-action="AddLookup" data-cs-params='{"ref":"<%= attrWrapper.reference %>"}' data-cs-control="<%= attrWrapper.reference %>" data-cs-ref="<%= attrWrapper.reference %>" data-cs-type="Add" data-role="none" class="add" <%= disabled %> >New <%= attrDefinition.Name %></button>
+									<% } %>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="pbBody">
+						<% if (records.length > 0) { %>
+							<table class="list" data-cs-binding="<%= attrWrapper.reference %>" data-cs-control="<%= attrWrapper.reference %>" data-cs-type="list">
+								<thead class="rich-table-thead">
+									<tr class="headerRow">
+										<th class="headerRow" style="width: 6em;">Action</th>
+						<%	for (columnName in columns) { %>
+									<th class="headerRow">
+										<%= columnName %>
+									</th>
+						<%	} %>
+									</tr>
+								</thead>
+						<%	for (var i = 0; i < records.length; i++) {
+								var record = records[i];
+								var rowClass = 'dataRow ' + (i/2 == Math.floor(i/2) ? 'even ' : 'odd ') + (i == 0 ? 'first ' : '') + (i >= records.length - 1 ? 'last' : '');
+						%>
+								<tr class="<%= rowClass %>">
+									<td class="dataCell">
+									<% if (isActive) { %>
+										<span data-cs-action="clearMultiSelectLookup" data-cs-params='{"ref":"<%= attrWrapper.reference %>", "recordId":"<%= record.id %>"}' data-cs-ref="<%= attrWrapper.reference %>">Del</span>
+									<% } %>
+									</td>
+						<%		for (columnName in columns) {
+									var filedName = columns[columnName].toLowerCase();
+									var fieldValue = record[filedName];
+						%>
+									<td><%= fieldValue %></td>
+						<%		} %>
+								</tr>
+						<%	} %>
+							</table>
+						<% } else { %>
+							<table class="list" data-cs-control="<%= attrWrapper.reference %>" data-cs-type="list">
+								<tr class="dataRow even first last">
+									<td class="dataCell">
+										No items to display
+									</td>
+								</tr>
+							</table>
+						<% } %>
+						</div>
+						<div class="pbFooter secondaryPalette">
+							<div class="bg"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="CS.MultipleRelatedProduct__tpl">
+	<%	var prefix = CS.Util.configuratorPrefix;
+		var disabled = ((definition[prefix + 'Max__c'] && relatedProducts.length >= definition[prefix + 'Max__c']) ? 'disabled="disabled"' : ''),
+			prod,
+			attRef,
+			rowClass;
+		var attr = anchor.attr;
+		var isReadOnly = attr[prefix + 'Is_Read_Only__c'];
+		var isActive = attr[prefix + 'is_active__c'];
+		var isRequired = attr[prefix + 'Is_Required__c'];
+	%>
+		<div class="apexp">
+			<div class="individualPalette">
+				<div class="Custom24Block">
+					<div class="bPageBlock brandSecondaryBrd apexDefaultPageBlock secondaryPalette">
+						<div class="pbHeader">
+							<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td class="pbTitle">
+										<h2 class="mainTitle">
+											<span><%= definition.Name %></span>
+											<% if (isRequired) { %><span class="required">(Required)</span><% } %>
+											<% if (isReadOnly) { %><span class="readOnly">(Read Only)</span><% } %>
+										</h2>
+									</td>
+									<td class="pbButton ">
+									<% if (isActive && ! isReadOnly) { %>
+										<button <%= disabled %> class="add" data-cs-control="<%= anchor.reference %>" data-cs-ref="<%= anchor.reference %>" data-cs-action="addRelatedProduct" data-cs-type="add" data-role="none">New <%= definition.Name %></button>
+									<% } %>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="pbBody">
+	<% if (relatedProducts.length > 0) { %>
+		<table class="list" data-cs-binding="<%= anchor.reference %>" data-cs-control="<%= anchor.reference %>" data-cs-type="list">
+			<thead class="rich-table-thead">
+				<tr class="headerRow">
+					<th class="headerRow" style="width: 6em;">Action</th>
+					<th class="headerRow" style="width: 6em;">Status</th>
+					<th class="headerRow">Name</th>
+	<%	for (var i = 0; i < cols.length; i++) {
+			var spec = colSpecs[cols[i]]; %>
+				<th class="headerRow">
+					<%= spec.header %>
+				</th>
+	<%	} %>
+				</tr>
+			</thead>
+	<%	for (var i = 0; i < relatedProducts.length; i++) {
+			prod = relatedProducts[i];
+			rowClass = 'dataRow ' + (i/2 == Math.floor(i/2) ? 'even ' : 'odd ') + (i == 0 ? 'first ' : '') + (i >= relatedProducts.length - 1 ? 'last' : '');
+	%>
+			<tr class="<%= rowClass %>" data-cs-ref="<%= prod.reference %>">
+				<td class="dataCell">
+				<% if (isActive && ! isReadOnly) { %>
+					<span data-cs-action="editRelatedProduct" data-cs-ref="<%= prod.reference %>">Edit</span> |
+					<span data-cs-action="removeRelatedProduct" data-cs-ref="<%= prod.reference %>">Del</span>
+				<% } %>
+				</td>
+				<td class="dataCell"><%= prod.config[prefix + 'Configuration_Status__c'] %></td>
+				<td class="dataCell"><span data-cs-action="editRelatedProduct" data-cs-ref="<%= prod.reference %>"><%= prod.config.Name %></span></td>
+	<%		for (var j = 0; j < cols.length; j++) {
+				if (colSpecs[cols[j]].ref != undefined) {
+					attRef = prod.reference + ':' + colSpecs[cols[j]].ref;
+				}
+				if (attRef != undefined) {
+	%>
+				<td><%= CS.getAttributeDisplayValue(attRef) %></td>
+	<%			}
+			} %>
+			</tr>
+	<%	} %>
+		</table>
+	<% } else { %>
+		<table class="list" data-cs-control="<%= anchor.reference %>" data-cs-type="list">
+			<tr class="dataRow even first last">
+				<td class="dataCell">
+					No items to display
+				</td>
+			</tr>
+		</table>
+	<% } %>
+					</div>
+						<div class="pbFooter secondaryPalette">
+							<div class="bg"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+<apex:form style="width: 0; height: 0; position: absolute; left: -1000px;">
+	<!--
+		This inputField initializes the SFDC DatePicker JS widget.
+		The form is hidden due to recent changes in SFDC VF rendering engine
+		which started displaying this inputField (it was previously hidden due
+		to referencing the read-only SObject field)
+	-->
+	<apex:inputField value="{!cscfga__Product_Basket__c.CreatedDate}"/>
+</apex:form>
+
+<!-- related product selection template START -->
+<div id="rpDialogContainer" style="display: none">
+
+		<div class="bPageTitle">
+			<div class="ptBody">
+				<div class="content">
+					<img src="/s.gif" alt="Rule" class="pageTitleIcon" title="{!$Label.selcat_Related_Product_Selection}" />
+					<h1 class="pageType">{!$Label.selcat_Related_Product_Selection}</h1>
+					<h2 class="pageDescription">{!$Label.selcat_Related_Product_Selection}</h2>
+					<div class="blank">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="" style="display: block">
+			<div class="apexp">
+				<div class="Custom24Block">
+					<div id="rpdBreadcrumb" class=""></div>
+					<br />
+				</div>
+			</div>
+		</div>
+
+		<div class="apexp">
+			<div class="individualPalette">
+				<div class="Custom24Block">
+					<div class="bPageBlock brandSecondaryBrd apexDefaultPageBlock secondaryPalette">
+						<div class="pbHeader">
+							<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td class="pbTitle"><h2 class="mainTitle">{!$Label.selcat_Select_Category}</h2></td>
+								</tr>
+							</table>
+						</div>
+						<div class="pbBody">
+
+							<table class="list" data-cs-binding="" data-cs-control="" data-cs-type="list" cellpadding="0" cellspacing="0">
+								<thead class="rich-table-thead">
+									<tr class="headerRow">
+										<th class="headerRow" width="50%">{!$Label.selprodcat_Category_Name}</th>
+										<th class="headerRow" width="50%">{!$Label.selprodcat_Description}</th>
+									</tr>
+								</thead>
+								<tbody id="rpSelectCategoryList">
+								</tbody>
+							</table>
+
+						</div>
+						<div class="pbFooter secondaryPalette">
+							<div class="bg"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="apexp">
+			<div class="individualPalette">
+				<div class="Custom24Block">
+					<div class="bPageBlock brandSecondaryBrd apexDefaultPageBlock secondaryPalette">
+						<div class="pbHeader">
+							<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td class="pbTitle"><h2 class="mainTitle">{!$Label.selcat_Select_Product}</h2></td>
+								</tr>
+							</table>
+						</div>
+						<div class="pbBody">
+							<table class="list" data-cs-binding="" data-cs-control="" data-cs-type="list" cellspacing="0" cellpadding="0">
+								<thead class="rich-table-thead">
+									<tr class="headerRow">
+										<th class="headerRow" width="50%">{!$Label.selcat_Product_Name}</th>
+										<th class="headerRow" width="50%">{!$Label.selcat_prod_Description}</th>
+									</tr>
+								</thead>
+								<tbody id="rpSelectProductDefinitionList">
+								</tbody>
+							</table>
+						</div>
+						<div class="pbFooter secondaryPalette">
+							<div class="bg"></div>
+						</div>
+					</div>
+				</div>
+				<div id="" class="">
+					<input id="rpCancelButton" type="button" value="{!$Label.selcat_Cancel}" class="pbButtonb CS_configButtons"></input>
+				</div>
+			</div>
+		</div>
+
+</div>
+<!-- related product selection template END -->
+
+</apex:page>

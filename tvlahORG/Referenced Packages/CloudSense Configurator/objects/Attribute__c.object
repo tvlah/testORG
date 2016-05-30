@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Annualised_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF (Recurring__c ,  Product_Configuration__r.Recurrence_Frequency__c  *  Price__c,
+  IF (ISBLANK(Price__c), null, Price__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The price of this Attribute for a single year. Only relevant where the Attribute is set to be a line item. Auto-calculated based on the recurrence frequency of the Product Configuration this Attribute belongs to.</inlineHelpText>
+        <label>Annualised Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Attribute_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Attribute Definition which describes this Attribute.</inlineHelpText>
+        <label>Attribute Definition</label>
+        <referenceTo>Attribute_Definition__c</referenceTo>
+        <relationshipLabel>Attributes</relationshipLabel>
+        <relationshipName>Attributes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Billing_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF (Recurring__c , 
+  IF(ISBLANK(Product_Configuration__r.Billing_Frequency__c ) ||  Product_Configuration__r.Billing_Frequency__c  == 0,  Price__c ,    
+    (Product_Configuration__r.Recurrence_Frequency__c / Product_Configuration__r.Billing_Frequency__c)  *  Price__c) ,
+IF (ISBLANK(Price__c), null, Price__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Billing price of this Attribute. Only relevant where the Attribute is set to be a line item. Auto-calculated based on the recurrence frequency of the Product Configuration this Attribute belongs to.</inlineHelpText>
+        <label>Billing Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cascade_value__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Cascade value</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Discount_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If &quot;Discount Type&quot; field is set to value &quot;amount&quot; this field contains currency amount that will be deducted from the list price.
+If &quot;Discount Type&quot; field is set to value &quot;percentage&quot; this field contains percentage that will be deducted from the list price.</description>
+        <externalId>false</externalId>
+        <formula>IF ((ISBLANK(Discount_Type__c)), null,
+  IF ((ISBLANK(Price__c) &amp;&amp; ISBLANK(List_Price__c)), null,
+    IF ((ISBLANK(Price__c) || ISBLANK(List_Price__c)), 0,
+      IF ((Price__c == 0) &amp;&amp; (List_Price__c == 0), 0,
+        IF ((Discount_Type__c == &quot;percentage&quot; &amp;&amp; Price__c &gt; 0 &amp;&amp; List_Price__c == 0), null,
+          IF ((Discount_Type__c == &quot;amount&quot;), List_Price__c - Price__c, 
+            (1 - Price__c / List_Price__c) * 100
+          )
+        )
+      )
+    )
+  )
+)</formula>
+        <inlineHelpText>The amount of discount applied to this Attribute&apos;s price. A calculated field representing the difference between this Attribute&apos;s List Price and Sales Price, depending on the Discount Type - either an absolute amount or a percentage.</inlineHelpText>
+        <label>Discount Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Discount_Type__c</fullName>
+        <defaultValue>&quot;amount&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Discount type that will be applied to sales price. Could be absolute (amount) or relative value (percentage).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The type of discount - e.g. &apos;amount&apos; or &apos;percentage&apos;.</inlineHelpText>
+        <label>Discount Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Display_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The value of this Attribute displayed to the user during configuration. Only relevant to Select List or Radio Button type Attributes.</inlineHelpText>
+        <label>Display Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hidden__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked this attribute is not displayed on the product configuration screen.</inlineHelpText>
+        <label>Hidden</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Line_Item__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked this attribute is a line item and will be displayed in the product bundle screen.</inlineHelpText>
+        <label>Is Line Item</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Read_Only__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Initial value is inherited from the attribute definition, but it may be changed by rules. This field reflects the state of readonlyness at the time the attribute was saved into database, so it could be used without executing all rules on the configuration.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this Attribute is currently read-only given the state of the Product Configuration process.</inlineHelpText>
+        <label>Is Read Only</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Initial value is inherited from the attribute definition, but it may be changed by rules. This field reflects the state of requiredness at the time the attribute was saved into database, so it could be used without executing all rules on the configuration.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this Attribute is currently required given the state of the Product Configuration.</inlineHelpText>
+        <label>Is Required</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_rate_line_item__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicator that attribute is Rate/Usage line item. Copied from Attribute Definition.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked this attribute is listed as standard line item on bundle page, but its price will not be totalled in any of the sums. If specified its price can be used later on in the billing process for calculation of actual charges given a period of usage.</inlineHelpText>
+        <label>Is Rate Line Item</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Key__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <inlineHelpText>System field. An external ID uniquely identifying this Attribute.</inlineHelpText>
+        <label>Key</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Line_Item_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Is displayed on bundle detail page. Initial value is taken from Attribute Definition, but it may be changed by rules. If this field has no value, ‘EMPTY&apos; will be displayed. Operators +,-,/,*  and {}, () can be used by escaping them with a \.</inlineHelpText>
+        <label>Line Item Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Line_Item_Sequence__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The weight to be assigned to this Attribute when sorting line items for display. Only relevant to line item Attributes.</inlineHelpText>
+        <label>Line Item Sequence</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>List_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <description>List price contains the price before discount is applied.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The price of this Attribute before any discount.</inlineHelpText>
+        <label>List Price</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The sales price of this Attribute after any discount.</inlineHelpText>
+        <label>Price</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Product_Configuration__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Product Configuration to which this Attribute belongs.</inlineHelpText>
+        <label>Product Configuration</label>
+        <referenceTo>Product_Configuration__c</referenceTo>
+        <relationshipLabel>Attributes</relationshipLabel>
+        <relationshipName>Attributes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Recurring__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this Attribute should be treated as a recurring line item. If unchecked, this Attribute should be treated as a one-off line item. Only relevant to line item Attributes.</inlineHelpText>
+        <label>Recurring</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The value of this Attribute captured during the configuration process.</inlineHelpText>
+        <label>Value</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>is_active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this Attribute is active within the configuration. Otherwise it should be ignored.</inlineHelpText>
+        <label>Is_Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Attribute</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Attribute_Definition__c</columns>
+        <columns>Value__c</columns>
+        <columns>Price__c</columns>
+        <columns>Product_Configuration__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Attributes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

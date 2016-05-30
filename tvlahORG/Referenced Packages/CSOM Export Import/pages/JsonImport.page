@@ -1,0 +1,455 @@
+<apex:page controller="csexpimp1.JsonImportController" title="Import product definitions from JSON" action="{!saveJobStatus}">
+	<cscfga:FixUIStyles />
+	<cscfga:EmbedScripts />
+
+	<apex:pageBlock title="An error has occured while reading the import file" rendered="{!error != null}">
+		<apex:outputText value="{!error}" escape="false" />
+	</apex:pageBlock>
+	<apex:outputPanel rendered="{!error == null}">
+		<apex:form id="pageForm">
+			<apex:inputHidden id="importJobStatus" value="{!importJobStatusJson}" />
+			<apex:actionFunction name="renderObjectGraph" action="{!renderObjectGraph}" rerender="objectGraph,buttons,initImportPanel,develReloadLink" />
+			<apex:pageBlock title="Import Product Definitions from JSON" id="importBlock">
+				<apex:outputPanel layout="none" id="objectGraph">
+					<c:ObjectGraphImport rendered="{!jobStatus.stage.name == 'render-data'}" configCallback="{!jobStatus.dataImporter.config}" />
+				</apex:outputPanel>
+				<br />
+
+				<apex:outputPanel layout="block" id="status">
+				</apex:outputPanel>
+
+				<apex:outputPanel id="buttons">
+					<apex:outputPanel layout="none" rendered="{!jobStatus.stage.name == 'render-data'}" >
+						<input id="importButton" type="button" title="Import" value="Import" onclick="initImportProcess();" />
+					</apex:outputPanel>
+				</apex:outputPanel>
+			</apex:pageBlock>
+		</apex:form>
+
+		<script type="text/javascript">
+			/**
+			 * Plain object with idea to hold. If there should be any logic inside of it
+			 * beside dummy counter holding, consider putting shared behaviour in class
+			 */
+			var methodInvocationCounter = {
+				setImportItems : {
+					name : 'Set import items',
+					invocations : 0,
+					retries : 0
+				},
+				doImport : {
+					name : 'Import',
+					invocations : 0,
+					retries : 0
+				},
+				prepareJsonImport : {
+					name : 'Prepare import',
+					invocations : 0,
+					retries : 0
+				},
+				doCleanup : {
+					name : 'Cleanup',
+					invocations : 0,
+					retries : 0
+				}
+			};
+
+			var displayMessage;
+
+			/**
+			 * Shared utility method to log json in string representation as object to console
+			 */
+			function logStringAsObject(message, jsonAsString) {
+				// compatibility with IE8
+				if (jQuery && jQuery.parseJSON) {
+					try {
+						console.log(message, jQuery.parseJSON(jsonAsString));
+					} catch (ignorable) {
+						console.log(message + ' ' + jsonAsString);
+					}
+				} else {
+					console.log(message + ' ' + jsonAsString);
+				}
+			}
+
+			/**
+			 * Simply loggs method invocation counter object
+			 */
+			function logMethodInvocations() {
+				if (typeof console !== 'undefined' && typeof console.group !== 'undefined') {
+					var totalInvocations = 0;
+
+					console.group('Method invocations (requests):');
+					for (var key in methodInvocationCounter) {
+						var invocationCounter = methodInvocationCounter[key];
+						totalInvocations += invocationCounter.invocations;
+
+						console.groupCollapsed(invocationCounter.name, invocationCounter.invocations);
+						console.info('Invocations: ' + invocationCounter.invocations);
+						if (invocationCounter.retries > 0) {
+							totalInvocations += invocationCounter.retries;
+							console.warn('Retries: ' + invocationCounter.retries);
+						}
+						console.groupEnd();
+					}
+					console.info('Total requests to server: ' + totalInvocations);
+					console.groupEnd();
+				} else {
+					console.log('Request methods invocations:', methodInvocationCounter);
+				}
+			}
+
+			/*
+			 * function chain used in preparation of data for rendering
+			 */
+			function initImport() {
+				Visualforce.remoting.timeout=120000;
+
+				var importStatusJson = jQuery(CS.getId("{!$Component.pageForm.importJobStatus}")).val();
+
+				prepareJsonImport(importStatusJson);
+			}
+
+			/*
+			 * Utility method which implements shared after finish behaviour
+			 */
+			function invokeAfterFinishActions(jsonJobStatus) {
+				if (typeof console !== 'undefined' && typeof console.groupEnd !== 'undefined') {
+					console.groupEnd();
+				}
+				logMethodInvocations();
+				deleteDocs(jsonJobStatus);
+			}
+
+			/**
+			 * Shared error processing behaviour method. Logs error out of jobStatus and apex remote event and result.
+			 * messagePrefix parameter is mandatory
+			 */
+			function processError(messagePrefix, jobStatus, apexRemoteEvent, apexRemoteResult, jobStatusJson) {
+				if (jobStatus && jobStatus.stage.name == 'error') {
+					var errMsg = jobStatus.message;
+					if (jobStatus.stage.exceptionDataJSON) {
+						var newMsg = buildJsonExceptionDataMessage(jQuery.parseJSON(jobStatus.stage.exceptionDataJSON));
+						if (newMsg) {
+							errMsg = newMsg;
+						}
+					}
+
+					console.log(messagePrefix + errMsg, jobStatus, apexRemoteEvent, apexRemoteResult);
+					progressMessage(messagePrefix + errMsg);
+
+				} else if (apexRemoteEvent && apexRemoteEvent.type === 'exception') {
+					console.log('Exception: ' + apexRemoteEvent.message, apexRemoteEvent, apexRemoteResult);
+					progressMessage(messagePrefix + apexRemoteEvent.message);
+				} else {
+					console.log(messagePrefix + ' - unknown failure', apexRemoteEvent, apexRemoteResult);
+				}
+
+				invokeAfterFinishActions(jobStatusJson);
+			}
+
+			/*
+			 * Shared utility method to start group defined by invocation counters. If
+			 * count is still zero, creates new group and ends previous one
+			 */
+			function openNewGroupIfNeeded(invocationCounter) {
+				if (!invocationCounter || !invocationCounter.name
+					|| typeof console === 'undefined' || typeof console.group === 'undefined') {
+					return;
+				}
+				if (invocationCounter.invocations === 0) {
+					// Ends previous group
+					console.groupEnd();
+					// Starts this group
+					console.group(invocationCounter.name);
+				}
+			}
+
+			function prepareJsonImport(jobStatusJson, isRetry) {
+				openNewGroupIfNeeded(methodInvocationCounter.prepareJsonImport);
+				methodInvocationCounter.prepareJsonImport.invocations++;
+				if (isRetry) {
+					methodInvocationCounter.prepareJsonImport.retries++;
+				}
+				logStringAsObject((!isRetry ? 'Doing' : 'Retrying') + ' prepare for import invocation:', jobStatusJson);
+
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.JsonImportController.prepareJsonImport}',
+					jobStatusJson,
+					function(result, event) {
+						logStringAsObject('Prepare for import response:', result);
+						if (event.status) {
+							var jobStatus = jQuery.parseJSON(result);
+							if (jobStatus.stage.name == 'error') {
+								if (!isRetry) {
+									prepareJsonImport(jobStatusJson, true);
+								} else {
+									processError('Problem occured during import: ', jobStatus, event, result, jobStatusJson);
+								}
+							} else if (jobStatus.stage.name != 'render-data') {
+								prepareJsonImport(result, false);
+							} else {
+								var importStatusJson = result;
+								progressMessage("Analysis complete, rendering data... <img src='/img/loading.gif' height='16px' width='16px'/>");
+
+								jQuery(CS.getId("{!$Component.pageForm.importJobStatus}")).val(importStatusJson);
+								renderObjectGraph();
+								progressMessage("");
+								if (typeof console != 'undefined' && typeof console.groupEnd != 'undefined') {
+									console.groupEnd();
+									console.groupCollapsed('Client action logs');
+								}
+							}
+						} else if (!isRetry) {
+							prepareJsonImport(jobStatusJson, true);
+						} else {
+							processError('Exception while analyzing data:', null, event, result, jobStatusJson);
+						}
+					},
+					{escape: false}
+				);
+			}
+
+			/*
+			 * function chain used to actually import the data
+			 */
+			function initImportProcess() {
+				Visualforce.remoting.timeout=120000;
+
+				// fix broken JSON serialization introduced by Prototype.js
+				delete Array.prototype.toJSON;
+
+				var importStatusJson = jQuery(CS.getId("{!$Component.pageForm.importJobStatus}")).val();
+				var jobStatus = jQuery.parseJSON(importStatusJson);
+				jobStatus.stage.name = 'set-import-items';
+				importStatusJson = JSON.stringify(jobStatus);
+
+				CS.showProgress('Importing...', CS.getProgressBarImage());
+				progressMessage('Importing... <img src="/img/loading.gif" height="16px" width="16px"/>');
+
+				jQuery("#importButton").remove();
+
+				setImportItems(importStatusJson);
+			}
+
+			function setImportItems(importStatusJson, isRetry) {
+				openNewGroupIfNeeded(methodInvocationCounter.setImportItems);
+				methodInvocationCounter.setImportItems.invocations++;
+				if (isRetry) {
+					methodInvocationCounter.setImportItems.retries++;
+				}
+				logStringAsObject((!isRetry ? 'Doing' : 'Retrying') + ' set import items invocation:', importStatusJson);
+
+				var graphItems = csOGI.getImportItems();
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.JsonImportController.setImportItems}',
+					importStatusJson, graphItems,
+					function(result, event) {
+						logStringAsObject('Set import items result:', result);
+						if (event.status) {
+							var jobStatus = jQuery.parseJSON(result);
+							if (jobStatus.stage.name == 'error') {
+								if (!isRetry) {
+									setImportItems(importStatusJson, true);
+								} else {
+									processError('Exception while setting import data:', jobStatus, event, result, importStatusJson);
+								}
+							} else {
+								doImport(result, false);
+							}
+						} else if (!isRetry) {
+							setImportItems(importStatusJson, true);
+						} else {
+							processError('Exception while setting import data:', null, event, result, importStatusJson);
+						}
+					},
+					{escape: false}
+				);
+			}
+
+			function doImport(jobStatusJson, isRetry) {
+				openNewGroupIfNeeded(methodInvocationCounter.doImport);
+				methodInvocationCounter.doImport.invocations++;
+				if (isRetry) {
+					methodInvocationCounter.doImport.retries++;
+				}
+				logStringAsObject((!isRetry ? 'Doing' : 'Retrying') + ' import invocation:', jobStatusJson);
+				if (typeof console !== 'undefined' && typeof console.log !== 'undefined') {
+					try {
+						var jobStatusObj = jQuery.parseJSON(jobStatusJson);
+						if (jobStatusObj.currentInGenerationObjectIndex !== null && jobStatusObj.currentInGenerationObjectIndex != undefined) {
+							console.log(
+								(!isRetry ? 'Starting ' : 'Retrying ') +
+								'import from object #' +
+								(jobStatusObj.currentInGenerationObjectIndex + 1) +
+								' of generation #'  + (jobStatusObj.currentGenerationIndex + 1) + '.'
+							);
+						}
+					} catch (ignorable) {}
+				}
+
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.JsonImportController.import}',
+					jobStatusJson,
+					function(result, event) {
+						logStringAsObject('Do import result:', result);
+						if (event.status) {
+							var jobStatus = jQuery.parseJSON(result);
+							if (jobStatus.stage.name == 'import-finished') {
+								var importStatusJson = result;
+								displayMessage = '<b>Import completed</b>';
+								if (displayMessage.cfgTriggersDisabled) {
+									message += ' with warning:<br>Triggers on configurator are disabled. Some data might not be filled.'
+												+ ' (for example rule descriptions)';
+								}
+								doCleanup(result, false);
+							} else if (jobStatus.stage.name == 'error') {
+								if (!isRetry && isRetryOnImportEnabled()) {
+									doImport(jobStatusJson, true);
+									return;
+								} else {
+									processError('Error while importing data: ', jobStatus, event, result, jobStatusJson);
+								}
+							} else {
+								doImport(result, false);
+							}
+						} else if (!isRetry && isRetryOnImportEnabled()) {
+							doImport(jobStatusJson, true);
+						} else {
+							processError('Error while importing data: ', null, event, result, jobStatusJson);
+						}
+					},
+					{escape: false}
+				);
+			}
+
+			function doCleanup(jobStatusJson, isRetry) {
+				openNewGroupIfNeeded(methodInvocationCounter.doCleanup);
+				methodInvocationCounter.doCleanup.invocations++;
+				if (isRetry) {
+					methodInvocationCounter.doCleanup.retries++;
+				}
+
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.JsonImportController.cleanup}',
+					jobStatusJson,
+					function(result, event) {
+						logStringAsObject('Do cleanup result:', result);
+						if (event.status) {
+							var jobStatus = jQuery.parseJSON(result);
+							if (jobStatus.stage.name == 'cleanup-finished') {
+								progressMessage(displayMessage);
+								invokeAfterFinishActions(result);
+							} else if (jobStatus.stage.name == 'error') {
+								if (!isRetry && isRetryOnImportEnabled()) {
+									doCleanup(jobStatusJson, true);
+									return;
+								} else {
+									processError('Error while cleaning up records: ', jobStatus, event, result, jobStatusJson);
+								}
+							} else {
+								doCleanup(result, false);
+							}
+						} else if (!isRetry && isRetryOnImportEnabled()) {
+							doCleanup(jobStatusJson, true);
+						} else {
+							processError('Error while cleaning up records: ', null, event, result, jobStatusJson);
+						}
+					},
+					{escape: false}
+				);
+			}
+
+			function deleteDocs(jobStatusJson) {
+				console.log('Deleting created documents');
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.JsonImportController.deleteDocs}',
+					jobStatusJson,
+					function (result, event) {
+						// if error happened result is null
+						if (result) {
+							console.log('Deleted created documents');
+						} else {
+							progressMessage('<br>Documents are not deleted, please do it manually!', true);
+							console.warn('Documents are not deleted');
+						}
+						CS.hideProgress();
+					}
+				);
+			}
+
+			/*
+			 * Builds nicer message from an error description object
+			 */
+			function buildJsonExceptionDataMessage(error) {
+				if (!error) {
+					return '';
+				}
+				var message = '';
+				if (error.type === 'options-conflict') {
+					var item = csOGI.graph.itemsMap[error.objId];
+					message = item.typeLabel + ' <b>[name= "' + item.recName + '"]</b> has actionable root items for which you have chosen conflicting options.';
+					message += ' You cannot combine overwrite action and archive current version action.';
+					message += '<br>Root actionable objects:<br>';
+					for (var i = 0; i < error.rootActionableObjects.length; i++) {
+						var rootItem = csOGI.graph.itemsMap[error.rootActionableObjects[i]];
+						message += '&nbsp;' + rootItem.typeLabel + ' [name= <b>"' + rootItem.recName + '"</b>]';
+						if (rootItem.options['Action']) {
+							var chosenAction = rootItem.options['Action'].selectedOption;
+							message += ' has selected option <b>"' + rootItem.options['Action'].selectedOption + '"</b>.';
+						}
+						message += '<br>';
+					}
+				}
+				return message;
+			}
+
+			/*
+			 * General utility functions
+			 */
+			function progressMessage(msg, appendMsg) {
+				var msgElement = jQuery(CS.getId("{!$Component.pageForm.importBlock.status}"));
+				if (msgElement) {
+					if (appendMsg) {
+						// works only if there is only one element of html. Please modify this chunk of code if something change
+						msg = msgElement.html() + msg;
+					}
+					msgElement.html(msg);
+				}
+			}
+
+			/*
+			 * Handle interactions between graph item options
+			 */
+			function updateRenameEnabled(event, itemId, source, optionName, newValue) {
+				var item = csOGI.graph.itemsMap[itemId];
+				if ((item.typeLabel === 'Eligibility Rule' || item.typeLabel === 'Lookup Config' || item.typeLabel === 'Object Mapping') && optionName === 'Action') {
+					var renameToInputs = jQuery('[data-id="' + itemId + '"][data-label="Rename to"]');
+					if (newValue === 'Import as new (clone)') {
+						renameToInputs.removeAttr('disabled');
+					} else {
+						renameToInputs.attr('disabled', 'disabled');
+					}
+				}
+			}
+			jQuery(document).ready(function() { jQuery(document).bind('ItemOptionChanged', updateRenameEnabled); });
+
+			function isRetryOnImportEnabled() {
+				// For now any retries are disabled due to missing of automatic rollback functionality  on
+				// java.lang.String cannot be cast to java.lang.Boolean internal server error
+				return false;
+			}
+		</script>
+		<apex:outputPanel layout="none" rendered="{!jobStatus.stage.name != 'render-data'}" id="initImportPanel">
+			<script type="text/javascript">
+				progressMessage('Analyzing import data... <img src="/img/loading.gif" height="16px" width="16px"/>');
+				jQuery(document).ready(initImport);
+			</script>
+		</apex:outputPanel>
+		<!-- apex:outputPanel id="develReloadLink">
+			<apex:outputPanel layout="none" rendered="{!isDevel}" >
+				<a href="/apex/JsonImport?nameSuffix={!nameSuffix}&typeInfoDocId={!jobStatus.typeInfoDocId}&docId={!jobStatus.importDocId}&ogDocId={!jobStatus.ogDocId}&configDocId={!jobStatus.configDocId}&importComments={!importComments}">Reload with same data</a>
+			</apex:outputPanel>
+		</apex:outputPanel -->
+	</apex:outputPanel>
+</apex:page>

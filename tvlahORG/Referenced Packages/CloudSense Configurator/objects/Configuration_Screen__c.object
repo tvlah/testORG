@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Index__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Numeric value that determines order of configuration screens. Index must start with number 0 (zero).</inlineHelpText>
+        <label>Index</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Label for the Configuration Screen. This value is not displayed to the user during configuration.</inlineHelpText>
+        <label>Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Product Definition to which this Screen is assigned.</inlineHelpText>
+        <label>Product Definition</label>
+        <referenceTo>Product_Definition__c</referenceTo>
+        <relationshipLabel>Auto-Generated Configuration Screens</relationshipLabel>
+        <relationshipName>Configuration_Screens</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reference__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Reference to Visualforce page or URL. Used for custom-made screens only, when Type of configuration screen is set to &apos;Visualforce&apos; or &apos;URL&apos;, respectively.</inlineHelpText>
+        <label>Reference</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Screen_Flow_Index__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (
+  isblank(Screen_Flow__c),
+  &apos;Default / &apos; ,
+  Screen_Flow__r.Name &amp; &apos; / &apos;
+) &amp; lpad(text(Index__c), 3, &apos;0&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>An auto-generated field populated with Screen Flow / Index field values respectively.</inlineHelpText>
+        <label>Screen Flow/Index</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Screen_Flow__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup field used for associating Screen Flow to the Configuration Screen.</inlineHelpText>
+        <label>Screen Flow</label>
+        <referenceTo>Screen_Flow__c</referenceTo>
+        <relationshipLabel>Configuration Screens</relationshipLabel>
+        <relationshipName>Configuration_Screens</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Show_Configuration_and_Product_Name__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, ‘Configuration Name’ and ‘Product Name’ fields will be displayed at the top of the Configuration Screen.</inlineHelpText>
+        <label>Show Configuration and Product Name</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Product_Configuration_header__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, Configuration Screen will contain a header with text &apos;New Product Configuration&apos; displayed.</inlineHelpText>
+        <label>Show Product Configuration header</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Type of Configuration Screen: &apos;Auto&apos; or &apos;no value&apos; represent a screen created using Configurator, while &apos;URL&apos; and &apos;Visualforce&apos; represent custom-made screens. Latter should be accompanied with an appropriate value in the Reference field.</inlineHelpText>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Auto</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Visualforce</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>URL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Configuration Screen</label>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Configuration Screens</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Product_Definition__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>ReferenceRequiredForNonAuto</fullName>
+        <active>true</active>
+        <errorConditionFormula>not(ispickval(Type__c, &apos;Auto&apos;)) &amp;&amp; isnull(Reference__c)</errorConditionFormula>
+        <errorDisplayField>Reference__c</errorDisplayField>
+        <errorMessage>For non-automatically generated configuration screens, a reference is required (Visualforce page name or URL).</errorMessage>
+    </validationRules>
+</CustomObject>

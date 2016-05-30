@@ -1,0 +1,512 @@
+<apex:page standardController="cscfga__Product_Bundle__c" extensions="cscfga.ProductBundleController" tabStyle="Solution">
+
+	<apex:stylesheet value="{!$Resource.cscfga__BundleDetail_css}"/>
+	<c:FixUIStyles />
+	<c:EmbedScripts />
+
+	<c:EmbedAngular />
+	<c:AsyncTaskStatus linkedObjectId="{!basketId}" indicatorTitle="Asynchronous tasks running over - {!bundle.name}"/>
+
+	<style type="text/css">
+		.numberCol {
+			text-align: right
+		}
+		.main {
+			padding-top: 8px;
+		}
+		.bold {
+			font-weight: bold;
+		}
+	</style>
+
+	<apex:pageMessages />
+
+	<apex:detail relatedList="true" />
+
+	<apex:form >
+		<apex:actionFunction name="delConfig" action="{!deleteConfiguration}" />
+		<apex:actionFunction name="legacyUpdateQuantity" action="{!updateQuantity}" />
+		<apex:actionFunction name="updateConfigurations" action="{!updateDirtyConfigurations}" />
+		<input type="hidden" name="delId" id="delId" value="" />
+		<input type="hidden" name="configId" id="configId" value="" />
+		<input type="hidden" name="quantity" id="quantity" value="" />
+
+		<apex:pageBlock title="{!$Label.confbundet_Configured_Products}">
+			<apex:pageBlockButtons location="top">
+				<c:ButtonWrapper rendered="{!configurationsNeedUpdate}">
+					<a href="#" onclick="updateConfigurations(); return false" style="{!buttonStyle}" class="{!buttonClass}">{!$Label.confbundet_Update_Configurations}</a>
+				</c:ButtonWrapper>
+				<c:ButtonWrapper rendered="{!bundleIsUpdating}">
+					<a href="#" onclick="return false" style="opacity: 0.5; filter: alpha (opacity=50); {!buttonStyle}" class="{!buttonClass}">{!$Label.confbundet_Updating_Configurations}</a>
+				</c:ButtonWrapper>
+				<apex:commandButton value="{!$Label.confbundet_New_Product_Configuration}" action="{!addNewConfiguration}" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockTable var="item" value="{!sharedContextLineItems}" style="margin-bottom: 12px" rendered="{!hasSharedContext}">
+				<apex:column style="width: 100px">
+					<apex:facet name="header">{!$Label.confbundet_Action}</apex:facet>
+					<apex:outputPanel layout="block" styleClass="main" rendered="{!item.isMain}">
+						<b>
+							<apex:outputPanel rendered="{!not(hasLinkedQuotes)}">
+								<a href="{!URLFOR($Page.cscfga__ConfigureProduct, null, [configId=item.configurationId, retURL='/' & bundle.id])}" onclick="CS.progressOn()">{!$Label.confbundet_Edit}</a>
+							</apex:outputPanel>
+						</b>
+						<b>
+							<apex:outputPanel layout="none" rendered="{!hasLinkedQuotes}">
+								<a href="javascript: alert({!$Label.confbundet_This_bundle_cannot_be_edited_because})"
+										style="text-decoration: none; color: #aaa">{!$Label.confbundet_Edit}</a>
+							</apex:outputPanel>
+						</b>
+					</apex:outputPanel>
+				</apex:column>
+
+				<apex:column style="width: 100px">
+					<apex:facet name="header">{!$Label.confbundet_Status}</apex:facet>
+					<apex:outputPanel layout="block" styleClass="main" rendered="{!item.isMain}">
+						 {!item.ConfigStatus}
+					</apex:outputPanel>
+				</apex:column>
+
+				<apex:column >
+					<apex:facet name="header">{!$Label.confbundet_Shared_Item}</apex:facet>
+					<apex:outputPanel layout="block" styleClass="main bold" rendered="{!item.isMain}">
+						<b>{!item.description}</b>
+					</apex:outputPanel>
+					<apex:outputPanel layout="block" style="padding-left: 20px" rendered="{!not(item.isMain)}">
+						{!item.description}
+					</apex:outputPanel>
+				</apex:column>
+			</apex:pageBlockTable>
+
+			<table class="list bundleDetail" width="100%" cellpadding="0" cellspacing="0">
+				<tbody>
+				<!-- headerRow - version without discount columns -->
+				<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount == false}">
+				<tr class="headerRow" >
+					<th class="headingCellText" style="width: 100px">{!$Label.confbundet_Action}</th>
+					<th class="headingCellText" style="width: 100px">{!$Label.confbundet_Status}</th>
+					<th class="headingCellText">{!$Label.confbundet_Item}</th>
+					<th class="headingCellNumber">{!$Label.confbundet_Quantity}</th>
+				<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn}">
+					<th class="headingCellNumber">{!$Label.confbundet_Rate}</th>
+				</apex:outputPanel>
+					<th class="headingCellNumber">{!$Label.Non_recurring_header}</th>
+					<th class="headingCellNumber">{!$Label.Recurring_header}</th>
+				<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+					<th class="headingCellNumber">{!$Label.Recurring_invoice_header}</th>
+				</apex:outputPanel>
+					<th class="headingCellNumber">{!IF(displayTCVColumn, $Label.Total_contract_value_header, $Label.Annualised_total_header)}</th>
+				</tr>
+				</apex:outputPanel>
+
+				<!-- headerRow - version with discount columns and two rows for header -->
+				<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount == true}">
+				<tr class="headerRow">
+					<th class="headingCellText" rowspan="2" style="width: 100px">{!$Label.confbundet_Action}</th>
+					<th class="headingCellText" rowspan="2" style="width: 100px">{!$Label.confbundet_Status}</th>
+					<th class="headingCellText" rowspan="2">{!$Label.confbundet_Item}</th>
+					<th class="headingCellTextCentered" rowspan="2">{!$Label.confbundet_Quantity}</th>
+				<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn}">
+					<th class="headingCellTextCentered" rowspan="2">{!$Label.confbundet_Rate}</th>
+				</apex:outputPanel>
+					<th class="headingCellTextCentered leftBorder bottomBorder" colspan="3">{!$Label.Non_recurring_header}</th>
+					<th class="headingCellTextCentered leftBorder rightBorder bottomBorder" colspan="3">{!$Label.Recurring_header}</th>
+				<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+					<th class="headingCellNumber" rowspan="2">{!$Label.Recurring_invoice_header}</th>
+				</apex:outputPanel>
+					<th class="headingCellTextCentered" rowspan="2">{!IF(displayTCVColumn, $Label.Total_contract_value_header, $Label.Annualised_total_header)}</th>
+				</tr>
+
+				<tr class="headerRow">
+					<th class="headingCellTextCentered leftBorder" style="border-left-width: 1px;">{!$Label.confbundet_ListPrice}</th>
+					<th class="headingCellTextCentered leftBorder">{!$Label.confbundet_Discount}</th>
+					<th class="headingCellTextCentered leftBorder">{!$Label.confbundet_SalesPrice}</th>
+					<th class="headingCellTextCentered leftBorder">{!$Label.confbundet_ListPrice}</th>
+					<th class="headingCellTextCentered leftBorder">{!$Label.confbundet_Discount}</th>
+					<th class="headingCellTextCentered leftBorder rightBorder">{!$Label.confbundet_SalesPrice}</th>
+				</tr>
+				</apex:outputPanel>
+
+				<apex:repeat var="configWrapper" value="{!AllBundleItems}">
+				<!--
+				#############################################
+				Top Row
+				#############################################
+				-->
+					<tr class="header">
+						<td class="controls">
+							<apex:outputPanel rendered="{!not(hasLinkedQuotes)}">
+								<a href="{!URLFOR($Page.cscfga__ConfigureProduct, null, [configId=configWrapper.config.Id, retURL='/' & bundle.id])}" onclick="CS.progressOn()">{!$Label.confbundet_Edit}</a>
+							</apex:outputPanel>
+							<apex:outputPanel layout="none" rendered="{!hasLinkedQuotes}">
+									<a href="javascript: alert({!$Label.confbundet_This_bundle_cannot_be_edited_because})"
+											style="text-decoration: none; color: #aaa">{!$Label.confbundet_Edit}</a>
+							</apex:outputPanel> |
+							<a href="#" onclick="javascript:oWin = window.open('{!URLFOR($Page.cscfga__CloneConfiguration, null, [configId=configWrapper.config.Id])}', 'copyConfig','addressbar=0,menubar=0,resizable=1,width=800,height=450');oWin.focus();">
+									{!$Label.confbundet_Copy}</a> |
+							<apex:outputPanel layout="none" rendered="{!not(hasLinkedQuotes)}">
+								<a href="#" onclick="javascript:jQuery('#delId').val('{!configWrapper.config.Id}'); delConfig(); return false">{!$Label.confbundet_Del}</a>
+							</apex:outputPanel>
+							<apex:outputPanel layout="none" rendered="{!hasLinkedQuotes}">
+									<a href="javascript: alert({!$Label.confbundet_This_bundle_cannot_be_edited_because})"
+											style="text-decoration: none; color: #aaa">{!$Label.confbundet_Del}</a>
+							</apex:outputPanel>
+						</td>
+						<td>
+							{!configWrapper.config.configuration_status__c}
+						</td>
+						<td class="totalCellText">
+							<a href="{!communitiesPrefix}/{!configWrapper.config.Id}">
+								<span style="float: left; width: 2em; margin-left: -2em">{!configWrapper.rowNumber}</span>
+								{!configWrapper.config.Name}
+							</a>
+						</td>
+						<td id="{!configWrapper.config.id}_qty"  class="totalCellNumber">
+							x <span class='displayValue'>
+								<apex:outputText value="{0, number, #,###,##0}">
+									<apex:param value="{!configWrapper.config.cscfga__Quantity__c}" />
+								</apex:outputText>
+							</span>&nbsp;
+							<a href="javascript:showQtyBox('{!configWrapper.config.Id}','{!configWrapper.config.Name}','{!configWrapper.config.cscfga__Quantity__c}','{!bundle.id}');">{!$Label.confbundet_Edit}</a>
+						</td>
+					<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn}"><!-- Rate column -->
+						<td class="detailCellNumber">
+							&nbsp;
+						</td>
+					</apex:outputPanel>
+					<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount}">
+						<td class="totalCellNumber" colspan="4">
+							&nbsp;
+						</td>
+					</apex:outputPanel>
+						<td>
+							&nbsp;
+						</td>
+						<td class="totalCellNumber">
+						</td>
+					<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+						<td class="totalCellNumber">
+							&nbsp;
+						</td>
+					</apex:outputPanel>
+						<td class="totalCellNumber">
+							&nbsp;
+						</td>
+					</tr>
+				<!--
+				#############################################
+				LINE ITEM ATTRIBUTES
+				#############################################
+				-->
+					<apex:repeat var="attrib" value="{!configWrapper.attributeList}">
+						<tr>
+							<td colspan="2">&nbsp;</td>
+
+							<td class="detailCellText" style="padding-left: 20px">
+								{!attrib.Line_Item_Description__c}
+							</td>
+
+							<td class="detailCellText">&nbsp;</td>
+
+						<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn}"><!-- Rate column -->
+							<td class="detailCellNumber">
+							<apex:outputPanel layout="none" rendered="{!attrib.attribute_definition__r.cscfga__Is_Rate_Line_Item__c == true}">
+								<apex:outputText value="{0, number, #,###,##0.00}">
+									<apex:param value="{!attrib.cscfga__Price__c * configWrapper.config.cscfga__Quantity__c}" />
+								</apex:outputText>
+								<apex:outputText value="{!attrib.attribute_definition__r.cscfga__Reference_Value__c}" escape="false" />
+							</apex:outputPanel>
+							</td>
+						</apex:outputPanel>
+
+						<apex:outputPanel Rendered="{!NOT(showRateLineItemsInSeparateColumn)}">
+
+							<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount}">
+								<c:ListPriceDiscount attrib="{!attrib}" quantity="{!configWrapper.config.cscfga__Quantity__c}" isRecuringColumn="false" />
+							</apex:outputPanel>
+
+							<td class="detailCellNumber">
+								<apex:outputPanel Rendered="{!NOT(attrib.cscfga__Recurring__c)}">
+									<apex:outputText value="{0, number, #,###,##0.00}">
+										<apex:param value="{!attrib.cscfga__Price__c * configWrapper.config.cscfga__Quantity__c}" />
+									</apex:outputText>
+									<apex:outputText value="{!attrib.attribute_definition__r.cscfga__Reference_Value__c}" escape="false" />
+								</apex:outputPanel>
+							</td>
+
+							<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount}">
+								<c:ListPriceDiscount attrib="{!attrib}" quantity="{!configWrapper.config.cscfga__Quantity__c}" isRecuringColumn="true" />
+							</apex:outputPanel>
+
+							<td class="detailCellNumber">
+								<apex:outputPanel Rendered="{!attrib.cscfga__Recurring__c}">
+									<apex:outputText value="{0, number, #,###,##0.00}">
+										<apex:param value="{!attrib.cscfga__Price__c * configWrapper.config.cscfga__Quantity__c}" />
+									</apex:outputText>
+								</apex:outputPanel>
+							</td>
+
+						</apex:outputPanel>
+
+						<apex:outputPanel Rendered="{!showRateLineItemsInSeparateColumn}">
+
+							<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount}">
+								<c:ListPriceDiscount attrib="{!attrib}" quantity="{!configWrapper.config.cscfga__Quantity__c}" isRecuringColumn="false" />
+							</apex:outputPanel>
+
+							<td class="detailCellNumber">
+								<apex:outputPanel Rendered="{!NOT(attrib.cscfga__Recurring__c) && NOT(attrib.attribute_definition__r.cscfga__Is_Rate_Line_Item__c)}">
+									<apex:outputText value="{0, number, #,###,##0.00}">
+										<apex:param value="{!attrib.cscfga__Price__c * configWrapper.config.cscfga__Quantity__c}" />
+									</apex:outputText>
+									<apex:outputText value="{!attrib.attribute_definition__r.cscfga__Reference_Value__c}" escape="false" />
+								</apex:outputPanel>
+							</td>
+
+							<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount}">
+								<c:ListPriceDiscount attrib="{!attrib}" quantity="{!configWrapper.config.cscfga__Quantity__c}" isRecuringColumn="true" />
+							</apex:outputPanel>
+
+							<td class="detailCellNumber">
+								<apex:outputPanel Rendered="{!attrib.cscfga__Recurring__c && NOT(attrib.attribute_definition__r.cscfga__Is_Rate_Line_Item__c)}">
+									<apex:outputText value="{0, number, #,###,##0.00}">
+										<apex:param value="{!attrib.cscfga__Price__c * configWrapper.config.cscfga__Quantity__c}" />
+									</apex:outputText>
+									<apex:outputText value="{!attrib.attribute_definition__r.cscfga__Reference_Value__c}" escape="false" />
+								</apex:outputPanel>
+							</td>
+
+						</apex:outputPanel>
+
+						<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+							<td class="detailCellNumber">
+								<apex:outputPanel Rendered="{!attrib.cscfga__Recurring__c && NOT(attrib.attribute_definition__r.cscfga__Is_Rate_Line_Item__c)}">
+									<apex:outputText value="{0, number, #,###,##0.00}">
+										<apex:param value="{!attrib.cscfga__Billing_Price__c * configWrapper.config.cscfga__Quantity__c}" />
+									</apex:outputText>
+								</apex:outputPanel>
+							</td>
+						</apex:outputPanel>
+
+							<td class="detailCellText"> </td>
+						</tr>
+					</apex:repeat>
+
+				<!--
+				#############################################
+				TOTALS ROW
+				#############################################
+				-->
+					<tr class="subtotals">
+						<td colspan="2" style="border:none">
+						&nbsp;
+						</td>
+						<td class="totalCellText"> {!$Label.confbundet_Totals_for} {!configWrapper.config.Name}</td>
+						<td class="totalCellNumber">
+							<!--
+							<apex:outputText value="x {0, number, #,###,##0.##}">
+								<apex:param value="{!configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText>
+
+							<a id="{!configWrapper.config.id}_qty" href="javascript:showQtyBox('{!configWrapper.config.Id}','{!configWrapper.config.Name}','{!configWrapper.config.cscfga__Quantity__c}','{!bundle.id}' );">Change</a>
+							-->
+							&nbsp;
+						</td>
+					<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn}"><!-- Rate column -->
+						<td class="totalCellText">
+							&nbsp;
+						</td>
+					</apex:outputPanel>
+
+						<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount}">
+							<td class="totalCellNumber">
+							</td>
+							<td class="totalCellNumber">
+							</td>
+						</apex:outputPanel>
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!configWrapper.oneOffCharge *  configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText>
+						</td>
+						<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount}">
+							<td class="totalCellNumber">
+							</td>
+							<td class="totalCellNumber">
+							</td>
+						</apex:outputPanel>
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!configWrapper.RecurringCharge * configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText><br />
+							<apex:outputText value="({!configWrapper.RecurringCostFrequency})" Rendered="{! configWrapper.RecurringCostFrequency != null}">
+							</apex:outputText>
+						</td>
+
+					<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!configWrapper.RecurringBillingCharge * configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText>
+							<br />
+							<apex:outputText value="({! configWrapper.RecurringBillingFrequency})" Rendered="{! configWrapper.RecurringBillingFrequency!= null}">
+							</apex:outputText>
+						</td>
+					</apex:outputPanel>
+
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!IF(displayTCVColumn, configWrapper.totalContractValue, configWrapper.totalPrice)}" />
+							</apex:outputText>
+						</td>
+					</tr>
+
+				<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount == false}"><!-- showListPriceAndDiscountAmount OFF -->
+					<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn == true}"><!-- Rate column -->
+					<tr><td class="spacerheight" colspan="{!IF(displayRecurringInvoiceColumn, 9, 8)}">&nbsp;</td></tr>
+					</apex:outputPanel>
+					<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn == false}">
+					<tr><td class="spacerheight" colspan="{!IF(displayRecurringInvoiceColumn, 8, 7)}">&nbsp;</td></tr>
+					</apex:outputPanel>
+				</apex:outputPanel>
+				<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount == true}"><!-- showListPriceAndDiscountAmount ON -->
+					<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn == true}"><!-- Rate column -->
+					<tr><td class="spacerheight" colspan="{!IF(displayRecurringInvoiceColumn, 13, 12)}">&nbsp;</td></tr>
+					</apex:outputPanel>
+					<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn == false}">
+					<tr><td class="spacerheight" colspan="{!IF(displayRecurringInvoiceColumn, 12, 11)}">&nbsp;</td></tr>
+					</apex:outputPanel>
+				</apex:outputPanel>
+
+				</apex:repeat>
+
+					<!--
+					#############################################
+					GRAND TOTAL ROW
+					#############################################
+					-->
+					<tr class="grandtotal">
+						<td colspan="2" style="border:none">
+						&nbsp;
+						</td>
+						<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount == false}"><!-- showListPriceAndDiscountAmount OFF -->
+							<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn}">
+								<td class="totalCellText" colspan="{!IF(displayRecurringInvoiceColumn, 6, 5)}">{!$Label.confbundet_Grand_Total}</td>
+							</apex:outputPanel>
+							<apex:outputPanel layout="none" rendered="{!NOT(showRateLineItemsInSeparateColumn)}">
+								<td class="totalCellText" colspan="{!IF(displayRecurringInvoiceColumn, 5, 4)}">{!$Label.confbundet_Grand_Total}</td>
+							</apex:outputPanel>
+						</apex:outputPanel>
+						<apex:outputPanel layout="none" rendered="{!showListPriceAndDiscountAmount == true}"><!-- showListPriceAndDiscountAmount ON -->
+							<apex:outputPanel layout="none" rendered="{!showRateLineItemsInSeparateColumn}">
+								<td class="totalCellText" colspan="{!IF(displayRecurringInvoiceColumn, 10, 9)}">Grand Total</td>
+							</apex:outputPanel>
+							<apex:outputPanel layout="none" rendered="{!NOT(showRateLineItemsInSeparateColumn)}">
+								<td class="totalCellText" colspan="{!IF(displayRecurringInvoiceColumn, 9, 8)}">Grand Total</td>
+							</apex:outputPanel>
+						</apex:outputPanel>
+
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!grandTotal}" />
+							</apex:outputText>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</apex:pageBlock>
+
+
+		<div id="divQtyChangeContainer" class="hiddenQtyContainer">
+			<div id="divQtyChange" class="visibleQtyBox">
+				<apex:pageBlock >
+					<table border="0" cellpadding="2" cellspacing="2">
+						<tr>
+							<td>{!$Label.confbundet_Enter_New_Quantity} </td><td><input id="userQty" name="userQty" size="2" width="50"></input></td>
+						</tr>
+						<tr>
+							<td colspan="2" id="qtyDisplay" align="center"><a href="javascript:changeQty();">{!$Label.confbundet_Save}</a> | <a href="javascript:cancelChangeQty();">{!$Label.confbundet_Cancel}</a></td>
+						</tr>
+					</table>
+				</apex:pageBlock>
+			</div>
+			<input type="hidden" id="hidNewQty" name="hidNewQty" value=""></input>
+			<input type="hidden" id="hidQtyConfigId" name="hidQtyConfigId" value=""></input>
+			<input type="hidden" id="hidBundleId" name="hidBundleId" value=""></input>
+
+		</div>
+		<script type="text/javascript">
+
+
+		var $ = jQuery.noConflict();
+		$(document).ready(function() {
+			$('#userQty').keypress(function(e) {
+				if (e.which == 13) {
+					e.stopPropagation();
+					e.preventDefault();
+					changeQty();
+					return false;
+				}
+			});
+		});
+
+		function addCommas(nStr) {
+			nStr += '';
+			x = nStr.split('.');
+			x1 = x[0];
+			x2 = x.length > 1 ? '.' + x[1] : '';
+			var rgx = /(\d+)(\d{3})/;
+			while (rgx.test(x1)) {
+				x1 = x1.replace(rgx, '$1' + ',' + '$2');
+			}
+			return x1 + x2;
+		}
+
+
+		//#
+		//# Change Qty Functions
+		//#
+		function showQtyBox(configId, configName, oldQty, bundleId)
+		{
+			var result = parseInt(oldQty);
+			var qtyOffset = $("#" + configId + "_qty").offset();
+			var qtyTop = qtyOffset.top;
+			var qtyLeft = qtyOffset.left;
+			$("#userQty").val(result);
+			$("#hidNewQty").val(result);
+			$("#qtyCaption").innerText = '"{!$Label.confbundet_Change_quantity_for} " ' + configName;
+			$("#hidQtyConfigId").val(configId);
+			$("#hidBundleId").val(bundleId);
+			$("#divQtyChangeContainer").removeClass("hiddenQtyContainer");
+			$("#divQtyChangeContainer").addClass("visibleQtyContainer");
+			$("#divQtyChange").offset(qtyOffset);
+		}
+
+		function changeQty()
+		{
+			var quantity = parseInt($("#userQty").val()),
+				configId = $('#hidQtyConfigId').val();
+
+			if (isNaN(quantity) || quantity < 1)
+			{
+				alert("{!$Label.confbundet_Invalid_quantity_value_entered}");
+			}
+			else
+			{
+				$('#qtyDisplay').html('"{!$Label.confbundet_Updating}"');
+
+				$('#configId').val(configId);
+				$('#quantity').val(quantity);
+				legacyUpdateQuantity();
+
+			}
+		}
+
+		function cancelChangeQty()
+		{
+			$("#divQtyChangeContainer").removeClass("visibleQtyContainer");
+			$("#divQtyChangeContainer").addClass("hiddenQtyContainer");
+		}
+		</script>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,318 @@
+<apex:page standardController="cscfga__Product_Definition__c"  extensions="cspduia.UploadProductDefinitionController" showHeader="false" sidebar="false" standardStylesheets="true">
+    <apex:includeScript value="{!$Resource.cspduia__jQuery}" />
+    <apex:includeScript value="{!$Resource.cspduia__JQueryUI}" />
+	<style>
+    	body {
+			background: #ddd;
+		}
+		fieldset {
+			background: #eee;
+		}
+        .close-image {
+            display: block;
+            float:right;
+            position:relative;
+            top:0px;
+            margin-right: 10px;
+            right: 0px;
+            cursor: pointer;
+            width:24px;
+            height:24px;
+            z-index:10;
+        }
+		ol.progtrckr {
+		    margin: 0;
+		    padding: 0;
+		    list-style-type none;
+		}
+		ol.progtrckr li {
+		    display: inline-block;
+		    text-align: center;
+		    line-height: 3em;
+		    margin-left: 0px;
+		    float: left;
+		}
+		ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+		ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+		ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+		ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+		ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+		ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+		ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+		ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+		ol.progtrckr li.progtrckr-done {
+		    color: black;
+		    border-bottom: 4px solid yellowgreen;
+		}
+		ol.progtrckr li.progtrckr-todo {
+		    color: silver; 
+		    border-bottom: 4px solid silver;
+		}
+		ol.progtrckr li.progtrckr-todo-current {
+		    background-color: #ddd;
+		    border-bottom: 4px solid skyblue;
+		}
+		ol.progtrckr li:after {
+		    content: "\00a0\00a0";
+		}
+		ol.progtrckr li:before {
+		    position: relative;
+		    bottom: -2.5em;
+		    float: left;
+		    left: 50%;
+		    line-height: 1em;
+		}
+		ol.progtrckr li.progtrckr-done:before {
+		    content: "\2713";
+		    color: white;
+		    background-color: yellowgreen;
+		    height: 1.2em;
+		    width: 1.2em;
+		    line-height: 1.2em;
+		    border: none;
+		    border-radius: 1.2em;
+		}
+		ol.progtrckr li.progtrckr-todo-current:before {
+		    content: "\25C9";
+		    color: skyblue;
+		    background-color: #ddd;
+		    font-size: 1.5em;
+		    bottom: -1.6em;
+		}
+		ol.progtrckr li.progtrckr-todo:before {
+		    content: "\039F";
+		    color: silver;
+		    background-color: #ddd;
+		    font-size: 1.5em;
+		    bottom: -1.6em;
+		}
+		table.json {
+			width: 100%;
+			border-spacing: 0px;
+		}
+		table.json th {
+			margin-bottom: 2px;
+			padding-bottom: 5px;
+			padding-left: 3px;
+			vertical-align: top;
+			border-spacing: 0px;
+			border-bottom: 1px double #000000;
+		}
+		table.json td {
+			margin-top: 0px;
+			padding-top: 3px;
+			padding-left: 3px;
+			vertical-align: top;
+			border-spacing: 2px;
+		}
+		table.json tr.odd {
+			margin: 0px;
+			padding: 0px;
+			vertical-align: top;
+			background: #e8edff;
+			border-spacing: 0px;
+		}
+		table.json tr.even {
+			margin: 0px;
+			padding: 0px;
+			vertical-align: top;
+			background: #e8ffff;
+			border-spacing: 0px;
+		}
+		table.json tr.header {
+			margin: 0px;
+			padding: 0px;
+			vertical-align: top;
+			background: #eee;
+			border-spacing: 0px;
+		}
+	</style>
+	<script>
+		$(function() {
+			currentStepNum = '{!$CurrentPage.parameters.currentStep}';
+			console.log('currentStepNum:'+currentStepNum);
+			// step 0 
+			$('#li-step1').removeClass('progtrckr-todo').addClass('progtrckr-todo-current');
+			$('#step2').hide();
+			$('#step3').hide();
+			nextStep(currentStepNum);
+		});
+		function nextStep(currentStepNum) {
+			console.log('**currentStepNum:'+currentStepNum);
+			if (currentStepNum == '1') {
+				// step 1 completed
+				$('#li-step1').removeClass().addClass('progtrckr-done');
+				// step 2 now active
+				$('#li-step2').removeClass().addClass('progtrckr-todo-current');
+				// step 3 waiting
+				$('#li-step3').removeClass().addClass('progtrckr-todo');
+				//
+				$('#step1').hide();
+				$('#step2').show();
+				$('#step3').hide();
+			} else if (currentStepNum == '2') {
+				// step 1 completed
+				$('#li-step1').removeClass().addClass('progtrckr-done');
+				// step 2 completed
+				$('#li-step2').removeClass().addClass('progtrckr-done');
+				// step now active
+				$('#li-step3').removeClass().addClass('progtrckr-todo-current');
+				//
+				$('#step1').hide();
+				$('#step2').hide();
+				$('#step3').show();
+			} 
+			//
+			return false;
+		}
+		//
+    	function postSaveDone() {
+    		//
+    		var msg = '{"action": "upLoadDone"';
+			msg += '}';
+			window.top.postMessage(msg, '*');
+    	}
+    	//
+    	function parseJsonToHtml(data) {
+    		var tbl_body = "";
+		    $.each(data, function() {
+		        var tbl_row = "";
+		        $.each(this, function(k , v) {
+		            tbl_row += "<td>"+v+"</td>";
+		        })
+		        tbl_body += "<tr>"+tbl_row+"</tr>";                 
+		    })
+		    $("#jString").html(tbl_body);
+		}
+	</script>
+	<img class="close-image" title="Close dialog" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'close.png')}" id="closedialog" onClick="postSaveDone();"/>
+	<br/>
+	<br/>
+	<ol class="progtrckr" data-progtrckr-steps="3">
+		<li id="li-step1" class="progtrckr-todo">Upload product definition</li>
+		<li id="li-step2" class="progtrckr-todo">Update product definition</li>
+		<li id="li-step3" class="progtrckr-todo">Finish</li>
+	 </ol>
+			 
+    <apex:form id="mainform">
+            <table cellspacing="8" border="0" id="containerTable">
+            	<tr>
+            		<td align="left">
+            			<p>
+				            Please enter the details of the new Screen definition you want to create
+				        </p>
+            		</td>
+            	</tr>
+                <tr>
+                    <td  style="vertical-align: top;">
+                    	<apex:outputPanel layout="none" rendered="{!IF(currentStep==0,true,false)}">
+	                        <fieldset style="width:700px;" id="step1">
+	                        	<legend>Upload product definition</legend>
+	                            <apex:outputPanel id="step1">
+	                                <table style="width:70%;">
+	                                    <tr>
+	                                        <td colspan="2" align="center">
+	                                            <apex:commandButton value="Load Product Definition" action="{!loadProductDefinition}"/>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                    	<td>
+	                                    		<apex:inputFile value="{!uploadedFileBody}" filename="{!uploadedFileName}"/>
+	                                    	</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td colspan="2" align="center">
+	                                            <apex:commandButton value="Load Product Definition" action="{!loadProductDefinition}"/>
+	                                        </td>
+	                                    </tr>
+	                                </table>
+	                            </apex:outputPanel>
+	                        </fieldset>
+                        </apex:outputPanel>
+                        <fieldset style="width:700px;" id="step2">
+                        	<legend>Product definition details</legend>
+                            <apex:outputPanel id="step2">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <apex:commandButton value="Update Product Definition" action="{!acceptJsonChanges}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td>
+                                    		<apex:dataTable value="{!attDefList}" var="att" rowClasses="odd,even" styleClass="json">
+                                    			<apex:column >
+                                    				<apex:facet name="header">Attribute Name</apex:facet>
+                                    				<apex:outputPanel layout="block" style="min-height:30px">
+                                    					<apex:outputText value="{!att.attribute.Name}" />
+                                    					<apex:outputPanel layout="none" rendered="{!IF(att.exists,true,false)}"><font style="color:red">**</font></apex:outputPanel>
+                                    					<apex:outputPanel layout="none" rendered="{!IF(att.exists,false,true)}"><font style="color:green">**</font></apex:outputPanel>
+                                    				</apex:outputPanel>
+                                    			</apex:column>
+                                    			<apex:column >
+                                    				<apex:facet name="header">Attribute Type</apex:facet>
+                                    				<apex:outputPanel layout="block" style="min-height:30px">
+                                    					<apex:outputText value="{!att.attribute.cscfga__Type__c}" />
+                                    				</apex:outputPanel>
+                                    			</apex:column>
+                                    			<apex:column >
+                                    				<apex:facet name="header">Select Options</apex:facet>
+                                    				<apex:dataTable value="{!att.attribute.cscfga__select_options__r}" var="sel" style="width:100%;" rendered="{!IF(att.attribute.cscfga__select_options__r.size>1,true,false)}">
+		                                    			<apex:column >
+		                                    				<apex:facet name="header">Label</apex:facet>
+		                                    				<apex:outputText value="{!sel.Name}"/>
+		                                    			</apex:column>
+		                                    			<apex:column >
+		                                    				<apex:facet name="header">Code</apex:facet>
+		                                    				<apex:outputText value="{!sel.cscfga__Value__c}"/>
+		                                    			</apex:column>
+		                                    			<apex:column >
+		                                    				<apex:facet name="header">Price</apex:facet>
+		                                    				<apex:outputText value="{!sel.cscfga__Price__c}"/>
+		                                    			</apex:column>
+		                        					</apex:dataTable>
+                                    			</apex:column>
+                                    			<apex:facet name="footer">
+                                    				<apex:outputPanel layout="none">
+                                    					<font style="color:red">**</font>Attributes in red already exist in the product definitioon and will be replaced<br/>
+                                    					<font style="color:green">**</font>Attributes in green are new and will be added to the product definitoon
+                                    				</apex:outputPanel>
+                                    			</apex:facet>
+                        					</apex:dataTable>
+                                    	</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <apex:commandButton value="Update Product Definition" action="{!acceptJsonChanges}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                        </fieldset>
+                        <fieldset style="width:700px;" id="step3">
+                        	<legend>Finish</legend>
+                            <apex:outputPanel id="step3">
+                                <table style="width:70%;">
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <input type="button"  value="Done" onClick="postSaveDone();" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td>
+                                    		Product definition uploaded. Click "Done" to return to the product definition studio.
+                                    	</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <input type="button"  value="Done" onClick="postSaveDone();" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+    </apex:form>
+</apex:page>

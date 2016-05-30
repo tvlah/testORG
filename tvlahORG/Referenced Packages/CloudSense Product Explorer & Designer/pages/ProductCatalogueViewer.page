@@ -1,0 +1,923 @@
+<apex:page controller="cspduia.ProductCatalogueViewerController" id="fullPage" showHeader="true" sidebar="true" standardStylesheets="true" >
+    <apex:form id="fullform">
+        <apex:includeScript value="{!$Resource.cspduia__jQuery}" />
+        <apex:includeScript value="{!$Resource.cspduia__JQueryUI}" />
+        <apex:includeScript value="{!$Resource.cspduia__OverlayJs}"/>
+        <apex:includeScript value="{!$Resource.cspduia__jQueryBlockUI}"/>
+            <apex:includeScript value="{!$Resource.cspduia__jQueryjGrowlJS}"/>
+        <apex:includeScript value="{!URLFOR($Resource.cspduia__jQueryTreeTable, 'jquery.treetable.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.cspduia__jQueryTreeTable, 'jquery.treetable.css')}" />
+        <apex:stylesheet value="{!$Resource.cspduia__OverlayCss}"/>
+        <apex:stylesheet value="{!$Resource.cspduia__jQueryjGrowlCSS}"/>
+        <style>
+            table.treetable {
+              border: 1px solid #888;
+              border-collapse: collapse;
+              font-size: 1.0em;
+              line-height: 1;
+              margin: .6em 0 1.8em 0;
+              width: 100%;
+            }
+            
+            table.treetable caption {
+              font-size: .9em;
+              font-weight: bold;
+              margin-bottom: .2em;
+            }
+            
+            table.treetable thead {
+              background: #aaa url({!URLFOR($Resource.jQueryTreeTable, 'bg-table-thead.png')}) repeat-x top left;
+              font-size: .9em;
+            }
+            
+            table.treetable thead tr th {
+              border: 1px solid #888;
+              font-weight: bold;
+              padding: .3em 1em .1em 1em;
+              text-align: left;
+            }
+            
+            table.treetable tbody tr td {
+              cursor: default;
+              padding: .3em 1em;
+            }
+            
+            table.treetable span {
+              background-position: center left;
+              background-repeat: no-repeat;
+              padding: .2em 0 .2em 1.5em;
+            }
+            
+            table.treetable span.product {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'product-16.png')});
+            }
+            
+            table.treetable span.category {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'product-category-16.png')});
+            }
+            
+            table.treetable span.calculation {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'calculation-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable span.checkbox {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'checkbox-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable span.date {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'date-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable span.lookup {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'lookup-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable span.radio-button {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'radio-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable span.related-product {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'related-product-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable span.select-list {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'select-list-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable span.text-display {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'text-display-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable span.user-input {
+              background-image: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'user-input-20.png')});
+              background-size:12px 12px;
+            }
+            
+            table.treetable tr.collapsed span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand.png')});
+            }
+            
+            table.treetable tr.expanded span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse.png')});
+            }
+            
+            table.treetable tr.branch {
+                background-color: #f9f9f9;
+            }
+            
+            table.treetable tr.selected {
+              background-color: #ddd;
+              color: #fff;
+            }
+            
+            table.treetable tr.collapsed.selected span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand-light.png')});
+            }
+            
+            table.treetable tr.expanded.selected span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse-light.png')});
+            }
+            
+            table.treetable tr.accept {
+              background-color: #a3bce4;
+              color: #fff
+            }
+            
+            table.treetable tr.collapsed.accept td span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand-light.png')});
+            }
+            
+            table.treetable tr.expanded.accept td span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse-light.png')});
+            }
+            
+            .type-indicator-image {
+                margin: 2px;
+                cursor: default;
+                width:10px;
+                height:10px;
+                z-index:10;
+            }
+            
+            table.options {
+                display:inline-block;
+                border-spacing:0;
+                border-collapse:collapse;
+                border-bottom: 1px;
+                border-bottom-style: solid;
+                border-color: #000;
+            }
+            
+            table.options th {
+                border-bottom: 1px;
+                border-bottom-style: solid;
+                border-color: #000;
+                width: 200px;
+            }
+            
+            table.options td {
+                padding-left: 0px;
+            }
+            .state-indicator-image {
+                cursor: pointer;
+            }
+                                
+            #processing_container 
+            {
+                font:bold 10px verdana;
+                min-width: 1000px; /* Dialog will be no smaller than this */
+                max-width: 1000px; /* Dialog will wrap after this width */
+                height: 650px;
+                width: 1000px; 
+                background: #ddd;
+                border: solid 1px #00303f;
+                color: #00303f;
+            }
+            
+            #overlayIframe 
+            {
+                font:bold 10px verdana;
+                min-width: 980px; /* Dialog will be no smaller than this */
+                max-width: 9800px; /* Dialog will wrap after this width */
+                height: 620px; 
+                width: 980px;
+                background: #ddd;
+                border: solid 0px #00303f;
+                color: #00303f;
+                overflow: 
+            }
+            table.growl {margin: 0; padding: 0; width: 100%;}
+            table.growl tr td { color: #ffffff; margin: 3px 0px 0px 3px; padding: 2px 5px;}
+            table.growl tr td img { width: 20px; height: 20px; }
+        </style> 
+        <script>
+            var categoryId;
+            var productId; 
+            var catalogueLines;
+            var currentNode;
+            var showSlpashScreen = true;
+            //
+            $('document').ready(function () {   
+                // unblock when ajax activity stops 
+                $(document).ajaxStop($.unblockUI);
+                //
+                if (!window._csMsgListener) {
+                    window._csMsgListener = true;
+                    // set up a handler to receive messages from the Fees frame
+                    jQuery(window).bind('message', function (e) {
+                        var msg = jQuery.parseJSON(e.originalEvent.data);
+                        var action = msg.action;
+                        if (action == 'CategoryCreated') {
+                            categoryId = msg.categoryId;
+                            hideProgress();
+                            //
+                            blockScreenElement('html');
+                            //
+                            $("#productCatalogueTree").remove();
+                            getCatalogueLines();
+                            //
+                        } else if (action == 'ProductCreated') {
+                            productId = msg.productId;
+                            hideProgress();
+                            //
+                            blockScreenElement('html');
+                            //
+                            $("#productCatalogueTree").remove();
+                            getCatalogueLines();
+                        } else if (action == 'CloseWindow') {
+                            hideProgress();
+                        }   
+                    });
+                }
+                //
+                if (showSlpashScreen) {
+                    showSplashScreen('html');
+                    showSlpashScreen = false;
+                } else {
+                    blockScreenElement('html');
+                    showSlpashScreen = false;
+                }
+                getCatalogueLines();
+            });
+            //
+            function blockScreenElement(elementSelector) {
+                $(elementSelector).block({
+                    message: '<div style="width:300px;height:300px"></div>',
+                    css: {
+                        border: '0px solid #A4D48C',
+                        background: 'url("{!URLFOR($Resource.ProductDefinitionBuilderIcons, "ProgressWheel.gif")}") 50% 50% no-repeat',
+                        cursor: 'default'
+                    },
+                    overlayCSS: {
+                        backgroundColor: '#ccc',
+                        opacity: 0.6,
+                        cursor: 'default'
+                    },
+                });
+            } 
+            //
+            function showSplashScreen(elementSelector) {
+                $(elementSelector).block({
+                    message: '<div style="width:800px;height:600px;"></div>',
+                    css: {
+                        border: '0px solid #A4D48C',
+                        background: 'url("{!URLFOR($Resource.ProductDefinitionBuilderIcons, "CloudSense-logo-RGB.png")}") 50% 50% no-repeat',
+                        width: '50%',
+                        left: '404px',
+                        cursor: 'default'
+                    },
+                    overlayCSS: {
+                        backgroundColor: '#ccc',
+                        opacity: 0.6,
+                        cursor: 'default'
+                    },
+                });
+                
+            } 
+            //
+            function toggleStatusJs(statusType,Id,nodeType,image) {
+                blockScreenElement('#parentDiv');
+                console.log('statusType:'+statusType);
+                console.log('nodeType:'+nodeType);
+                console.log('Id:'+Id);
+                console.log('Image:'+$(image).attr('src'));
+                if (statusType == 'Active' && nodeType == 'category') {
+                    toggleStatus('category','active',Id,image);
+                } else if (statusType == 'Active' && nodeType == 'product') {
+                    toggleStatus('product','active',Id,image);
+                } else if (statusType == 'Browseable' && nodeType == 'category') {
+                    toggleStatus('category','browseable',Id,image);
+                } else if (statusType == 'Shared Context' && nodeType == 'product') {
+                    toggleStatus('product','shared context',Id,image);
+                }
+            } 
+            //
+            function toggleStatus(objectName,flag,Id,image) {
+                console.log(objectName+' Id: '+Id);
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ProductCatalogueViewerController.toggleFlagStatus}',
+                    objectName,
+                    flag,
+                    Id,
+                    $(image).attr('Id'),
+                    handleToggleStatusResponse,
+                    {escape: false}
+                );
+            }
+            //
+            function handleToggleStatusResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    var imageId = result;
+                    var imageSrc = $('#'+imageId).attr('src');
+                    console.log('ImageSrc:'+imageSrc);
+                    if (imageSrc.match('/active-16.png$')) {
+                        console.log('1: '+imageSrc);
+                        $('#'+imageId).attr('src',
+                            "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'inactive-16.png')}"
+                        );
+                    } else {
+                        console.log('2: '+imageSrc);
+                        $('#'+imageId).attr('src',
+                            "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'active-16.png')}"
+                        );
+                    }
+                    //
+                    $('#parentDiv').unblock();
+                }
+            } 
+            //
+            function getCatalogueLines() {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ProductCatalogueViewerController.loadStructure}',
+                    handleGetCatalogueLinesResponse,
+                    {escape: false}
+                );
+            }
+            //
+            function handleGetCatalogueLinesResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    catalogueLines = result;
+                    //
+                    //console.log('**result: '+result);
+                    var table = ''+
+                            '<table id="productCatalogueTree" class="treetable">'+
+                            '   <thead>'+
+                            '       <tr>'+
+                            '           <th>Actions</th>'+
+                            '           <th>Name</th>'+
+                            '           <th class="description-header" onClick="toggleDescriptionColumn();">Description/Label (click to hide)</th>'+
+                            '           <th>Attribute Type</th>'+
+                            '           <th>Associated Shared Context</th>'+
+                            '           <th>Is Active</th>'+
+                            '           <th>Is Browseable</th>'+
+                            '           <th>Is Shared Context</th>'+
+                            '       </tr>'+
+                            '   </thead>'+
+                            '   <tbody id="productCatalogueTreeBody">'+
+                            '       <tr id="Root" data-tt-id="Root"><td></td><td><span class="category">&nbsp;&nbsp;Product Catalogue</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'+
+                            '       '+
+                            '   </tbody>'+
+                            '</table>';
+                    $('#productCatalogueTreeDiv').append(table);
+                    //
+                    //var LoadedOneAttributeForProduct = {};
+                    //
+                    for(var i = 0; i < catalogueLines.length; i++) {
+                        var line = catalogueLines[i];
+                        //console.log('**line '+i+': '+line.lineName);
+                        var nodeType = '';
+                        var row;
+                        var activeImage;
+                        var browseableImage;
+                        var sharedContextImage;
+                        var title;
+                        if (line.isProduct) {
+                            nodeType = 'product';
+                            //LoadedOneAttributeForProduct[line.Id] = false;
+                        }
+                        if (line.isCategory) nodeType = 'category';
+                        if (line.isAttribute) nodeType = line.attributeTypeClass;
+                        //
+                        if (!line.isSelectOption && !line.isAvailableProduct) {
+                            //if ((line.isAttribute && !LoadedOneAttributeForProduct[line.parentId]) || line.isCategory || line.isProduct) {
+                                row = '<tr id="'+line.lineId+'" data-tt-id="'+line.lineId+'"';
+                                //if (line.parentId != undefined) row += ' data-tt-parent-id="'+line.parentId+'"';
+                                row += ' data-tt-parent-id="'+(line.parentId != undefined ? line.parentId : 'Root')+'"';
+                                if (line.isCategory) row += ' class="isCategory"';
+                                if (line.isProduct) row += ' class="isProduct"';
+                                row += '>';
+                                //
+                                if (line.isCategory) {
+                                    row += '<td style="width:30px;">'+
+                                        '<img title="Edit Category" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'edit-settings-12.png')}" style="width:10px;height:10px;cursor:pointer;margin-right:10px;" onClick="editCategoryLayer(\''+line.lineId+'\')"/>'+
+                                        '<img title="Delete Category" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'delete-12.png')}" style="width:10px;height:10px;cursor:pointer" onClick="deleteCategoryJS(\''+line.lineId+'\',\''+line.lineName+'\')"/>'+
+                                        '</td>';
+                                    row += '<td><span class="'+nodeType+'">&nbsp;&nbsp;'+line.lineName+'</span></td>';
+                                    row += '<td class="description"><span style="padding: 0em;">'+(line.lineDescription == undefined ? '' : line.lineDescription)+'</span></td>';
+                                    row += '<td style="width:90px;"></td>';
+                                    row += '<td style="width:100px;"></td>';
+                                    //
+                                    if (line.lineIsActive) {
+                                        activeImage = "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'active-16.png')}";
+                                        title = 'Currently active';
+                                    } else {
+                                        activeImage = "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'inactive-16.png')}";
+                                        title = 'Currently inactive';
+                                    }
+                                    row += '<td style="width:50px;"><img id="category-state-indicator-image-'+line.lineId+'" class="state-indicator-image" title="Toggle switch ('+title+')" src="'+activeImage+'" onClick="toggleStatusJs(\'Active\',\''+line.lineId+'\',\''+nodeType+'\',this);"/></td>';
+                                    //
+                                    if (line.lineIsBrowseable) {
+                                        browseableImage = "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'active-16.png')}";
+                                        title = 'Currently browseable';
+                                    } else {
+                                        browseableImage = "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'inactive-16.png')}";
+                                        title = 'Currently not browseable';
+                                    }
+                                    row += '<td style="width:50px;"><img id="browseable-state-indicator-image-'+line.lineId+'" class="state-indicator-image" title="Toggle switch ('+title+')" src="'+browseableImage+'" onClick="toggleStatusJs(\'Browseable\',\''+line.lineId+'\',\''+nodeType+'\',this);"/></td>';
+                                    row += '<td style="width:50px;"></td>';
+                                } else if (line.isProduct) {
+                                    row += '<td style="width:30px;">'+
+                                        '<img title="Edit Product Definition" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'edit-settings-12.png')}" style="width:10px;height:10px;cursor:pointer;margin-right:10px;" onClick="editProductLayer(\''+line.lineId+'\')"/>'+
+                                        '<img title="Delete Product Definition" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'delete-12.png')}" style="width:10px;height:10px;cursor:pointer" onClick="deleteProductJS(\''+line.lineId+'\',\''+line.lineName+'\')"/>'+
+                                        '</td>';
+                                    row += '<td><span class="'+nodeType+'">&nbsp;&nbsp;<a href="/apex/ProductDesigner?id='+line.lineId+'">'+line.lineName+'</a></span></td>';
+                                    row += '<td class="description"><span style="padding: 0em;">'+(line.lineDescription == undefined ? '' : line.lineDescription)+'</span></td>';
+                                    row += '<td style="width:90px;"></td>';
+                                    if (line.lineSharedContextId != undefined) { 
+                                        row += '<td style="width:100px;"><a href="/apex/ProductDesigner?id='+line.lineSharedContextId+'">'+line.lineSharedContextName+'</a></td>';
+                                    } else {
+                                        row += '<td style="width:100px;"></td>';
+                                    }
+                                    //
+                                    if (line.lineIsActive) {
+                                        activeImage = "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'active-16.png')}";
+                                        title = 'Currently active';
+                                    } else {
+                                        activeImage = "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'inactive-16.png')}";
+                                        title = 'Currently inactive';
+                                    }
+                                    row += '<td style="width:50px;"><img id="product-state-indicator-image-'+line.lineId+'" class="state-indicator-image" title="Toggle switch ('+title+')" src="'+activeImage+'" onClick="toggleStatusJs(\'Active\',\''+line.lineId+'\',\''+nodeType+'\',this);"/></td>';
+                                    //
+                                    row += '<td style="width:50px;"></td>';
+                                    //
+                                    if (line.lineIsSharedContext) {
+                                        sharedContextImage = "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'active-16.png')}";
+                                        title = 'Currently is a shared context';
+                                    } else {
+                                        sharedContextImage = "{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'inactive-16.png')}";
+                                        title = 'Currently not a shared context';
+                                    }
+                                    row += '<td style="width:50px;"><img id="shared-context-state-indicator-image-'+line.lineId+'" class="state-indicator-image" title="Toggle switch ('+title+')" src="'+sharedContextImage+'" onClick="toggleStatusJs(\'Shared Context\',\''+line.lineId+'\',\''+nodeType+'\',this);"/></td>';
+                                } else if (line.isAttribute) {
+                                    row += '<td style="width:30px;">'+
+                                        '<img title="Inspect Attribute" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'inspect-attribute-12.png')}" style="width:10px;height:10px;cursor:pointer;margin-right:10px;" onClick="inspectAttributeLayer(\''+line.lineId+'\')"/>'+
+                                        '</td>';
+                                    row += '<td><span class="'+nodeType+'">&nbsp;&nbsp;'+line.lineName+'</span></td>';
+                                    row += '<td class="description"><span style="padding: 0em;">'+(line.lineDescription == undefined ? '' : line.lineDescription)+'</span></td>';
+                                    row += '<td style="width:90px;">'+line.attributeType+'</td>';
+                                    row += '<td style="width:100px;"></td>';
+                                    row += '<td style="width:50px;"></td>';
+                                    row += '<td style="width:50px;"></td>';
+                                    row += '<td style="width:50px;"></td>';
+                                    //
+                                    // We only one to load one attribute for now, just to force the tree structure to be initialised
+                                    // The rest will be loaded laded on demand via remote action
+                                    //LoadedOneAttributeForProduct[line.parentId] = true;
+                                }
+                                row += '</tr>';
+                                //
+                                $('#productCatalogueTreeBody').append(row);
+                            //}
+                        }
+                        // --- start removed code ------------------------------------------------------------------------------
+                        // Removed this so that we can dynamically retrive the attributes and their children using remote action
+                        /** else if (line.isSelectOption && line.selectOptionList != undefined) {
+                            row = '<tr data-tt-id="'+line.lineId;
+                            if (line.parentId != undefined) row += '" data-tt-parent-id="'+line.parentId;
+                            row += '">';
+                            row += '<td style="width:30px;"></td>';
+                            row += '<td colspan="7">'; 
+                            row += '<table class="options">';
+                            row += '<tr><th>Label</th><th>Value</th><th>Price</th></tr>';
+                            for(var j = 0; j < line.selectOptionList.length; j++) {
+                                var opt = line.selectOptionList[j];
+                                row += '<tr>';
+                                row += '<td>'+(opt.Name == undefined ? '' : opt.Name)+'</td>';
+                                row += '<td>'+(opt.cscfga__Value__c == undefined ? '' : opt.cscfga__Value__c)+'</td>';
+                                row += '<td>'+(opt.cscfga__Price__c == undefined ? '' : opt.cscfga__Price__c)+'</td>';
+                                row += '</tr>';
+                            }
+                            row += '</table>';
+                            row += '</td>';
+                            row += '</tr>';
+                        } else if (line.isAvailableProduct && line.availableProductOptionList != undefined) {
+                            row = '<tr data-tt-id="'+line.lineId;
+                            if (line.parentId != undefined) row += '" data-tt-parent-id="'+line.parentId;
+                            row += '">';
+                            row += '<td style="width:30px;"></td>';
+                            row += '<td colspan="7">';
+                            row += '<table class="options">';
+                            row += '<tr><th>Name</th><th>Available Product Definition</th><th>Available Category</th><th>Actions</th></tr>';
+                            for(var j = 0; j < line.availableProductOptionList.length; j++) {
+                                var opt = line.availableProductOptionList[j];
+                                row += '<tr>';
+                                row += '<td>opt.Name</td>';
+                                row += '<td><a href="/apex/ProductDesigner?id='+opt.cscfga__Product_Definition__c+'">'+(opt.cscfga__Product_Definition__r == undefined ? '' : opt.cscfga__Product_Definition__r.Name)+'</a></td>';
+                                row += '<td>'+(opt.cscfga__Product_Category__r == undefined ? '' : opt.cscfga__Product_Category__r.Name)+'</td>';
+                                row += '<td><img title="Open product node" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'eye-open.png')}" style="width:14px;height:14px;cursor:pointer" onClick="$(\'#productCatalogueTree\').treetable(\'reveal\',\''+opt.cscfga__Product_Definition__c+'\');"/></td>';
+                                row += '</tr>';
+                            }
+                            row += '</table>';
+                            row += '</td>';
+                            row += '</tr>';
+                        }**/
+                        // --- end removed code --------------------------------------------------------------------------------
+                        //
+                    }
+                    // console.log('LoadedOneAttributeForProduct: '+JSON.stringify(LoadedOneAttributeForProduct));
+                    //
+                    $("#productCatalogueTree").treetable({ expandable: true, column: 1,
+                                                           onNodeCollapse: function() {
+                                                                var node = this;
+                                                                if ($('#'+node.id).hasClass('isProduct')) {
+                                                                    $("#productCatalogueTree").treetable("unloadBranch", node);
+                                                                }
+                                                           },
+                                                           onNodeExpand: function() {
+                                                                var node = this;
+                                                                currentNode = node;
+                                                                // console.log('currentNode.id: '+currentNode.id);
+                                                                if ($('#'+node.id).hasClass('isProduct')) {
+                                                                    $("#productCatalogueTree").treetable("unloadBranch", node);
+                                                                    //
+                                                                    //console.log('Node Id: '+ node.id);
+                                                                    getProductAttributeLines(node.id);
+                                                                }
+                                                           }, 
+                                                           onNodeInitialized: function() {
+                                                                // Do nothing for now
+                                                           }
+                                                          });
+                    //
+                    // ------------------------------------------------------------
+                    // Highlight selected row
+                    $("#productCatalogueTree tbody").on("mousedown", "tr", function () {
+                        $(".selected").not(this).removeClass("selected");
+                        $(this).toggleClass("selected");
+                    });
+                    
+                    // Drag & Drop 
+                    $("#productCatalogueTree .product, #productCatalogueTree .category").draggable({
+                        helper: "clone",
+                        opacity: .75,
+                        refreshPositions: true,
+                        revert: "invalid",
+                        revertDuration: 300,
+                        scroll: true
+                    });
+                    
+                    $("#productCatalogueTree .category").each(function () {
+                        $(this).parents("tr").droppable({
+                            accept: ".product, .category",
+                            drop: function (e, ui) {
+                                var droppedEl = ui.draggable.parents("tr");
+                                console.log('move droppedEl.data("ttId"):'+droppedEl.data("ttId")+' to $(this).data("ttId")'+$(this).data("ttId"));
+                                $('tr[data-tt-id="'+droppedEl.data("ttId")+'"]').attr('data-tt-parent-id',$(this).data("ttId"));
+                                if ($(this).data("ttId") != undefined) {
+                                    $("#productCatalogueTree").treetable("move", droppedEl.data("ttId"),
+                                        $(this).data("ttId"));
+                                } else {
+                                    $("#productCatalogueTree").treetable("move", droppedEl.data("ttId"),
+                                        'Root');
+                                }
+                            },
+                            hoverClass: "accept",
+                            over: function (e, ui) {
+                                var droppedEl = ui.draggable.parents("tr");
+                                //console.log('**droppedEl:'+droppedEl);
+                                if (this != droppedEl[0] && !$(this).is(".expanded")) {
+                                    if ($(this).data("ttId") != undefined)
+                                        $("#productCatalogueTree").treetable("expandNode", $(this).data(
+                                            "ttId"));
+                                }
+                            }
+                        });
+                    });
+                    //
+                    if (categoryId != undefined) $('#productCatalogueTree').treetable('reveal',categoryId);
+                    if (productId != undefined) $('#productCatalogueTree').treetable('reveal',productId);
+                    //
+                    //
+                    toggleDescriptionColumn();
+                    //
+                    $('html').unblock();
+                    //
+                    /****
+                    $.each(catalogueLines, function(key,valueObj) {
+                        //console.log(key+'-'+valueObj);
+                        $.each(valueObj, function(key2,vObj) {
+                            console.log(key2+'-'+vObj);
+                        });
+                    });
+                    ****/
+                }
+            } 
+            //
+            function getProductAttributeLines(productId) {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ProductCatalogueViewerController.getProductAttributes}',
+                    productId,
+                    handleGetProductAttributeLinesResponse,
+                    {escape: false}
+                );
+            }
+            
+            function handleGetProductAttributeLinesResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    catalogueLines = result;
+                    var productId = '';
+                    var row = '';
+                    var parentIdToCollapse = {};
+                    //
+                    for(var i = 0; i < catalogueLines.length; i++) {
+                        var line = catalogueLines[i];
+                        //console.log('**line '+i+': '+line.lineName);
+                        var nodeType = '';
+                        var activeImage;
+                        var browseableImage;
+                        var sharedContextImage;
+                        var title;
+                        productId = line.parentId;
+                        if (line.isAttribute) nodeType = line.attributeTypeClass;
+                        //
+                        if (!line.isSelectOption && !line.isAvailableProduct) {
+                            row += '<tr id="'+line.lineId+'" data-tt-id="'+line.lineId+'"';
+                            //if (line.parentId != undefined) row += ' data-tt-parent-id="'+line.parentId+'"';
+                            row += ' data-tt-parent-id="'+(line.parentId != undefined ? line.parentId : 'Root')+'"';
+                            if (line.isCategory) row += ' class="isCategory"';
+                            if (line.isProduct) row += ' class="isProduct"';
+                            if (line.isAttribute) row += ' class="isAttribute"';
+                            row += '>';
+                            //
+                            if (line.isAttribute) {
+                                row += '<td style="width:30px;">'+
+                                    '<img title="Inspect Attribute" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'inspect-attribute-12.png')}" style="width:10px;height:10px;cursor:pointer;margin-right:10px;" onClick="inspectAttributeLayer(\''+line.lineId+'\')"/>'+
+                                    '</td>';
+                                row += '<td><span class="'+nodeType+'">&nbsp;&nbsp;'+line.lineName+'</span></td>';
+                                row += '<td class="description"><span style="padding: 0em;">'+(line.lineDescription == undefined ? '' : line.lineDescription)+'</span></td>';
+                                row += '<td style="width:90px;">'+line.attributeType+'</td>';
+                                row += '<td style="width:100px;"></td>';
+                                row += '<td style="width:50px;"></td>';
+                                row += '<td style="width:50px;"></td>';
+                                row += '<td style="width:50px;"></td>';
+                                //
+                            }
+                            row += '</tr>';
+                            //
+                        } else if (line.isSelectOption && line.selectOptionList != undefined) {
+                            //console.log('currentAttributeNode.id:'+currentAttributeNode.id);
+                            row += '<tr data-tt-id="'+line.lineId;
+                            if (line.parentId != undefined) row += '" data-tt-parent-id="'+line.parentId;
+                            row += '">';
+                            row += '<td style="width:30px;"></td>';
+                            row += '<td colspan="7">'; 
+                            row += '<table class="options">';
+                            row += '<tr><th>Label</th><th>Value</th><th>Price</th></tr>';
+                            for(var j = 0; j < line.selectOptionList.length; j++) {
+                                var opt = line.selectOptionList[j];
+                                row += '<tr>';
+                                row += '<td>'+(opt.Name == undefined ? '' : opt.Name)+'</td>';
+                                row += '<td>'+(opt.cscfga__Value__c == undefined ? '' : opt.cscfga__Value__c)+'</td>';
+                                row += '<td>'+(opt.cscfga__Price__c == undefined ? '' : opt.cscfga__Price__c)+'</td>';
+                                row += '</tr>';
+                            }
+                            row += '</table>';
+                            row += '</td>';
+                            row += '</tr>';
+                            // Add Parent Id to list of rows to be collapsed
+                            parentIdToCollapse[line.parentId] = true;
+                        } else if (line.isAvailableProduct && line.availableProductOptionList != undefined) {
+                            row += '<tr data-tt-id="'+line.lineId;
+                            if (line.parentId != undefined) row += '" data-tt-parent-id="'+line.parentId;
+                            row += '">';
+                            row += '<td style="width:30px;"></td>';
+                            row += '<td colspan="7">';
+                            row += '<table class="options">';
+                            row += '<tr><th>Name</th><th>Available Product Definition</th><th>Available Category</th><th>Actions</th></tr>';
+                            for(var j = 0; j < line.availableProductOptionList.length; j++) {
+                                var opt = line.availableProductOptionList[j];
+                                row += '<tr>';
+                                row += '<td>opt.Name</td>';
+                                row += '<td><a href="/apex/ProductDesigner?id='+opt.cscfga__Product_Definition__c+'">'+(opt.cscfga__Product_Definition__r == undefined ? '' : opt.cscfga__Product_Definition__r.Name)+'</a></td>';
+                                row += '<td>'+(opt.cscfga__Product_Category__r == undefined ? '' : opt.cscfga__Product_Category__r.Name)+'</td>';
+                                row += '<td><img title="Open product node" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'eye-open.png')}" style="width:14px;height:14px;cursor:pointer" onClick="$(\'#productCatalogueTree\').treetable(\'reveal\',\''+opt.cscfga__Product_Definition__c+'\');"/></td>';
+                                row += '</tr>';
+                            }
+                            row += '</table>';
+                            row += '</td>';
+                            row += '</tr>';
+                            // Add Parent Id to list of rows to be collapsed
+                            parentIdToCollapse[line.parentId] = true;
+                        }
+                        //
+                    }
+                    // console.log('Attribute Rows being added: '+row);
+                    $("#productCatalogueTree").treetable("loadBranch", currentNode, row);
+                    //
+                    // Make sure added attributes are initialised in collapsed mode
+                    $.each(parentIdToCollapse, function(key,valueObj) {
+                        $("#productCatalogueTree").treetable("expandNode", key);
+                        $("#productCatalogueTree").treetable("collapseNode", key);
+                    });
+                    /****/
+                }
+            }
+            //
+            function toggleDescriptionColumn() {
+                if ($('.description-header').html() == 'Description/Label (click to hide)') {
+                    $('.description > span').hide();
+                    $('.description-header').html('Description/Label (click to show)');
+                } else {
+                    $('.description > span').show();
+                    $('.description').css('width','200px');
+                    $('.description-header').html('Description/Label (click to hide)');
+                }
+            }
+            //
+            function addProductLayer() {
+                var iFrame =
+                    '<iframe id="overlayIframe" src="/apex/AddProduct"></iframe>';
+                showProgress(iFrame, '');
+                $("#processing_overlay").click(function () {
+                    hideProgress();
+                });
+            }
+            //
+            function editProductLayer(id) {
+                var iFrame =
+                    '<iframe id="overlayIframe" src="/apex/AddProduct?id='+id+'"></iframe>';
+                showProgress(iFrame, '');
+                $("#processing_overlay").click(function () {
+                    hideProgress();
+                });
+            }
+            //
+            function addCategoryLayer() {
+                var iFrame =
+                    '<iframe id="overlayIframe" src="/apex/AddCategory"></iframe>';
+                showProgress(iFrame, '');
+                $("#processing_overlay").click(function () {
+                    hideProgress();
+                });
+            }
+            //
+            function editCategoryLayer(id) {
+                var iFrame =
+                    '<iframe id="overlayIframe" src="/apex/AddCategory?id='+id+'"></iframe>';
+                showProgress(iFrame, '');
+                $("#processing_overlay").click(function () {
+                    hideProgress();
+                });
+            }
+            //
+            function inspectAttributeLayer(id) {
+                var iFrame =
+                    '<iframe id="overlayIframe" scrolling="no" src="/apex/inspectAttribute?id='+id+'"></iframe>';
+                showProgress(iFrame, '');
+                $("#processing_overlay").click(function () {
+                    hideProgress();
+                });
+            }
+            //
+            function deleteCategoryJS(id,name) {
+                var checkstr = confirm('Are you sure you want to delete category "' +name+
+                        '"?\n\nNote: All sub-categories and products contained within this category will not be deleted. They will be moved to the root of the product catalogue.'
+                    );
+                if (checkstr == true) {
+                    blockScreenElement('#parentDiv');
+                    //
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.ProductCatalogueViewerController.deleteCategory}',
+                        id,
+                        handledeleteCategoryResponse,
+                        {escape: false}
+                    );
+                } else {
+                    return false;
+                }
+            }
+            //
+            function handledeleteCategoryResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    $('#parentDiv').unblock();
+                    growlNow('Category deleted successfully');
+                    window.location = '/apex/ProductCatalogueViewer';
+                }
+            }
+            //
+            function deleteProductJS(id,name) {
+                var checkstr = confirm('Are you sure you want to delete product definition "' +name+
+                        '"?\n\nNote: All attributes contained within this category will also be deleted. '
+                    );
+                if (checkstr == true) {
+                    blockScreenElement('#parentDiv');
+                    //
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.ProductCatalogueViewerController.deleteProduct}',
+                        id,
+                        handledeleteProductResponse,
+                        {escape: false}
+                    );
+                } else {
+                    return false;
+                }
+            }
+            //
+            function handledeleteProductResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    $('#parentDiv').unblock();
+                    growlNow('Product deleted successfully');
+                    window.location = '/apex/ProductCatalogueViewer';
+                }
+            }
+            //
+            function saveCatalogueHierarchy() {
+                //
+                blockScreenElement('#productCatalogueTree');
+                //
+                var categoryString = '';
+                var productString = '';
+                var i = 0;
+                $('.isCategory').each(function () {
+                    var category = $(this).attr('data-tt-id');
+                    var parentCategory = $(this).attr('data-tt-parent-id');
+                    //
+                    categoryString += category+'-'+parentCategory;
+                    if (i < $('.isCategory').length) {
+                        categoryString += ':';
+                    }
+                    i++;
+                });
+                console.log('Category String: '+categoryString);
+                //
+                var j = 0;
+                $('.isProduct').each(function () {
+                    var product = $(this).attr('data-tt-id');
+                    var parentProduct = $(this).attr('data-tt-parent-id');
+                    //
+                    productString += product+'-'+parentProduct;
+                    if (j < $('.isProduct').length) {
+                        productString += ':';
+                    }
+                    j++;
+                });
+                console.log('Product String: '+productString);
+                //
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ProductCatalogueViewerController.saveCatalogueHierarchy}',
+                    categoryString,
+                    productString,
+                    handleSaveCatalogueHierarchyResponse,
+                    {escape: false}
+                );
+            }
+            //
+            function handleSaveCatalogueHierarchyResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    $('#productCatalogueTree').unblock();
+                    growlNow('Catalogue hierarchy saved successfully');
+                }
+            }
+            //
+            function growlNow(message) {
+                $.jGrowl('<table class="growl"><tr><td><img src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, "Info.png")}"></td><td>'+message+'</td></tr></table>');
+            }
+        </script>  
+        
+        <div id="parentDiv" style="min-height: 500px;">
+            <div style="display:inline-block;width:100%;">
+                <div style="display:inline-block; margin-top:15px;">
+                    <!-- <a href="#" style="color:#aaa; float:left;" onclick="jQuery('#productCatalogueTree').treetable('expandAll'); return false;">Expand all</a> -->
+                    <a href="#" style="color:#aaa; float:left; margin-left:5px;" onclick="jQuery('#productCatalogueTree').treetable('collapseAll'); return false;">Collapse all</a>
+                </div>
+                <div style="float: right;display:inline-block;">
+                  <img style="margin-top:7px; margin-left: 1.5em; margin-bottom: 3px; width:20px; height:20px; cursor:pointer; float:right;" title="Save Product Catalogue Sequencing" onClick="saveCatalogueHierarchy();" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'save-20.png')}" />
+                  <img style="margin-top:7px; margin-left: 1.5em; margin-bottom: 3px; width:20px; height:20px; cursor:pointer; float:right;" title="Add category" onClick="addCategoryLayer();" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'add-product-category-20.png')}" />
+                  <img style="margin-top:7px; margin-left: 0px; margin-bottom: 3px; width:20px; height:20px; cursor:pointer; float:right;" title="Add product" onClick="addProductLayer();" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'add-product-20.png')}"/>
+                </div>
+            </div>
+            <div id="productCatalogueTreeDiv">
+            </div>
+        </div>
+        <!--
+        <apex:actionFunction action="{!deleteCategory}" name="deleteCategory">
+           <apex:param assignTo="{!categoryIdToDelete}" name="categoryIdToDelete" value=""/>
+        </apex:actionFunction>
+        
+        <apex:actionFunction action="{!deleteProduct}" name="deleteProduct">
+           <apex:param assignTo="{!productIdToDelete}" name="productIdToDelete" value=""/>
+        </apex:actionFunction>
+        -->
+    </apex:form>
+
+</apex:page>

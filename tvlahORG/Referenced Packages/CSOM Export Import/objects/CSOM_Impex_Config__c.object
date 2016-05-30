@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Log_sink_impl__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of apex class in org that implements the Log.Sink interface to route log messages to appropriate destination</description>
+        <externalId>false</externalId>
+        <label>Log sink impl</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Serialize_pretty__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Tick this checkbox to make the output json file easier for a human to read. The file will be slightly larger.</description>
+        <externalId>false</externalId>
+        <label>Serialize pretty</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>cpu_time_threshold__c</fullName>
+        <defaultValue>95</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Percentage of CPU time which, when used up, the remaining work should be postponed to the next execution context.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of CPU time which, when used up, the remaining work should be postponed to the next execution context.</inlineHelpText>
+        <label>CPU Time Threshold</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>cscfga_cpu_time_threshold__c</fullName>
+        <defaultValue>95</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Configurator CPU Time Threshold</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>cscfga_soql_queries_threshold__c</fullName>
+        <defaultValue>80</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Configurator SOQL Queries Threshold</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>soql_queries_threshold__c</fullName>
+        <defaultValue>90</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>SOQL Queries Threshold</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <label>CSOM export/import configuration</label>
+    <visibility>Public</visibility>
+</CustomObject>

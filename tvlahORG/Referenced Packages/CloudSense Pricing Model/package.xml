@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CloudSense Pricing Model</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <namespacePrefix>cspmb</namespacePrefix>
+    <types>
+        <members>Account.Discount_Level__c</members>
+        <members>Add_On_Price_Item__c.Account__c</members>
+        <members>Add_On_Price_Item__c.Add_On_Price_Item_Code__c</members>
+        <members>Add_On_Price_Item__c.Add_On_Price_Item_Description__c</members>
+        <members>Add_On_Price_Item__c.Apply_One_Off_Charge_Account_Discount__c</members>
+        <members>Add_On_Price_Item__c.Apply_Recurring_Charge_Account_Discount__c</members>
+        <members>Add_On_Price_Item__c.Authorization_Level__c</members>
+        <members>Add_On_Price_Item__c.Billing_Frequency__c</members>
+        <members>Add_On_Price_Item__c.Contract_Term__c</members>
+        <members>Add_On_Price_Item__c.Currency_Code__c</members>
+        <members>Add_On_Price_Item__c.Discount_Type__c</members>
+        <members>Add_On_Price_Item__c.Effective_End_Date__c</members>
+        <members>Add_On_Price_Item__c.Effective_Start_Date__c</members>
+        <members>Add_On_Price_Item__c.Is_Active__c</members>
+        <members>Add_On_Price_Item__c.Is_Authorization_Required__c</members>
+        <members>Add_On_Price_Item__c.Is_One_Off_Discount_Allowed__c</members>
+        <members>Add_On_Price_Item__c.Is_Recurring_Discount_Allowed__c</members>
+        <members>Add_On_Price_Item__c.One_Off_Charge_Code__c</members>
+        <members>Add_On_Price_Item__c.One_Off_Charge_External_Id__c</members>
+        <members>Add_On_Price_Item__c.One_Off_Charge__c</members>
+        <members>Add_On_Price_Item__c.One_Off_Cost__c</members>
+        <members>Add_On_Price_Item__c.Product_Definition_Name__c</members>
+        <members>Add_On_Price_Item__c.Recurring_Charge_Code__c</members>
+        <members>Add_On_Price_Item__c.Recurring_Charge_External_Id__c</members>
+        <members>Add_On_Price_Item__c.Recurring_Charge__c</members>
+        <members>Add_On_Price_Item__c.Recurring_Cost__c</members>
+        <members>Authorization_Level__c.Approval_Process_Name__c</members>
+        <members>Authorization_Level__c.Authorization_Level_Code__c</members>
+        <members>Discount_Level__c.Discount_Level_Code__c</members>
+        <members>Discount_Level__c.Discount_Type__c</members>
+        <members>Discount_Level__c.Discount__c</members>
+        <members>Discount_Threshold__c.Authorization_Level__c</members>
+        <members>Discount_Threshold__c.Discount_Threshold_Code__c</members>
+        <members>Discount_Threshold__c.Discount_Threshold__c</members>
+        <members>Discount_Threshold__c.Discount_Type__c</members>
+        <members>Feature__c.Feature_Description__c</members>
+        <members>Price_Item_Add_On_Price_Item_Association__c.Add_On_Price_Item__c</members>
+        <members>Price_Item_Add_On_Price_Item_Association__c.Price_Item__c</members>
+        <members>Price_Item_Feature_Association__c.Add_On_Price_Item__c</members>
+        <members>Price_Item_Feature_Association__c.Feature__c</members>
+        <members>Price_Item_Feature_Association__c.Price_Item__c</members>
+        <members>Price_Item_Group_Association__c.Group_Name__c</members>
+        <members>Price_Item_Group_Association__c.Primary_Price_Item__c</members>
+        <members>Price_Item_Group_Association__c.Secondary_Price_Item__c</members>
+        <members>Price_Item_Group_Association__c.Type__c</members>
+        <members>Price_Item_Rate_Card_Association__c.Price_Item__c</members>
+        <members>Price_Item_Rate_Card_Association__c.Rate_Card__c</members>
+        <members>Price_Item__c.Account__c</members>
+        <members>Price_Item__c.Apply_One_Off_Charge_Account_Discount__c</members>
+        <members>Price_Item__c.Apply_Recurring_Charge_Account_Discount__c</members>
+        <members>Price_Item__c.Authorization_Level__c</members>
+        <members>Price_Item__c.Billing_Frequency__c</members>
+        <members>Price_Item__c.Contract_Term__c</members>
+        <members>Price_Item__c.Currency_Code__c</members>
+        <members>Price_Item__c.Discount_Type__c</members>
+        <members>Price_Item__c.Effective_End_Date__c</members>
+        <members>Price_Item__c.Effective_Start_Date__c</members>
+        <members>Price_Item__c.Is_Active__c</members>
+        <members>Price_Item__c.Is_Authorization_Required__c</members>
+        <members>Price_Item__c.Is_One_Off_Discount_Allowed__c</members>
+        <members>Price_Item__c.Is_Recurring_Discount_Allowed__c</members>
+        <members>Price_Item__c.One_Off_Charge_Code__c</members>
+        <members>Price_Item__c.One_Off_Charge_External_Id__c</members>
+        <members>Price_Item__c.One_Off_Charge__c</members>
+        <members>Price_Item__c.One_Off_Cost__c</members>
+        <members>Price_Item__c.Price_Item_Code__c</members>
+        <members>Price_Item__c.Price_Item_Description__c</members>
+        <members>Price_Item__c.Product_Definition_Name__c</members>
+        <members>Price_Item__c.Recurring_Charge_Code__c</members>
+        <members>Price_Item__c.Recurring_Charge_External_Id__c</members>
+        <members>Price_Item__c.Recurring_Charge__c</members>
+        <members>Price_Item__c.Recurring_Cost__c</members>
+        <members>Rate_Card_Line__c.Cap_Unit__c</members>
+        <members>Rate_Card_Line__c.Cap__c</members>
+        <members>Rate_Card_Line__c.Currency_Code__c</members>
+        <members>Rate_Card_Line__c.Effective_End_Date__c</members>
+        <members>Rate_Card_Line__c.Effective_Start_Date__c</members>
+        <members>Rate_Card_Line__c.Is_Active__c</members>
+        <members>Rate_Card_Line__c.Off_Peak__c</members>
+        <members>Rate_Card_Line__c.Peak__c</members>
+        <members>Rate_Card_Line__c.Rate_Card_Line_Unit__c</members>
+        <members>Rate_Card_Line__c.Rate_Card__c</members>
+        <members>Rate_Card_Line__c.Setup__c</members>
+        <members>Rate_Card_Line__c.Weekend__c</members>
+        <members>Rate_Card__c.Account__c</members>
+        <members>Rate_Card__c.Authorization_Level__c</members>
+        <members>Rate_Card__c.Effective_End_Date__c</members>
+        <members>Rate_Card__c.Effective_Start_Date__c</members>
+        <members>Rate_Card__c.Is_Active__c</members>
+        <members>Rate_Card__c.Is_Authorization_Required__c</members>
+        <members>Rate_Card__c.Product_Definition_Name__c</members>
+        <members>Rate_Card__c.Rate_Card_Code__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Add_On_Price_Item__c</members>
+        <members>Authorization_Level__c</members>
+        <members>Discount_Level__c</members>
+        <members>Discount_Threshold__c</members>
+        <members>Feature__c</members>
+        <members>Price_Item_Add_On_Price_Item_Association__c</members>
+        <members>Price_Item_Feature_Association__c</members>
+        <members>Price_Item_Group_Association__c</members>
+        <members>Price_Item_Rate_Card_Association__c</members>
+        <members>Price_Item__c</members>
+        <members>Rate_Card_Line__c</members>
+        <members>Rate_Card__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Add_On_Price_Item__c-Add On Price Item Layout</members>
+        <members>Authorization_Level__c-Authorization Level Layout</members>
+        <members>Discount_Level__c-Discount Level Layout</members>
+        <members>Discount_Threshold__c-Discount Threshold Layout</members>
+        <members>Feature__c-Feature Layout</members>
+        <members>Price_Item_Add_On_Price_Item_Association__c-Price Item Add On Price Item Association Layout</members>
+        <members>Price_Item_Feature_Association__c-Price Item Feature Association Layout</members>
+        <members>Price_Item_Group_Association__c-Price Item Group Association Layout</members>
+        <members>Price_Item_Rate_Card_Association__c-Price Item Rate Card Association Layout</members>
+        <members>Price_Item__c-Price Item Layout</members>
+        <members>Rate_Card_Line__c-Rate Card Line Layout</members>
+        <members>Rate_Card__c-Rate Card Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Authorization_Level__c.All</members>
+        <members>Discount_Level__c.All</members>
+        <members>Feature__c.All</members>
+        <members>Price_Item__c.All</members>
+        <members>Rate_Card__c.All</members>
+        <name>ListView</name>
+    </types>
+    <version>36.0</version>
+</Package>

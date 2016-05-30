@@ -1,0 +1,58 @@
+<apex:page standardController="Account"  extensions="TrainingCtrl">
+<script>
+ //load category
+    function loadCategoryTree()
+    {
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.TrainingCtrl.fillCategories}',
+                expandedCats,
+                '{!accId}',
+                function(result, event)
+                {
+                    if(event.status)
+                    {
+                        
+                        //console.debug(result);
+                        buildTree(result);
+                    }
+                    else
+                    {
+                        setTreeException(event);
+                    }
+                },
+            {escape: true}
+            );
+    }
+
+
+
+</script>
+<apex:form >
+<apex:actionFunction Id="myFunction" name="myFunction" action="{!ourFirstAction}" rerender="testPanel" >
+<apex:param assignTo="{!accId2}" name="accId" id="accId" value=""/>
+</apex:actionFunction>
+<apex:commandButton id="cmdBtn" action="{!ourFirstAction}" rerender="testPanel" value="change text"/>
+<apex:commandButton id="cmdBtn2" action="{!saveCnt}" rerender="testPanel" value="Save"/>
+<apex:outputPanel id="testPanel">
+  Output: {!someText} <br /> {!accId2 }
+  <br /><br />
+  
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+<apex:repeat id="rpt" value="{!contList}" var="cont">
+<tr>
+<td>
+<apex:outputfield value="{!cont.Name}" />
+</td>
+<td>
+<apex:outputfield value="{!cont.Email}" />
+</td>
+<td>
+<apex:inputField value="{!cont.Birthdate}" />
+</td>
+</tr>
+</apex:repeat>
+</table>
+
+  </apex:outputPanel>
+  </apex:form>
+</apex:page>

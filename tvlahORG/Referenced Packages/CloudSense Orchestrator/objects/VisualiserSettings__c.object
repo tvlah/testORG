@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Edge_Color__c</fullName>
+        <defaultValue>&quot;#00B7FF&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines edge color, named or in hex format (e.g. &quot;#00B7FF&quot; which is also default color)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines edge color, named or in hex format (e.g. &quot;#00B7FF&quot; which is also default color)</inlineHelpText>
+        <label>Edge Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Edge_Completed_Color__c</fullName>
+        <defaultValue>&quot;black&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines color used for activated edges. Color can be named or in hex format.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines color used for activated edges. Color can be named or in hex format.</inlineHelpText>
+        <label>Edge Completed Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Edge_Font_Color__c</fullName>
+        <defaultValue>&quot;#000&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines color used for text labels on edges.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines color used for text labels on edges.</inlineHelpText>
+        <label>Edge Font Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Edge_Font_Family__c</fullName>
+        <defaultValue>&quot;arial,sans-serif&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines font family/families used for link label. Multiple values as fallback options can be provided as a comma separated list.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines font family/families used for link label. Multiple values as fallback options can be provided as a comma separated list.</inlineHelpText>
+        <label>Edge Font Family</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Edge_Font_Size__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines font size used for text labels on edges.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines font size used for text  labels on edges.</inlineHelpText>
+        <label>Edge Font Size</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Edge_Selected_Color__c</fullName>
+        <defaultValue>&quot;#FF4800&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This color will be used when the edge element is selected on the layout.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This color will be used when the edge element is selected on the layout.</inlineHelpText>
+        <label>Edge Selected Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Edge_Stroke_Width__c</fullName>
+        <defaultValue>2.5</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines pen size used for drawing links between nodes.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines pen size used for drawing links between nodes.</inlineHelpText>
+        <label>Edge Stroke Width</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Enable_Legacy_Visualiser__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This option is deprecated.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This option is deprecated.</inlineHelpText>
+        <label>Enable Legacy Visualiser</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Offset_X__c</fullName>
+        <defaultValue>10</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines initial drawing offset in horizontal direction.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines initial drawing offset in horizontal direction.</inlineHelpText>
+        <label>Initial Offset X</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initial_Offset_Y__c</fullName>
+        <defaultValue>10</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines initial drawing offset in vertical direction.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines initial drawing offset in vertical direction.</inlineHelpText>
+        <label>Initial Offset Y</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Color__c</fullName>
+        <defaultValue>&quot;#00B7FF&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines node color, named or in hex format (e.g. &quot;#00B7FF&quot; which is also default color)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines node color, named or in hex format (e.g. &quot;#00B7FF&quot; which is also default color)</inlineHelpText>
+        <label>Node Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Completed_Color__c</fullName>
+        <defaultValue>&quot;black&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines color used for nodes that are finished executing. Color can be named or in hex format.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines color used for nodes that are finished executing. Color can be named or in hex format.</inlineHelpText>
+        <label>Node Completed Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Distance_X__c</fullName>
+        <defaultValue>80</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines horizontal distance between nodes.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines horizontal distance between nodes.</inlineHelpText>
+        <label>Node Distance X</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Distance_Y__c</fullName>
+        <defaultValue>80</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines vertical distance between nodes.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines vertical distance between nodes.</inlineHelpText>
+        <label>Node Distance Y</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Fill_Color__c</fullName>
+        <defaultValue>&quot;#00B7FF&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines node filling color, named or in hex format (e.g. &quot;#00B7FF&quot; which is also default color)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines node filling color, named or in hex format (e.g. &quot;#00B7FF&quot; which is also default color)</inlineHelpText>
+        <label>Node Fill Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Fill_Opacity__c</fullName>
+        <defaultValue>0.2</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines node fill opacity in range [0.00-1.00]</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines node fill opacity in range [0.00-1.00]</inlineHelpText>
+        <label>Node Fill Opacity</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Font_Color__c</fullName>
+        <defaultValue>&quot;#000&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines color used for text shown inside node.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines color used for text shown inside node.</inlineHelpText>
+        <label>Node Font Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Font_Family__c</fullName>
+        <defaultValue>&quot;arial,sans-serif&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines font family/families used for text inside node. Multiple values as fallback options can be provided as a comma separated list.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines font family/families used for text inside node. Multiple values as fallback options can be provided as a comma separated list.</inlineHelpText>
+        <label>Node Font Family</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Font_Size__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines font size used for text inside node.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines font size used for text inside node.</inlineHelpText>
+        <label>Node Font Size</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Height__c</fullName>
+        <defaultValue>80</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines node height on canvas.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines node height on canvas.</inlineHelpText>
+        <label>Node Height</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_In_Progress_Color__c</fullName>
+        <defaultValue>&apos;green&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This color will be used when a step is in In Progress.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This color will be used when a step is in In Progress.</inlineHelpText>
+        <label>Node In Progress Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Jeopardy_Color__c</fullName>
+        <defaultValue>&quot;#FF4800&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This color will be used when a step is in jeopardy.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This color will be used when a step is in jeopardy.</inlineHelpText>
+        <label>Node Jeopardy Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Selected_Color__c</fullName>
+        <defaultValue>&quot;#FF4800&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This color will be used when a node element is selected on the layout.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This color will be used when a node element is selected on the layout.</inlineHelpText>
+        <label>Node Selected Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Stroke_Width__c</fullName>
+        <defaultValue>3</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines pen size used for drawing nodes.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines pen size used for drawing nodes.</inlineHelpText>
+        <label>Node Stroke Width</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Waiting_Color__c</fullName>
+        <defaultValue>&apos;purple&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This color will be used when a step is Waiting.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This color will be used when a step is in Waiting.</inlineHelpText>
+        <label>Node Waiting Color</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Width__c</fullName>
+        <defaultValue>200</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Defines node width on canvas.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines node width on canvas.</inlineHelpText>
+        <label>Node Width</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Visualiser Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

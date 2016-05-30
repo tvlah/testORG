@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>The central object in the process of setting up the whole solution. Lives only as long as is needed for the fulfillment process to finish.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The account that currently receives this order</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Orders</relationshipLabel>
+        <relationshipName>Orders</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Cease_Category__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. Main category to indicate why the service has been ceased</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DEPRECATED. Select the main category for the service cease</inlineHelpText>
+        <label>Cease Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Financial / Admin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-renewal - Preferred Supplier</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-renewal - Product Not Required</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-renewal - Service Issues</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Withdrawn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regrade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Cease_Reason_Comment__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. Free text reason for the cease order, supporting the selected category and reason code</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DEPRECATED. Enter a short comment about why the cease order has been raised</inlineHelpText>
+        <label>Cease Reason Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Cease_Reason__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. The main reason for ceasing the service</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DEPRECATED. Select the main reason for ceasing the service</inlineHelpText>
+        <label>Cease Reason</label>
+        <picklist>
+            <controllingField>Cease_Category__c</controllingField>
+            <picklistValues>
+                <fullName>Admin Error</fullName>
+                <controllingFieldValues>Non-renewal - Service Issues</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ceased Trading / Liquidation / Merged</fullName>
+                <controllingFieldValues>Financial / Admin</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consolidation to Major Supplier</fullName>
+                <controllingFieldValues>Non-renewal - Preferred Supplier</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Service - Lack of update</fullName>
+                <controllingFieldValues>Non-renewal - Service Issues</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Office Closed</fullName>
+                <controllingFieldValues>Non-renewal - Product Not Required</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Price</fullName>
+                <controllingFieldValues>Non-renewal - Preferred Supplier</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Price Renegotiation</fullName>
+                <controllingFieldValues>Financial / Admin</controllingFieldValues>
+                <controllingFieldValues>Regrade</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contract Amendment</fullName>
+                <controllingFieldValues>Financial / Admin</controllingFieldValues>
+                <controllingFieldValues>Regrade</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Withdrawn</fullName>
+                <controllingFieldValues>Product Withdrawn</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Services now In-House</fullName>
+                <controllingFieldValues>Non-renewal - Product Not Required</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Support - resolution took too long</fullName>
+                <controllingFieldValues>Non-renewal - Service Issues</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Write-off</fullName>
+                <controllingFieldValues>Financial / Admin</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Cease_Stage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. Defines the cease stages for orders</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DEPRECATED.</inlineHelpText>
+        <label>Cease Stage</label>
+        <picklist>
+            <controllingField>Status__c</controllingField>
+            <picklistValues>
+                <fullName>Customer Cancellation Request</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Cancellation Stopped</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Cancellation Confirmed</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Cancellation Authorised</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replacement Active</fullName>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Order_Number__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>A customer-facing order number to identify this Order</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A customer-facing order number to identify this Order</inlineHelpText>
+        <label>Customer Order Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Delivered_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Delivered Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Desired_Cease_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. The date the customer would like the service to be ceased</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DEPRECATED. Enter the date the customer would like the service to be ceased</inlineHelpText>
+        <label>Desired Cease Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The date the order ended</description>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>External_Identifier2__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</inlineHelpText>
+        <label>External Identifier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>External_Identifier__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>DEPRECATED. Use External Identifier2 field instead.</inlineHelpText>
+        <label>DEPRECATED External Identifier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Identification__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Identification string for the object, used as the reference from external systems.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>E.g. &quot;spokeServiceAmsterdam&quot; in Hub&amp;Spokes scenario.</inlineHelpText>
+        <label>Identification</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order_Group__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DEPRECATED.</inlineHelpText>
+        <label>Order Group</label>
+        <referenceTo>Order_Group__c</referenceTo>
+        <relationshipLabel>Orders</relationshipLabel>
+        <relationshipName>Orders</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Order_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <description>An auto number defining the Order.</description>
+        <displayFormat>ON{00000000}</displayFormat>
+        <externalId>true</externalId>
+        <inlineHelpText>An auto number defining the Order.</inlineHelpText>
+        <label>Order Number</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Order_Request__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The Order Request which introduced the latest changes to this Order.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Order Request which introduced the latest changes to this Order.</inlineHelpText>
+        <label>Order Request</label>
+        <referenceTo>Order_Request__c</referenceTo>
+        <relationshipLabel>Orders</relationshipLabel>
+        <relationshipName>Orders</relationshipName>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Order_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Type of the order</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Type of the order. The value should be one of: Subscription Creation, Subscription Change or Product Delivery</inlineHelpText>
+        <label>Order Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Order__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Used if the Order is introducing changes/additions to a solution created by a previous, primary Order.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used if the Order is introducing changes/additions to a solution created by a previous, primary Order.</inlineHelpText>
+        <label>Primary Order</label>
+        <referenceTo>Order__c</referenceTo>
+        <relationshipLabel>Secondary Orders</relationshipLabel>
+        <relationshipName>Secondary_Orders</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reference__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Reference</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Only in the context of Product Delivery order type. The asset / physical aspect being delivered could apply to child services but due to the modelling this may be unknown.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the service for which the Product Delivery order is attached to. Note that the related service might be the placeholder for child services that actually use the item that has been order.</inlineHelpText>
+        <label>Related Service</label>
+        <referenceTo>Service__c</referenceTo>
+        <relationshipLabel>Delivery Orders</relationshipLabel>
+        <relationshipName>Delivery_Orders</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Solution__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The parent Solution of this Order</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent Solution of this Order</inlineHelpText>
+        <label>Solution</label>
+        <referenceTo>Solution__c</referenceTo>
+        <relationshipLabel>Orders</relationshipLabel>
+        <relationshipName>Orders</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Start date of the order</description>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status2__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The status of the Order in the fulfillment process.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used for state transitions.</inlineHelpText>
+        <label>Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status_Reason__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. Reason explaining the status of the order</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DEPRECATED.</inlineHelpText>
+        <label>Status Reason</label>
+        <picklist>
+            <controllingField>Status__c</controllingField>
+            <picklistValues>
+                <fullName>New Business</fullName>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regrade Down (Lesser product)</fullName>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regrade Up (Higher product)</fullName>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Down-grade (Same product)</fullName>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Up-grade (Same product)</fullName>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Backup (to primary order)</fullName>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Relocation</fullName>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Price Change / Contract Renewal</fullName>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Price Change / Contract Amendment</fullName>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>In Provisioning</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-payment</fullName>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Installed</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Novation</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Requests Cease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Manager Confirms Cease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Retained</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Cease Actioned</fullName>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replaced</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <controllingFieldValues>Suspended</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer cancellation - no longer required</fullName>
+                <controllingFieldValues>Closed</controllingFieldValues>
+                <controllingFieldValues>Not Provisioned</controllingFieldValues>
+                <controllingFieldValues>Pending Closure</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer site not suitable</fullName>
+                <controllingFieldValues>Not Provisioned</controllingFieldValues>
+                <controllingFieldValues>On Hold</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Supplier capacity available</fullName>
+                <controllingFieldValues>Not Provisioned</controllingFieldValues>
+                <controllingFieldValues>On Hold</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supplier cannot deliver order</fullName>
+                <controllingFieldValues>Not Provisioned</controllingFieldValues>
+                <controllingFieldValues>On Hold</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wayleave permission denied</fullName>
+                <controllingFieldValues>Not Provisioned</controllingFieldValues>
+                <controllingFieldValues>On Hold</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Excess charges not agreed by the Customer</fullName>
+                <controllingFieldValues>Not Provisioned</controllingFieldValues>
+                <controllingFieldValues>On Hold</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Speed not available</fullName>
+                <controllingFieldValues>Not Provisioned</controllingFieldValues>
+                <controllingFieldValues>On Hold</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incorrect Quote</fullName>
+                <controllingFieldValues>Not Provisioned</controllingFieldValues>
+                <controllingFieldValues>On Hold</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Suspension lifted</fullName>
+                <controllingFieldValues>Active</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. Defines the status of the order through fulfilment to delivery.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DEPRECATED. Use Status2__c.</inlineHelpText>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Provisioning</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Suspended</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Provisioned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending Closure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Total_One_Off_Charges__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of all the charges on all of the delivery order’s line items</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of all the charges on all of the delivery order’s line items</inlineHelpText>
+        <label>Total One-Off Charges</label>
+        <summarizedField>Order_Line_Item__c.Total_Price__c</summarizedField>
+        <summaryForeignKey>Order_Line_Item__c.Order__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <label>Order</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>CREATED_DATE</columns>
+        <columns>NAME</columns>
+        <columns>External_Identifier2__c</columns>
+        <columns>Identification__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Order Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Orders</pluralLabel>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Cease_Order</fullName>
+        <active>true</active>
+        <description>Cease Order record type</description>
+        <label>Cease Order</label>
+        <picklistValues>
+            <picklist>Cease_Category__c</picklist>
+            <values>
+                <fullName>Financial %2F Admin</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-renewal - Preferred Supplier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-renewal - Product Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-renewal - Service Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Withdrawn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regrade</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Cease_Reason__c</picklist>
+            <values>
+                <fullName>Admin Error</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ceased Trading %2F Liquidation %2F Merged</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consolidation to Major Supplier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contract Amendment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Service - Lack of update</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Renegotiation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Withdrawn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Services now In-House</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support - resolution took too long</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Write-off</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Cease_Stage__c</picklist>
+            <values>
+                <fullName>Customer Cancellation Authorised</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Cancellation Confirmed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Cancellation Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Cancellation Stopped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replacement Active</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status_Reason__c</picklist>
+            <values>
+                <fullName>Account Manager Confirms Cease</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Backup %28to primary order%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Cease Actioned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Requests Cease</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Retained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer cancellation - no longer required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer site not suitable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Down-grade %28Same product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Excess charges not agreed by the Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incorrect Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Installed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Supplier capacity available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Novation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Change %2F Contract Amendment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Change %2F Contract Renewal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regrade Down %28Lesser product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regrade Up %28Higher product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Relocation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replaced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speed not available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supplier cannot deliver order</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Suspension lifted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Up-grade %28Same product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wayleave permission denied</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Provisioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Provisioned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Closure</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Suspended</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Change_Order</fullName>
+        <active>true</active>
+        <description>Change Order record type</description>
+        <label>Change Order</label>
+        <picklistValues>
+            <picklist>Cease_Category__c</picklist>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Cease_Reason__c</picklist>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Cease_Stage__c</picklist>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status_Reason__c</picklist>
+            <values>
+                <fullName>Account Manager Confirms Cease</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Backup %28to primary order%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Cease Actioned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Requests Cease</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Retained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer cancellation - no longer required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer site not suitable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Down-grade %28Same product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Excess charges not agreed by the Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incorrect Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Installed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Supplier capacity available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Novation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Change %2F Contract Amendment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Change %2F Contract Renewal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regrade Down %28Lesser product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regrade Up %28Higher product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Relocation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replaced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speed not available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supplier cannot deliver order</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Suspension lifted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Up-grade %28Same product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wayleave permission denied</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Provisioning</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Not Provisioned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Closure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Suspended</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>New_Order</fullName>
+        <active>true</active>
+        <description>New Order record type</description>
+        <label>New Order</label>
+        <picklistValues>
+            <picklist>Cease_Category__c</picklist>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Cease_Reason__c</picklist>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Cease_Stage__c</picklist>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status_Reason__c</picklist>
+            <values>
+                <fullName>Account Manager Confirms Cease</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Backup %28to primary order%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Cease Actioned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Requests Cease</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Retained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer cancellation - no longer required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer site not suitable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Down-grade %28Same product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Excess charges not agreed by the Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incorrect Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Installed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Supplier capacity available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Novation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Change %2F Contract Amendment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Change %2F Contract Renewal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regrade Down %28Lesser product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regrade Up %28Higher product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Relocation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replaced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speed not available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supplier cannot deliver order</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Suspension lifted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Up-grade %28Same product%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wayleave permission denied</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Provisioning</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Not Provisioned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Closure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Suspended</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

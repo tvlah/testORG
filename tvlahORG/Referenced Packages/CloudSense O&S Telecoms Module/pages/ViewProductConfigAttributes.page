@@ -1,0 +1,203 @@
+<apex:page StandardController="csord__Service__c" extensions="csordtelcoa.ViewProductConfigAttributesController" showHeader="true" sidebar="true">
+	<apex:pageMessages />
+    <apex:form id="fullform">
+        <apex:includeScript value="{!$Resource.csordtelcoa__jQuery}" />
+        <apex:includeScript value="{!URLFOR($Resource.csordtelcoa__jQueryTreeTable, 'jquery.treetable.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.csordtelcoa__jQueryTreeTable, 'jquery.treetable.css')}" />
+        <style>
+            table.treetable {
+              border: 1px solid #888;
+              border-collapse: collapse;
+              font-size: 1.0em;
+              line-height: 1;
+              margin: .6em 0 1.8em 0;
+              width: 100%;
+            }
+            
+            table.treetable caption {
+              font-size: .9em;
+              font-weight: bold;
+              margin-bottom: .2em;
+            }
+            
+            table.treetable thead {
+              background: #aaa url({!URLFOR($Resource.jQueryTreeTable, 'bg-table-thead.png')}) repeat-x top left;
+              font-size: .9em;
+            }
+            
+            table.treetable thead tr th {
+              border: 1px solid #888;
+              font-weight: bold;
+              padding: .3em 1em .1em 1em;
+              text-align: left;
+            }
+            
+            table.treetable tbody tr td {
+              cursor: default;
+              padding: .3em 1em;
+            }
+            
+            table.treetable span {
+              background-position: center left;
+              background-repeat: no-repeat;
+              padding: .2em 0 .2em 1.5em;
+            }
+            
+            table.treetable tr.collapsed span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand.png')});
+            }
+            
+            table.treetable tr.expanded span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse.png')});
+            }
+            
+            table.treetable tr.branch {
+                background-color: #f9f9f9;
+            }
+            
+            table.treetable tr.selected {
+              background-color: #ddd;
+              color: #fff;
+            }
+            
+            table.treetable tr.collapsed.selected span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand-light.png')});
+            }
+            
+            table.treetable tr.expanded.selected span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse-light.png')});
+            }
+            
+            table.treetable tr.accept {
+              background-color: #a3bce4;
+              color: #fff
+            }
+            
+            table.treetable tr.collapsed.accept td span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'expand-light.png')});
+            }
+            
+            table.treetable tr.expanded.accept td span.indenter a {
+              background-image: url({!URLFOR($Resource.jQueryTreeTable, 'collapse-light.png')});
+            }
+
+            .state-indicator-image {
+                cursor: pointer;
+            }
+        </style> 
+        <script>
+            var categoryId;
+            var productId; 
+            var catalogueLines;
+            var currentNode;
+            var showSlpashScreen = true;
+            //
+            $('document').ready(function () {   
+                // unblock when ajax activity stops 
+                $(document).ajaxStop($.unblockUI);
+                //
+                getServiceProductConfigurationDetails();
+            });
+            //
+            function getServiceProductConfigurationDetails() {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ViewProductConfigAttributesController.getServiceProductConfigurationDetails}',
+                    '{!csord__Service__c.Id}',
+                    handleGetServiceProductConfigurationDetailsResponse,
+                    {escape: false}
+                );
+            }
+            //
+            function handleGetServiceProductConfigurationDetailsResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    serviceConfigList = result;
+                    //
+                    //console.log(JSON.stringify(serviceConfigList));
+                    //console.log('**result: '+result);
+                    var table = ''+
+                            '<table id="ServiceConfigurationTree" class="treetable">'+
+                            '   <thead>'+
+                            '       <tr>'+
+                            '           <th>Name</th>'+
+                            '           <th>Attribute Value</th>'+
+                            '       </tr>'+
+                            '   </thead>'+
+                            '   <tbody id="ServiceConfigurationTreeBody">'+
+                            '       '+
+                            '   </tbody>'+
+                            '</table>';
+	                  $('#ServiceConfigurationTreeDiv').append(table);
+                    if (serviceConfigList != undefined) {
+	                    //
+	                    for(var i = 0; i < serviceConfigList.length; i++) {
+	                    	var serviceConfig = serviceConfigList[i];
+  	                		var row;
+  	                		row  = '<tr id="'+serviceConfig.service.Id+'" data-tt-id="'+serviceConfig.service.Id+'"';
+  	                		row += '>';
+  	                		row += '<td><a href="/'+serviceConfig.service.Id+'" target="_blank">'+serviceConfig.service.Name+'</a></td>';
+  	                		row += '<td></td>';
+  	                		row += '</tr>';
+  	                		$('#ServiceConfigurationTreeBody').append(row);
+  	                		//
+  	                		if (serviceConfig.productConfiguration != undefined) {
+  		                		row  = '<tr id="ProductConfig-'+serviceConfig.productConfiguration.Id+'" data-tt-id="ProductConfig-'+serviceConfig.productConfiguration.Id+'"';
+  		                		row += ' data-tt-parent-id="'+serviceConfig.service.Id+'"';
+  		                		row += '>';
+  		                		row += '<td>'+serviceConfig.productConfiguration.Name+'</td>';
+  		                		row += '<td></td>';
+  		                		row += '</tr>';
+  		                		$('#ServiceConfigurationTreeBody').append(row);
+  		                		for(var k = 0; k < serviceConfig.productConfiguration.cscfga__Attributes__r.length; k++) {
+  		                			var att = serviceConfig.productConfiguration.cscfga__Attributes__r[k];
+		                			row  = '<tr id="'+att.Id+'" data-tt-id="'+att.Id+'"';
+			                		row += ' data-tt-parent-id="ProductConfig-'+serviceConfig.productConfiguration.Id+'"';
+			                		row += '>';
+			                		row += '<td>'+att.Name+'</td>';
+			                		row += '<td>'+att.cscfga__Value__c+'</td>';
+			                		row += '</tr>';
+			                		$('#ServiceConfigurationTreeBody').append(row);
+  		                		}
+  	                		}
+	                	}
+                    }
+                    //
+                    $("#ServiceConfigurationTree").treetable({ expandable: true, column: 0,
+                                                           onNodeCollapse: function() {
+                                                           },
+                                                           onNodeExpand: function() {
+                                                           }, 
+                                                           onNodeInitialized: function() {
+                                                                // Do nothing for now
+                                                           }
+                                                          });
+                    //
+                    // ------------------------------------------------------------
+                    // Highlight selected row
+                    $("#ServiceConfigurationTree tbody").on("mousedown", "tr", function () {
+                        $(".selected").not(this).removeClass("selected");
+                        $(this).toggleClass("selected");
+                    });
+                    //
+                }
+            } 
+        </script>  
+        <apex:sectionHeader title="Service Configuration Attribute Viewer" subtitle="Explore configuration attributes for: '{!csord__Service__c.Name}'" />
+        <apex:pageBlock title="">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Return To Service" title="Return To Service" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <div id="parentDiv" style="min-height: 500px;">
+                <div style="display:inline-block;width:100%;">
+                    <div style="display:inline-block; margin-top:15px;">
+                        <a href="#" style="color:#aaa; float:left;" onclick="jQuery('#ServiceConfigurationTree').treetable('expandAll'); return false;">Expand all</a>
+                        <a href="#" style="color:#aaa; float:left; margin-left:5px;" onclick="jQuery('#ServiceConfigurationTree').treetable('collapseAll'); return false;">Collapse all</a>
+                    </div>
+                </div>
+                <div id="ServiceConfigurationTreeDiv">
+                </div>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

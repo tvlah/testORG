@@ -1,0 +1,63 @@
+<apex:page id="TemplateProcessVisualiserPage" standardController="CSPOFA__Orchestration_Process_Template__c" extensions="CSPOFA.SVGExportController" tabStyle="CSPOFA__Orchestration_Process_Template__c" sidebar="false" cache="false">
+	<apex:outputText value="{!CSPOFA__Orchestration_Process_Template__c.Name}" rendered="false"/>
+	<apex:outputText value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__Process_Type__c}" rendered="false"/>
+	<apex:pageMessages id="messages" />
+	<script type="text/javascript">
+	var CS = CS || {};
+	CS = (function(module) {
+		var exportToSVG = function(){
+			fixViewState();
+			module.setParamsSVG('{!JSENCODE(Orchestration_Process_Template__c.Name)}.svg', CS.visualiser.graph.getSVG());
+		},
+		//fix for SF bug
+		fixViewState = function(){
+			var container = j$('#ajax-view-state-page-container');
+			if(!container.html()){
+				container.html(j$('#ajax-view-state'));
+			}
+		};
+
+		module.exportToSVG = exportToSVG;
+		module.fixViewState = fixViewState;
+		return module;
+	})(CS || {});
+	</script>
+	<body id="body">
+		<apex:pageBlock id="templateProcessPageBlock">
+			<apex:form id="form" >
+				<apex:actionRegion id="exportSVG">
+					<apex:actionFunction id="jsExportSVGSetParams" name="CS.setParamsSVG" reRender="form" oncomplete="exportSVG();">
+						<apex:param id="jsExportSVGParam1" name="exportSVGFileName" assignTo="{!fileName}" value=""></apex:param>
+						<apex:param id="jsExportSVGParam2" name="exportSVGData" assignTo="{!svgData}" value=""></apex:param>
+					</apex:actionFunction>
+				</apex:actionRegion>
+				<apex:actionRegion id="exportSVG1">
+					<apex:actionFunction id="jsExportSVG" name="exportSVG" action="{!exportSVG}">
+					</apex:actionFunction>
+				</apex:actionRegion>
+
+				<apex:commandButton id="exportSVGLink" title="Export as image in SVG format. To view this file you can use SVG editor available at http://inkscape.org/" value=" Export to SVG " onclick="CS.exportToSVG(); return false;" ></apex:commandButton>
+				<!--[if lte IE 8]>
+				<script>
+					(function(){
+						var id = 'exportSVGLink';
+						j$('input[id*=' + id + ']').css({display:'none'});
+					})()
+
+				</script>
+				<![endif]-->
+
+			</apex:form>
+
+			<div id="space" style="float:left; height:10px; width:100%;">
+			</div>
+			<apex:outputLabel id="processInfo" style="display:block;font-size:1.5em;color:#00B7FF;">
+				PROCESS TEMPLATE: <a href="/{!Orchestration_Process_Template__c.Id}" style="color:#00B7FF;">{!CSPOFA__Orchestration_Process_Template__c.Name}</a>
+				{!IF(Orchestration_Process_Template__c.Process_Type__c != NULL, '['+Orchestration_Process_Template__c.Process_Type__c+']','')}
+			</apex:outputLabel>
+
+			<apex:composition template="CSPOFA__VisualiserTemplate">
+			</apex:composition>
+		</apex:pageBlock>
+	</body>
+</apex:page>

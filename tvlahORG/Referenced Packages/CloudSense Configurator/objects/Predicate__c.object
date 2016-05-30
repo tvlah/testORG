@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Attribute_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the attribute definition that is associated with this predicate.</inlineHelpText>
+        <label>Attribute Definition</label>
+        <referenceTo>Attribute_Definition__c</referenceTo>
+        <relationshipLabel>Predicates (Attribute Definition)</relationshipLabel>
+        <relationshipName>PredicateAttribute</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Evaluate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates the property of the Attribute this Predicate should evaluate.</inlineHelpText>
+        <label>Evaluate</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Attribute Value</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Attribute Price</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Attribute List Price</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Attribute Base Price</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opportunity</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Definition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Category</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>User&apos;s Profile</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>If (TEXT(Evaluate__c) == &quot;Attribute Price&quot;, &quot;the price of &quot;, If (TEXT(Evaluate__c) == &quot;Attribute List Price&quot;, &quot;the list price of &quot;, If (TEXT(Evaluate__c) == &quot;Attribute Base Price&quot;, &quot;the base price of &quot;, &quot;&quot;)))
+&amp; IF (
+  TEXT(Evaluate__c) == &quot;User&apos;s Profile&quot;,
+  &quot;User&apos;s Profile &quot;,
+  &quot;{&quot; &amp;  Subject__r.Product_Definition__r.Name &amp; &quot;:&quot; &amp; IF(NOT(ISBLANK(Subject_Reference__c)), Subject_Reference__c, Subject__r.Name ) &amp; &quot;} &quot;
+)
+&amp; TEXT(Operator__c) &amp; IF(NOT(TEXT(Operator__c) == &quot;is blank&quot;), &quot; &apos;&quot; &amp;  Value__c &amp; &quot;&apos;&quot;, &quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Auto-generated label describing this Predicate.</inlineHelpText>
+        <label>Label</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Operator__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Logical operator used to evaluate this predicate.</inlineHelpText>
+        <label>Operator</label>
+        <picklist>
+            <picklistValues>
+                <fullName>equals</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is not</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is greater than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is greater than or equal to</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is less than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is less than or equal to</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is one of</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is blank</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>contains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>starts with</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ends with</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Product_Category__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the product category associated with this predicate.</inlineHelpText>
+        <label>Product Category</label>
+        <referenceTo>Product_Category__c</referenceTo>
+        <relationshipLabel>Predicates</relationshipLabel>
+        <relationshipName>PredicateCategory</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the product definition associated with this predicate.</inlineHelpText>
+        <label>Product Definition</label>
+        <referenceTo>Product_Definition__c</referenceTo>
+        <relationshipLabel>Predicates</relationshipLabel>
+        <relationshipName>PredicateDefinition</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Subject_Reference__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Description of the predicate.</inlineHelpText>
+        <label>Subject Reference</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subject_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Available subject types that can be evaluated.</inlineHelpText>
+        <label>Subject Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Attribute</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Category</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Attribute which this Predicate evaluates.</inlineHelpText>
+        <label>Subject</label>
+        <referenceTo>Attribute_Definition__c</referenceTo>
+        <relationshipLabel>Predicates Evaluating This Attribute</relationshipLabel>
+        <relationshipName>Predicates</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Value used for evaluation. Must be enclosed in curly brackets {} if Value is expression.</inlineHelpText>
+        <label>Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Value_is_expression__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, Value field must hold an expression enclosed in curly brackets {}.</inlineHelpText>
+        <label>Value is expression</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Predicate</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Label__c</columns>
+        <columns>Subject__c</columns>
+        <columns>Operator__c</columns>
+        <columns>Value__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>Predicate {0}</displayFormat>
+        <label>Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Predicates</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Label__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Subject__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Operator__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Value__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Label__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Subject__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Operator__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Value__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Label__c</searchFilterFields>
+        <searchFilterFields>Subject__c</searchFilterFields>
+        <searchFilterFields>Operator__c</searchFilterFields>
+        <searchFilterFields>Value__c</searchFilterFields>
+        <searchResultsAdditionalFields>Label__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Subject__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Operator__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Value__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Type_Lookup</fullName>
+        <active>true</active>
+        <description>Lookup field must match subject type.</description>
+        <errorConditionFormula>OR(
+AND( ISPICKVAL( Subject_Type__c , &apos;Attribute&apos;),  OR(NOT(ISBLANK( Product_Category__c )),  NOT(ISBLANK( Product_Definition__c )))),
+
+AND( ISPICKVAL( Subject_Type__c , &apos;Category&apos;),  OR(NOT(ISBLANK(  Subject__c  )),  NOT(ISBLANK( Product_Definition__c )))),
+
+AND( ISPICKVAL( Subject_Type__c , &apos;Product&apos;),  OR(NOT(ISBLANK( Product_Category__c )),  NOT(ISBLANK(   Subject__c )))))</errorConditionFormula>
+        <errorMessage>Lookup field must match subject type.</errorMessage>
+    </validationRules>
+</CustomObject>

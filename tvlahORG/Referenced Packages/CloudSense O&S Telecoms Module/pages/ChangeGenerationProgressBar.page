@@ -1,0 +1,35 @@
+<apex:page controller="csordtelcoa.ChangeGenerationProgressBarController" id="fullPage" showHeader="true" sidebar="true">
+    <style>
+        .progressBar{
+            background-color: #f8f8f8;
+            border:1px solid #DDDDDD;
+            height: 19px;
+            width: 300px;
+            -moz-border-radius: 5px; 
+            -webkit-border-radius: 5px;
+        }
+        .progress{
+            background-color: #F7B64B;
+            border:1px solid #E78F08;
+            height: 100%;
+            margin: -1px;
+            text-align: center;
+            -moz-border-radius: 5px; 
+            -webkit-border-radius: 5px;
+            line-height: 18px;
+        }
+    </style>
+    	<apex:form id="generalform">
+    		<apex:pageMessages id="pageMessages" />
+       		Please wait while your changes are processed. You will be redirected shortly...
+       		<apex:outputPanel id="progress">
+	                <div class="progressBar">
+	                    <div class="progress" style="width: {!percent}%;">
+	                        {!percent}%
+	                    </div>
+	                </div>        				
+       		</apex:outputPanel>
+       		<apex:actionPoller rerender="progress,pageMessages" action="{!checkProgress}" interval="5" oncomplete="{!isFinished}&&redirectJS();" />
+       		<apex:actionFunction action="{!redirect}" name="redirectJS" />
+     	</apex:form>
+</apex:page>

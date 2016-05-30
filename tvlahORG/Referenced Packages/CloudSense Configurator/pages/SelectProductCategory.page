@@ -1,0 +1,118 @@
+<apex:page controller="cscfga.ProductCategoryController" action="{!init}" tabStyle="Solution">
+
+	<c:FixUIStyles />
+	<c:EmbedScripts />
+
+	<apex:sectionHeader title="{!$Label.selcat_Select_Category}" subtitle="{!$Label.selcat_New_Configuration}" />
+
+	<form id="CS_SelectProductForm" action="{!$Page.SelectProductCategory}" method="POST">
+		<input type="hidden" name="command" value="" />
+		<input type="hidden" name="categoryId" value="{!category.id}" />
+		<input type="hidden" name="basketId" value="{!basketId}" />
+		<input type="hidden" name="definitionId" value="" />
+		<input type="hidden" name="offerId" value="" />
+		<input type="hidden" name="retURL" value="{!paramRetURL}" />
+		<input type="hidden" name="cancelURL" value="{!paramCancelURL}" />
+		<input type="hidden" name="linkedId" value="{!linkedId}" />
+		<input type="hidden" name="template" value="{!template}" />
+		<input type="hidden" name="containerType" value="{!containerType}" />
+		<input type="hidden" name="isdtp" value="{!isDtp}" />
+
+		<span class="bPageTitle">
+			<apex:outputPanel layout="block" styleClass="ptBreadcrumb" style="margin: 8px 0" rendered="{!not(isblank(category))}">
+				<a href="#" onclick="CS.submitForm('SelectProductForm', {categoryId: '{!category.cscfga__Parent_Category__c}'});return false">{!'< Back' & IF(ISBLANK(category.parent_category__r.name), '', ' to ' & category.parent_category__r.name)}</a>
+			</apex:outputPanel>
+		</span>
+
+		<apex:messages />
+
+		<apex:pageBlock title="{!$Label.selcat_Product_Definitions_Categories}" rendered="{!opportunityIsClosed}">
+			<c:ButtonWrapper >
+				<a href="{!cancelURL}" class="{!buttonClass}" style="{!buttonStyle}">{!$Label.selcat_Cancel}</a>
+			</c:ButtonWrapper>
+			<p style="padding: 0 20px 20px 20px">{!$Label.selcat_This_opportunity_is_closed_no_product_bundles_can_be_added_to_it}</p>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="{!$Label.selcat_Product_Definitions_Categories}" rendered="{!numCategories == 0 && numProducts == 0 && NOT(opportunityIsClosed)}">
+			<c:ButtonWrapper >
+				<a href="{!cancelURL}" class="{!buttonClass}" style="{!buttonStyle}">{!$Label.selcat_Cancel}</a>
+			</c:ButtonWrapper>
+			<p style="padding: 0 20px 20px 20px">{!$Label.selcat_There_are_no_products_or_sub_categories_available_to_configure}</p>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="{!category.name} {!$Label.selcat_Categories}" rendered="{!numCategories > 0}">
+			<apex:pageBlockButtons location="top" style="border: none !important">
+				<c:ButtonWrapper >
+					<a href="{!cancelURL}" class="{!buttonClass}" style="{!buttonStyle}">{!$Label.selcat_Cancel}</a>
+				</c:ButtonWrapper>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockTable value="{!categories}" var="cat">
+					<apex:column headerValue="{!$Label.selcat_Category}">
+						<a href="#" onclick="CS.submitForm('SelectProductForm', {categoryId: '{!cat.id}'});return false">{!IF(showLabel && !ISBLANK(cat.cscfga__Label__c), cat.cscfga__Label__c,  cat.name)}</a>
+					</apex:column>
+					<apex:column headerValue="{!$Label.selcat_cat_Description}">
+						{!cat.cscfga__Description__c}
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="{!category.name} {!$Label.selcat_Products_Offers}" rendered="{!numProducts > 0 || (numOffers > 0 && NOT(isFromOffer))}" mode="detail">
+			<apex:pageBlockButtons location="top">
+				<c:ButtonWrapper >
+					<a href="{!cancelURL}" class="{!buttonClass}" style="{!buttonStyle}">{!$Label.selcat_Cancel}</a>
+				</c:ButtonWrapper>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection columns="1" rendered="{!numProducts > 0}">
+				<apex:pageBlockTable value="{!products}" var="prod" style="margin-bottom: 20px">
+					<apex:column headerValue="{!$Label.selcat_Product_Name}">
+						<a href="#" onclick="CS.progressOn(); CS.submitForm('SelectProductForm', {'_action': '{!$Page.cscfga__Configuration}', definitionId: '{!prod.id}'}); return false">{!IF(showLabel && !ISBLANK(prod.cscfga__Label__c), prod.cscfga__Label__c, prod.name)}</a>
+					</apex:column>
+					<apex:column headerValue="{!$Label.selcat_prod_Description}">
+						{!prod.cscfga__Description__c}
+					</apex:column>
+					<apex:column >
+						<apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(prod.cscfga__image_url__c))}" style="padding:4px">
+							<img src="{!prod.image_url__c}" />
+						</apex:outputPanel>
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockTable var="offer" value="{!offers}" rendered="{!NOT(isFromOffer) && numOffers > 0}">
+					<apex:column headerValue="{!$Label.selcat_Offers}" width="400">
+						<a href="#" onclick="CS.progressOn(); CS.submitForm('SelectProductForm', {'_action': '{!$Page.cscfga__ConfigureProduct}', command: 'selectOffer', offerId: '{!offer.id}'}); return false">{!offer.name}</a>
+					</apex:column>
+
+					<apex:column >
+						<apex:facet name="header">{!$Label.selcat_off_Description}</apex:facet>
+						{!offer.cscfga__Description__c}
+					</apex:column>
+				 </apex:pageBlockTable>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="{!category.name} {!$Label.selcat_Packages_Section}" rendered="{!NOT(isForPackageSlot) && numOfPackages > 0}" mode="detail">
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockTable var="package" value="{!packages}">
+					<apex:column headerValue="{!$Label.selcat_Product_Name}">
+						<a href="#" onclick="CS.progressOn(); CS.submitForm('SelectProductForm', {'_action': '{!$Page.cscfga__ConfigureProduct}', command: 'selectPackage', definitionId: '{!package.id}'}); return false;">
+							{!IF(showLabel && !ISBLANK(package.cscfga__Label__c), package.cscfga__Label__c, package.name)}
+						</a>
+					</apex:column>
+					<apex:column headerValue="{!$Label.selcat_prod_Description}">
+						{!package.cscfga__Description__c}
+					</apex:column>
+					<apex:column >
+						<apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(package.cscfga__image_url__c))}" style="padding:4px">
+							<img src="{!package.image_url__c}" />
+						</apex:outputPanel>
+					</apex:column>
+				 </apex:pageBlockTable>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</form>
+</apex:page>

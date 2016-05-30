@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Basket_Linked_To_Opportunity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Basket Linked To Opportunity</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Batch_Size__c</fullName>
+        <defaultValue>100</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Batch Size</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Create_Mac_Baskets_Button_Label__c</fullName>
+        <defaultValue>&quot;Create MAC Basket&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Create Mac Baskets Button Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Create_Mac_Baskets__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Create Mac Baskets</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Create_Mac_Opportunities_Button_Label__c</fullName>
+        <defaultValue>&quot;Create MAC Opportunity&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Create Mac Opportunities Button Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Create_Mac_Opportunities__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Create Mac Opportunities</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Triggers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Disable Triggers</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enforce_Synchronisation__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enforce Synchronisation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Generate_Delta_On_Change__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Generate Delta On Change</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Generate_Orders_From_Basket__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Generate Orders From Basket</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Generate_Orders_From_Bundle__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>&quot;Generate Orders from Basket&quot; overrides &quot;Generate Orders from Bundle&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;Generate Orders from Basket&quot; overrides &quot;Generate Orders from Bundle&quot;</inlineHelpText>
+        <label>Generate Orders From Bundle</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Mac_Opportunity_Stage__c</fullName>
+        <defaultValue>&quot;Prospecting&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Initial Mac Opportunity Stage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MACD_Opportunity_Record_Types__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated list of record types that can be used in a MACD process. If empty, all record types are used. Valid only if &apos;Use MACD Opportunity Record Types&apos; setting is set.</inlineHelpText>
+        <label>MACD Opportunity Record Types</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Module_Debug_Prefix__c</fullName>
+        <defaultValue>&quot;O&amp;S Telco A - &quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Module Debug Prefix</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Module_Name__c</fullName>
+        <defaultValue>&quot;CS Order Implementation Module Telco A&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Module Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Module_Version_Number__c</fullName>
+        <defaultValue>&quot;1.0&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Module Version Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Stages_creating_orders__c</fullName>
+        <defaultValue>&quot;Closed Won&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>A coma separated list of opportunity stages which when set will trigger the creation of orders. It defaults to &quot;Closed Won&quot; if no value is entered</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A coma separated list of opportunity stages which when set will trigger the creation of orders. It defaults to &quot;Closed Won&quot; if no value is entered</inlineHelpText>
+        <label>Opportunity Stages creating orders</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Order_Initial_State__c</fullName>
+        <defaultValue>&quot;Order Submitted&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Order Initial State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Replacement_Subscription_Delivered_State__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Default is &quot;Delivered&quot;</inlineHelpText>
+        <label>Replacement Subscription Delivered State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Revalidate_Cloned_Product_Configuration__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If product configuration should be revalidated immediately, select this. Important: Revalidation is occurring in a batch. If you are cloning product configurations in a batch, you must uncheck this field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Revalidation is a process of re-running the defined rules on a cloned product configuration. Since it is a costly process, it is run in a batch. You can select for it to run immediately (checked) or leave it for a later time (unchecked).</inlineHelpText>
+        <label>Revalidate Cloned Product Configuration</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Service_Final_States__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Comma separated list of final statuses.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated list of statuses - once a service reaches one of these statuses, system should not change it since it is listed as final.</inlineHelpText>
+        <label>Service Final States</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Service_Initial_State__c</fullName>
+        <defaultValue>&quot;Service created&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Service Initial State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Service_Number_Prefix__c</fullName>
+        <defaultValue>&quot;SVC-&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Service Number Prefix</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Statuses_Not_Allowing_Change__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Comma separated list of Subscription statuses not allowing change requests</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated list of Subscription statuses not allowing change requests</inlineHelpText>
+        <label>Statuses Not Allowing Change</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Statuses_Not_Allowing_In_Flight_Change__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Comma separated list of service statuses where In Flight change is not allowed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated list of service statuses where In Flight change is not allowed</inlineHelpText>
+        <label>Statuses Not Allowing In Flight Change</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subscription_Appending_Not_Allowed__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated list of opportunity stages where appending of additional subscriptions to opportunity is not possible. If left empty, it&apos;s disregarded.</inlineHelpText>
+        <label>Subscription Appending Not Allowed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subscription_Closed_Replaced_State__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Default &quot;Closed Replaced&quot;</inlineHelpText>
+        <label>Subscription Closed Replaced State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subscription_Initial_State__c</fullName>
+        <defaultValue>&quot;Subscription created&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Subscription Initial State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subscription_Number_Prefix__c</fullName>
+        <defaultValue>&quot;SN-&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Subscription Number Prefix</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Use_Batch_Mode__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Use Batch Mode</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Opportunity_Record_Types__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this field to enable record type selection when creating a new MACD opportunity</inlineHelpText>
+        <label>Use Opportunity Record Types</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Orders &amp; Subscriptions Options</label>
+    <visibility>Public</visibility>
+</CustomObject>

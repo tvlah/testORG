@@ -1,0 +1,115 @@
+<apex:page controller="cscfga.CloneConfigController" showHeader="false" sidebar="false">
+	<apex:form >
+		<apex:pageBlock title="{!$Label.clinconf_Copy_Configuration}" rendered="{!parentType == PARENT_TYPE_BASKET}">
+			<apex:pageBlock >
+				<h2>{!$Label.clinconf_Create_a_copy_of_Configuration} '{!SourceConfiguration.Name}' {!$Label.clinconf_within_the_same_Basket}</h2>
+				<apex:pageBlockButtons location="bottom">
+					<apex:commandButton value="{!$Label.clinconf_Copy_Configuration_to_same_basket}" action="{!cloneConfigurationOnSameBasket}" immediate="true" />
+					<apex:commandButton value="{!$Label.clinconf_Cancel}" action="javascript:window.close();" immediate="true" />
+				</apex:pageBlockButtons>
+				<apex:Messages />
+			</apex:pageBlock>
+
+			<apex:pageBlock >
+				<h2>{!$Label.clinconf_Copy_Configuration} '{!SourceConfiguration.Name}' {!$Label.clinconf_to_another_Basket}</h2>
+				<br />
+				<br />
+				<table width="90%" cellpadding="1" cellspacing="1">
+					<tr>
+						<td><b>{!$Label.clinconf_Step_1}:</b> {!$Label.clinconf_Select_an_object_type_of_the_target_Basket_container}</td>
+						<td>
+							<apex:actionFunction name="selectRelatedObjectType" action="{!selectRelatedObjectType}" reRender="selRelatedObjectWrapper,selBasketWrapper">
+								<apex:param name="selectedRelatedObjectType" assignTo="{!selectedRelatedObjectType}" value=""/>
+							</apex:actionFunction>
+							<apex:selectList id="selRelatedObjectType" size="1" value="{!selectedRelatedObjectType}" onchange="selectRelatedObjectType(this.options[this.selectedIndex].value);">
+								<apex:selectOptions value="{!relatedObjectTypeOptions}" />
+							</apex:selectList>
+						</td>
+					</tr>
+					<tr>
+						<td><b>{!$Label.clinconf_Step_2}:</b> {!$Label.clinconf_Select_record_containing_the_target_Basket}</td>
+						<td>
+							<apex:actionFunction name="selectRelatedObjectRecord" action="{!selectRelatedObjectRecord}" reRender="selBasketWrapper" />
+							<apex:outputPanel id="selRelatedObjectWrapper" layout="block">
+								<apex:variable var="currentField" value="{!selectedRelatedObjectType}" />
+								<apex:inputField id="selRelatedObject" value="{!tempBasket[currentField]}" required="false" onchange="selectRelatedObjectRecord();"/>
+								<apex:outputPanel styleClass="errorMsg" layout="block" rendered="{!NOT(ISBLANK(errorMessageRelatedObject))}">{!errorMessageRelatedObject}</apex:outputPanel>
+							</apex:outputPanel>
+						</td>
+					</tr>
+					<tr>
+						<td><b>{!$Label.clinconf_Step_3}:</b> {!$Label.clinconf_Select_target_Basket_within_chosen_object_record}</td>
+						<td><apex:outputPanel id="selBasketWrapper" layout="block">
+								<apex:selectList id="selBasket" size="1" value="{!selectedBasket}" >
+									<apex:selectOptions Value="{!basketOptions}" />
+								</apex:selectList>
+							</apex:outputPanel>
+					 	</td>
+					</tr>
+					<tr>
+						<td><b>{!$Label.clinconf_Step_4}:</b> {!$Label.clinconf_Click_the} <i>{!$Label.clinconf_Copy_Configuration}</i> {!$Label.clinconf_button_below_to_start_the_copy_process}</td>
+						<td>&nbsp; </td>
+					</tr>
+				</table>
+
+				<apex:pageBlockButtons location="bottom">
+					<apex:commandButton id="btnCopyOnBasket" value="{!$Label.clinconf_Copy_Configuration_to_specified_Basket}" action="{!cloneConfigurationOnBasket}" />
+					<apex:commandButton value="{!$Label.clinconf_Cancel}" action="javascript:window.opener.location.href=window.opener.location.href; window.close();" immediate="true" />
+				</apex:pageBlockButtons>
+				<apex:Messages />
+			</apex:pageBlock>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="{!$Label.clinconf_Copy_Configuration}" rendered="{!parentType == PARENT_TYPE_BUNDLE}">
+			<apex:pageBlock >
+				<h2>{!$Label.clinconf_Create_a_copy_of_Configuration} '{!SourceConfiguration.Name}' {!$Label.clinconf_within_the_same_Bundle}</h2>
+				<apex:pageBlockButtons location="bottom">
+					<apex:commandButton value="{!$Label.clinconf_Copy_Configuration_to_same_bundle}" action="{!cloneConfigurationOnSameBundle}" immediate="true" />
+					<apex:commandButton value="{!$Label.clinconf_Cancel}" action="javascript:window.close();" immediate="true" />
+				</apex:pageBlockButtons>
+				<apex:Messages />
+			</apex:pageBlock>
+
+			<apex:pageBlock >
+				<h2>{!$Label.clinconf_Copy_Configuration} '{!SourceConfiguration.Name}' {!$Label.clinconf_to_another_Bundle}</h2>
+				<br />
+				<br />
+				<table width="90%" cellpadding="1" cellspacing="1">
+					<tr>
+						<td><b>{!$Label.clinconf_Step_1}:</b> {!$Label.clinconf_Select_opportunity_containing_the_target_Bundle}</td>
+						<td>
+							<apex:inputField id="selOpportunity" value="{!tempBundle.cscfga__Opportunity__c}" required="false" />
+							<apex:outputPanel styleClass="errorMsg" layout="block" rendered="{!LEN(errorMessageOpportunity)>0}">{!errorMessageOpportunity}</apex:outputPanel>
+						</td>
+					</tr>
+					<tr>
+						<td><b>{!$Label.clinconf_Step_2}:</b> {!$Label.clinconf_Get_the_bundles_for_the_destination_Opportunity}</td>
+						<td>
+							<apex:commandLink action="{!getBundles}" title="{!$Label.clinconf_Get_Bundles}...">{!$Label.clinconf_Get_Bundles}</apex:commandLink>
+						</td>
+					</tr>
+					<tr>
+						<td><b>{!$Label.clinconf_Step_3}:</b> {!$Label.clinconf_Select_the_target_Bundle_within_the_chosen_Opportunity}</td>
+						<td>
+							<apex:selectList id="selBundle" size="1" value="{!selectedBundle}" >
+								<apex:selectOptions Value="{!BundleOptions}"></apex:selectOptions>
+							</apex:selectList>
+							<apex:outputPanel styleClass="errorMsg" layout="block" rendered="{!LEN(errorMessageBundle)>0}">{!errorMessageBundle}</apex:outputPanel>
+					 	</td>
+					</tr>
+					<tr>
+						<td><b>{!$Label.clinconf_Step_4}:</b> {!$Label.clinconf_Click_the} <i>{!$Label.clinconf_Copy_Configuration}</i> {!$Label.clinconf_button_below_to_start_the_copy_process}</td>
+						<td>&nbsp; </td>
+					</tr>
+				</table>
+
+				<apex:pageBlockButtons location="bottom">
+					<apex:commandButton value="{!$Label.clinconf_Copy_Configuration_to_specified_Bundle}" action="{!cloneConfigurationOnBundle}" />
+					<apex:commandButton value="{!$Label.clinconf_Cancel}" action="javascript:window.opener.location.href=window.opener.location.href; window.close();" immediate="true" />
+				</apex:pageBlockButtons>
+				<apex:Messages />
+			</apex:pageBlock>
+		</apex:pageBlock>
+
+	</apex:form>
+</apex:page>

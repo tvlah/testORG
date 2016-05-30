@@ -1,0 +1,41 @@
+<apex:page id="page" standardController="CSPOFA__Orchestration_Process_Template__c" Title="Create Orchestration Process Template line" extensions="CSPOFA.CreateOrchestrationProcessTplController" tabStyle="CSPOFA__Orchestration_Process_Template__c">
+	<script type="text/javascript">
+		var CS = CS || {};
+		CS.UI = CS.UI || {};
+	</script>
+	<apex:form id="form">
+		<apex:pageBlock id="pageblock" title="Create Orchestration Process Template">
+			<apex:pageMessages id="messages" />
+			<apex:pageBlockButtons id="blockButtons">
+				<apex:commandButton id="save" value="Save" action="{!save}"/>
+				<apex:commandButton id="cancel" value="Cancel" action="{!cancel}"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection id="pageblocksection" columns="2" showHeader="False">
+				<apex:inputField id="fieldName" value="{!CSPOFA__Orchestration_Process_Template__c.Name}" required="true"/>
+				<apex:outputField id="fieldOwner" value="{!CSPOFA__Orchestration_Process_Template__c.OwnerId}"/>
+				<apex:inputField id="fieldType" value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__Process_Type__c}"/>
+				<apex:inputField id="priority" value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__Priority__c}"/>
+				<apex:selectList id="processingMode" value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__Processing_Mode__c}" size="1">
+					<apex:selectOptions value="{!processingModes}"></apex:selectOptions>
+				</apex:selectList>
+				<apex:inputField id="fieldProfile" value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__Associated_Profile__c}"/>
+				<apex:inputField id="fieldLabel" value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__Process_Label__c}" style="width: 100%;"/>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="OLA Details">
+				<apex:inputField id="fieldOlaTime" value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__OLA_Time__c}"/>
+				<apex:pageBlockSectionItem id="olaActivity" helpText="{!$ObjectType.CSPOFA__Orchestration_Process_Template__c.fields.CSPOFA__OLA_Activity_Linked_By__c.inlineHelpText}">
+					<apex:outputLabel id="labelOlaActivity" value="{!$ObjectType.CSPOFA__Orchestration_Process_Template__c.fields.CSPOFA__OLA_Activity_Linked_By__c.label}"></apex:outputLabel>
+					<c:ConfigInput id="olaActivityLinkedBy" jsNamespace="CS.UI.processOlaActivityLinkedBy" value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__OLA_Activity_Linked_By__c}"></c:ConfigInput>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem id="olaUnit" helpText="{!$ObjectType.CSPOFA__Orchestration_Process_Template__c.fields.CSPOFA__OLA_Unit__c.inlineHelpText}">
+					<apex:outputLabel id="labelOlaUnit" value="{!$ObjectType.CSPOFA__Orchestration_Process_Template__c.fields.CSPOFA__OLA_Unit__c.label}"></apex:outputLabel>
+					<apex:selectList id="fieldOlaUnit" value="{!CSPOFA__Orchestration_Process_Template__c.CSPOFA__OLA_Unit__c}" size="1">
+						<apex:selectOptions value="{!olaUnits}"></apex:selectOptions>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

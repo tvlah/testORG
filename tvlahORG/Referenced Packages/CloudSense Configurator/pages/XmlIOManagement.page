@@ -1,0 +1,127 @@
+<apex:page Controller="cscfga.XMLDefinitionIOController" showHeader="true" action="{!redirect}">
+
+    <!--
+    
+    ********
+    ***
+    *** Deprecated in favour of XmlIoAdvancedWizard.page ***
+    ***
+    ********
+    
+    //#####################################################################
+    //# Apex page to import and Export definitions as XML (in Alpha!)
+    //#
+    //# CPS 15/07/2010
+    //#
+    
+
+    <apex:form >
+    
+    <apex:pageBlock title="Import and Export Definitions as XML">
+    
+        
+            <apex:pageBlock title="Export XML">
+
+                <p>
+                Click the button to export all Categories including their:
+                <ul>
+                    <li>Product Definitions</li>
+                    <li>Attribute Definitions</li>
+                    <li>Attribute Definition Groups</li>
+                    <li>Available Product Options</li>
+                    <li>Attribute Select Options</li>
+                    <li>Screens and Screen Sections</li>
+                    <li>Lookup Configurations</li>
+                    <li>Date Ranges</li>
+                    <li>Rules, predicates and Actions</li>
+                    <li>Object Mapping</li>
+                    <li>Lookup Configurations and Queries</li>
+                </ul>
+                </p>
+        
+                <apex:pageBlockButtons location="top">                   
+                    <apex:commandButton value="Export Categories and Product Definitions" 
+                                action="{!goToExport}" immediate="true"  />
+                </apex:pageBlockButtons>
+                  
+            
+            </apex:pageBlock>
+
+
+            <apex:pageBlock title="Import XML">
+                
+                <p>Import a file that was previously exported using this utility.</p> <br />
+
+                <table width="600">
+                    
+                    <tr>
+
+                          <td width="250"> File to Import (required):     </td>                               
+                          <td>  <apex:inputFile id="import_file" accept="*.xml" 
+                                    required="true" fileName="{!fileName}" 
+                                    value="{!fileContents}"   >
+                                   </apex:inputFile>
+                                   <apex:message for="import_file"/>
+                           </td> 
+                            
+                   
+                   </tr>
+                   <tr>
+
+                          <td width="250">Replace Definitions with same name and Category:     </td>                               
+                          <td>  <apex:inputCheckbox id="chkReplaceDefs" value="{!replaceDefinitions}"   />
+                           </td> 
+                            
+                   
+                   </tr>
+                   
+                   <tr>
+                       <td>Enter Import Comments (required): </td>
+                       <td>
+                           <apex:inputText Title="Enter import comments"
+                                       id="comments_text"
+                                       accesskey=""
+                                       required="true"
+                                       value="{!importComments}"
+                                       Size="40"
+                                       maxlength="100"
+                                       />
+                           <apex:message for="comments_text"/>
+                       </td>                   
+                   </tr>
+                   <tr>
+                       <td>Enter suffix to append to Categories and Product Definition names (optional): </td>
+                       <td>
+                           <apex:inputText Title="Enter name suffix (optional)"
+                                       id="name_suffix"
+                                       accesskey=""
+                                       required="false"
+                                       value="{!nameSuffix}"
+                                       Size="20"
+                                       maxlength="20"
+                                       />
+                       </td>                   
+                   </tr>
+
+                   <tr>
+                    <td colspan="2">                    
+                        <apex:commandButton title="Upload XML" value="Upload XML" action="{!saveXmlAsObjects}"/>   
+                    </td>
+                   </tr>
+                                
+                </table>    
+
+            <apex:pageBlockSection >
+               <p> {!Message}  </p>
+            </apex:pageBlockSection>
+
+            </apex:pageBlock>
+
+    
+    </apex:pageBlock>
+    
+        
+    </apex:form>
+
+-->
+</apex:page>

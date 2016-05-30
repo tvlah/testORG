@@ -1,0 +1,609 @@
+<apex:page controller="csexpimp1.DuplicateRecordDetectionController" title="Duplicate candidates" sidebar="false" showheader="false">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"/>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+
+	<div class="container-fluid">
+		<hr/>
+		<h2>Duplicate record candidates by type: </h2>
+		<hr/>
+		<div id="filter-holder">
+		</div>
+		<hr/>
+		<div class="panel-group" id="detection-top-container" ></div>
+	</div>
+
+	<style>
+		dd { margin-bottom: 10px; padding-left: 10px; }
+	</style>
+
+	<script id="record-data-template" type="text/x-handlebars-template">
+	<div id={{recordId}}>
+		<div class="row" id="{{recordId}}-default">
+			<div class="col-md-6">
+				<dl>
+					<dt>Record type</dt>
+					<dd>{{recordType}}</dd>
+					<dt>Name:</dt>
+					<dd><a href="{{recordUrl}}" target="_blank">{{{niceDescription}}}</a></dd>
+					{{#if duplicateKey}}
+					<dt>Determining factor value:</dt>
+					<dd>{{{duplicateKey}}}</dt>
+					{{/if}}
+				</dl>
+			</div>
+			<div class="col-md-6">
+				<dl>
+					<dt>Record id:</dt>
+					<dd><a href="{{recordUrl}}" target="_blank">{{recordId}}</a></dd>
+					{{#if createdByStr}}
+					<dt>Created by:</dt>
+					<dd>{{createdByStr}}</dd>
+					{{/if}}
+					<dt>Created date:</dt>
+					<dd>{{createdDateStr}}</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="row" id="{{recordId}}-refs">
+			<div class="col-md-6">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#{{recordId}}-collapse-children">Objects referencing this object:</a>
+							<span class="badge pull-right">{{children.length}}</span>
+						</h4>
+					</div>
+					{{#if children.length}}
+					<div id="{{recordId}}-collapse-children" class="panel-collapse collapse collapsed">
+						<div class="panel-body">
+						{{#each children}}
+							<a href="{{recordUrl}}" target="_blank">
+								{{recordType}} - {{{niceDescription}}}
+							</a><br>
+						{{/each}}
+						</div>
+					</div>
+					{{/if}}
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#{{recordId}}-collapse-parents">This object references objects:</a>
+							<span class="badge pull-right">{{parents.length}}</span>
+						</h4>
+					</div>
+					{{#if parents.length}}
+					<div id="{{recordId}}-collapse-parents" class="panel-collapse collapse collapsed">
+						<div class="panel-body">
+						{{#each parents}}
+							<a href="{{recordUrl}}" target="_blank">
+								{{recordType}} - {{niceDescription}}
+							</a><br>
+						{{/each}}
+						</div>
+					</div>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+		{{#if batchItem}}
+		<hr/>
+		<div class="row" id="{{recordId}}-batchItem">
+			<div class="col-md-6">
+				<dl>
+					<dt>Import object id:</dt>
+					<dd><a href="{{batchItem.batchUrl}}" target="_blank">{{batchItem.originalImportId}}</a></dd>
+					<dt>Created with id:</dt>
+					<dd><a href="{{recordUrl}}" target="_blank">{{batchItem.createdAs}}</a></dd>
+				</dl>
+			</div>
+			<div class="col-md-6">
+				<dl>
+					<dt>Import user:</dt>
+					<dd>{{batchItem.importUser}}</dd>
+					<dt>Import date:</dt>
+					<dd>{{batchItem.importDate}}</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<dl>
+					<dt>Import comments:</dt>
+					<dd>{{batchItem.importComments}}</dd>
+				</dl>
+			</div>
+		</div>
+		{{/if}}
+	</div>
+	</script>
+
+	<script id="duplicate-accordians-template" type="text/x-handlebars-template">
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" href="#{{id}}-collapse">{{{uniqueKey}}}</a>
+					<span class="badge pull-right">{{numOfCandidates}}</span>
+				</h4>
+			</div>
+			<div id="{{id}}-collapse" class="panel-collapse collapse panel-body">
+				<div class="row">
+					<div class="col-md-2">
+						<h4>Original record<br><small>(created first)</small></h4>
+					</div>
+					<div class="col-md-10">
+						{{> recordDataTemplate original}}
+					</div>
+				</div>
+				<hr/>
+				<div class="row">
+					<div class="col-md-2">
+						<h4>Duplicate candidates</h4>
+					</div>
+					<div class="col-md-10">
+						{{#each duplicateCandidates}}
+						<div class="row">
+							<div class="panel panel-danger">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" href="#{{recordId}}-collapse">
+											{{{niceDescription}}}
+										</a>
+										<a href="{{recordUrl}}" target="_blank" class="pull-right">
+											<span class="glyphicon glyphicon-new-window"></span>
+										</a>
+									</h4>
+								</div>
+								<div id="{{recordId}}-collapse" class="panel-collapse collapse panel-body">
+									{{> recordDataTemplate}}
+								</div>
+							</div>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script id="root-accordians-template" type="text/x-handlebars-template">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<span id="{{statusIconHolder}}"></span>
+				<h3 class="panel-title">
+					<a data-toggle="collapse" data-parent="#detection-top-container" href="#{{containerId}}">{{title}}</a>
+				</h3>
+				<div class="pull-right">
+					<span class="badge" id={{badgeId}}></span>
+				</div>
+			</div>
+			<div id="{{containerId}}" class="panel-collapse collapse">
+				<div class="panel-body">
+					<dl>
+						<dt>Object:</dt>
+						<dd>{{object}}</dd>
+						<dt>Factor determining duplicates:</dt>
+						<dd>{{uniqueKeyDescription}}</dd>
+						<dt>Duplicate candidates:</dt>
+						<dd><div id="{{duplicateDataContainerId}}"></div></dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script id="type-error-template" type="text/x-handlebars-template">
+		<a class="my-popover"
+			data-toggle="popover"
+			data-content="Error({{type}}): {{message}}"
+		>
+			<span class="text-danger glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		</a>
+		<span class="glyphicon glyphicon-refresh refresh-control" onclick="refreshDetectionGroup('{{identifier}}');"></span>
+	</script>
+	<script id="type-finished-template" type="text/x-handlebars-template">
+		<a class="my-popover"
+			data-content="Success: {{type}}"
+			data-toggle="popover"
+		>
+			<span class="text-success glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</a>
+		<span class="glyphicon glyphicon-refresh refresh-control" onclick="refreshDetectionGroup('{{identifier}}');"></span>
+	</script>
+
+	<script id="filter-template" type="text/x-handlebars-template">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h2 class="panel-title">
+					<a data-toggle="collapse" href="#filter-container">Detection data selection</a>
+				</h2>
+			</div>
+			<div id="filter-container" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-6">
+							<dl>
+								<dt>Objects created after:</dt>
+								<dd><input type="datetime" id="filter-create-date-from" class="my-filter-input"></dd>
+								<dt>Objects created before:</dt>
+								<dd><input type="datetime" id="filter-create-date-to" class="my-filter-input"></dd>
+							</dl>
+							<div class="row">
+								<div class="col-md-6">
+									<button type="button" class="btn btn-default btn-lg btn-block" onclick="clearFilters()">
+										<span class="glyphicon glyphicon-off"></span> Clear selections
+									</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<button type="button" class="btn btn-default btn-lg btn-block" onclick="setCheckBoxFilters(true)">
+										<span class="glyphicon glyphicon-check"></span> Select all types
+									</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<button type="button" class="btn btn-default btn-lg  btn-block" onclick="refreshData()">
+										<span class="glyphicon glyphicon-refresh"></span> Read duplicate candidates
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+							{{#each detectionTypeGroups}}
+								</hr>
+								<dl>
+									<dt>
+										{{key}}
+									</dt>
+									<dd>
+									{{#each rows}}
+										<div class ="row">
+										{{#each columns}}
+											<div class="col-md-6">
+											{{#if id}}
+												<input type="checkbox" id="selected-{{id}}" class="my-filter-type" checked> {{{title}}}</input>
+											{{/if}}
+											</div>
+										{{/each}}
+										</div>
+									{{/each}}
+									</dd>
+								</dl>
+							{{/each}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/javascript">
+		var jQueryRef = jQuery.noConflict(),
+			duplicateRecordDetectionResults = {},
+			duplicateTypeRenderData = {},
+			sortedTypeIdentifiers = [],
+			duplicateIdGenerator = 0,
+			processedTypes = 0,
+			dataRefreshState = null;
+
+		function renderDuplicateResult(identifier, result) {
+
+			var renderData = duplicateTypeRenderData[identifier],
+				renderNode = jQueryRef('#' + renderData.duplicateDataContainerId),ren
+				duplicateCount = renderData.numberOfDuplicates;
+
+			var duplicatesToRenderChildViews = [];
+			for (var key in result.duplicatesByKey) {
+				var duplicateData = result.duplicatesByKey[key];
+				updateDuplicateData(duplicateData, identifier);
+				duplicateCount += duplicateData.numOfCandidates;
+				duplicatesToRenderChildViews[duplicatesToRenderChildViews.length] = duplicateData;
+
+				renderDuplicate(renderNode, duplicateData)
+			}
+			renderData.numberOfDuplicates = duplicateCount;
+			updateBadge(identifier, duplicateCount);
+		}
+
+		function updateDuplicateData(duplicateData, typeIdentifier) {
+			duplicateData.id = 'duplicate-' + (duplicateIdGenerator++);
+			duplicateData.typeId = typeIdentifier;
+			var candidateCount = 0;
+			for (var key in duplicateData.duplicateCandidates) {
+				candidateCount++;
+			}
+			duplicateData.numOfCandidates = candidateCount;
+		}
+
+		function renderDuplicate(renderNode, duplicateData) {
+			appendByTemplate(
+				renderNode,
+				'duplicate-accordians-template',
+				duplicateData
+			);
+		}
+
+		function updateBadge(identifier, value) {
+			var element = jQueryRef('#' + duplicateTypeRenderData[identifier].badgeId);
+			if (element) {
+				element.html(value);
+			}
+		}
+
+		function endDetectionType(identifier, errorType, errorMessage) {
+			var renderData = duplicateTypeRenderData[identifier],
+				statusPlaceHolder = jQueryRef('#' + renderData.statusIconHolder);
+			if (errorType) {
+				htmlByTemplate(
+					statusPlaceHolder,
+					'type-error-template',
+					{
+						type: errorType,
+						message: errorMessage,
+						identifier: identifier
+					}
+				);
+			} else {
+				if (renderData.numberOfDuplicates === 0) {
+					jQueryRef('#' + renderData.duplicateDataContainerId).html(
+						'<span class="text-success glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>' +
+						' No duplicate candidates detected'
+					);
+				}
+				htmlByTemplate(
+					statusPlaceHolder,
+					'type-finished-template',
+					{
+						type: renderData.object,
+						message: 'Duplicate detection finished',
+						identifier: identifier
+					}
+				);
+			}
+			jQueryRef('#' + renderData.statusIconHolder + ' .my-popover').popover({ trigger: "hover" });
+			dataRefreshState && dataRefreshState.processedTypes++
+			endDetectionType
+		}
+
+		function refreshDetectionGroup(identifier) {
+			var renderData = duplicateTypeRenderData[identifier];
+			renderData.numberOfDuplicates = 0;
+			updateBadge(identifier, null);
+			jQueryRef('#' + renderData.duplicateDataContainerId).html('');
+			readDuplicateResults(
+				identifier,
+				null,
+				dataRefreshState && dataRefreshState.bottomCreatedDateWindow,
+				dataRefreshState && dataRefreshState.topCreatedDateWindow
+			);
+			dataRefreshState && dataRefreshState.processedTypes--;
+		}
+
+		function refreshData() {
+			if (dataRefreshState && dataRefreshState.processedTypes < dataRefreshState.shouldProcess) {
+				return;
+			}
+
+			var chosenBottomCreatedDateVal = jQueryRef('#filter-create-date-from').val(),
+				chosenTopCreatedDateVal = jQueryRef('#filter-create-date-to').val(),
+				bottomDateWindow = null,
+				topDateWindow = null;
+
+			dataRefreshState = {
+				processedTypes: 0,
+				shouldProcess: 0
+			};
+
+			if (chosenBottomCreatedDateVal) {
+				bottomDateWindow = moment(chosenBottomCreatedDateVal).toDate();
+			}
+			dataRefreshState.bottomCreatedDateWindow = bottomDateWindow;
+
+			if (chosenTopCreatedDateVal) {
+				topDateWindow = moment(chosenTopCreatedDateVal).toDate();
+			}
+			dataRefreshState.topCreatedDateWindow = topDateWindow;
+
+			jQueryRef('#detection-top-container').html('');
+			for (var i = 0; i < sortedTypeIdentifiers.length; i++) {
+				if(jQueryRef('#selected-' + sortedTypeIdentifiers[i]).is(':checked')) {
+					createRootAccordion(jQueryRef('#detection-top-container'), sortedTypeIdentifiers[i]);
+					readDuplicateResults(
+						sortedTypeIdentifiers[i],
+						null,
+						dataRefreshState.bottomCreatedDateWindow,
+						dataRefreshState.topCreatedDateWindow
+					);
+					dataRefreshState.shouldProcess++;
+				}
+			}
+		}
+
+		function readDuplicateResults(duplicateDetectionIdentifier, coveredObjectIds, createdBeforeTime, createdAfterTime) {
+			console.log(
+				'Invoking reading of duplicate results: ',
+				'Identifier - ' + duplicateDetectionIdentifier
+			);
+			var renderData = duplicateTypeRenderData[duplicateDetectionIdentifier];
+			if (!coveredObjectIds) {
+				jQueryRef('#' + renderData.statusIconHolder).html(
+					'<img src="/img/loading.gif" height="16px" width="16px"/>'
+				);
+				coveredObjectIds = [];
+				if (renderData) {
+					renderData.numberOfDuplicates = 0;
+					renderData.duplicatesByKey = {};
+				}
+			}
+
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.DuplicateRecordDetectionController.readDetectionCandidates}',
+				duplicateDetectionIdentifier,
+				createdBeforeTime && createdBeforeTime.getTime(),
+				createdAfterTime && createdAfterTime.getTime(),
+				coveredObjectIds,
+				function(result, event) {
+					if (event.status) {
+						renderDuplicateResult(duplicateDetectionIdentifier, result);
+						if (result.mightHaveMoreData) {
+							readDuplicateResults(duplicateDetectionIdentifier, result.coveredObjectIds, createdBeforeTime, createdAfterTime);
+						} else {
+							endDetectionType(duplicateDetectionIdentifier);
+						}
+					} else {
+						endDetectionType(duplicateDetectionIdentifier, event.type, event.message);
+					}
+				},
+				{ buffer: false, escape: true, timeout: 30000 }
+			);
+		}
+
+		jQueryRef(document).ready(function() {
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.DuplicateRecordDetectionController.getDetectionTypes}',
+				function(result, event) {
+					var detectionTypeUIData = []
+					if (event.status) {
+						var groupCounter = 0;
+						for (var groupKey in result) {
+							var typeRows = result[groupKey];
+							var rowData = [];
+							for (var i = 0; i < typeRows.length; i++) {
+								var typeColumns = typeRows[i];
+								var columnData = [];
+								for (var j = 0; j < typeColumns.length; j++) {
+									var description = typeColumns[j];
+									if (description.detector) {
+										buildType(description.identifier, description.detector);
+										columnData[j] = {
+											id: duplicateTypeRenderData[description.identifier].id,
+											title: duplicateTypeRenderData[description.identifier].title
+										};
+									}
+									sortedTypeIdentifiers[sortedTypeIdentifiers.length] = description.identifier;
+								}
+								rowData[i] = {
+									columns: columnData
+								};
+							}
+							detectionTypeUIData[groupCounter] = {
+								key: groupKey,
+								rows: rowData
+							};
+							groupCounter++;
+						}
+					}
+					buildFilters(detectionTypeUIData);
+				},
+				{ buffer: false, escape: true, timeout: 30000 }
+			);
+
+			function buildFilters(detectionTypeUIData) {
+				htmlByTemplate(
+					jQueryRef('#filter-holder'),
+					'filter-template',
+					{
+						detectionTypeGroups: detectionTypeUIData
+					}
+				);
+
+				initDatepickers();
+			}
+
+			function initDatepickers() {
+				var filterCreatedDateFromElem = jQueryRef('#filter-create-date-from'),
+					filterCreatedDateToElem = jQueryRef('#filter-create-date-to');
+
+				filterCreatedDateFromElem.datetimepicker({
+					maxDate: new Date()
+				});
+				filterCreatedDateToElem.datetimepicker({
+					maxDate: new Date()
+				});
+				filterCreatedDateFromElem.on("dp.change", function (e) {
+					filterCreatedDateToElem.data("DateTimePicker").minDate(e.date);
+				});
+				filterCreatedDateToElem.on("dp.change", function (e) {
+					filterCreatedDateFromElem.data("DateTimePicker").maxDate(e.date);
+				});
+			}
+		});
+
+		function buildType(identifier, typeDescription) {
+			duplicateTypeRenderData[identifier] = {
+				title: typeDescription.detectionTitle,
+				containerId: 'type-container-' + identifier,
+				duplicateDataContainerId: 'type-duplicates-container-' + identifier,
+				progressIndicatorPlaceholder: 'type-progress-' + identifier,
+				badgeId: 'type-badge-' + identifier,
+				uniqueKeyDescription: typeDescription.uniqueKeyExpression,
+				object: typeDescription.objectName,
+				numberOfDuplicates: 0,
+				statusIconHolder: 'type-status-icon-' + identifier,
+				id: identifier
+			};
+		}
+
+		function createRootAccordion(element, identifier) {
+			appendByTemplate(
+				element,
+				'root-accordians-template',
+				duplicateTypeRenderData[identifier]
+			);
+		}
+
+		function htmlByTemplate(onElement, templateId, params) {
+			onElement.html(
+				generateHtml(templateId, params)
+			);
+		}
+
+		function appendByTemplate(onElement, templateId, params) {
+			onElement.append(
+				generateHtml(templateId, params)
+			);
+		}
+
+		function generateHtml(templateId, params) {
+			var template = Handlebars.compile(
+				jQueryRef('#' + templateId)
+					.html()
+			);
+			return template(params);
+		}
+
+		function setCheckBoxFilters(val) {
+			var selector = jQueryRef('.my-filter-type');
+			if (val) {
+				selector.prop('checked', true);
+			} else {
+				selector.prop('checked', false);
+			}
+		}
+
+		function clearFilters() {
+			jQueryRef('.my-filter-input').val('');
+			setCheckBoxFilters(false);
+		}
+
+		Handlebars.registerPartial(
+			'recordDataTemplate',
+			jQueryRef('#record-data-template').html()
+		);
+	</script>
+</apex:page>

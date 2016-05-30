@@ -1,0 +1,192 @@
+<apex:page standardController="cscfga__Configuration_Offer__c" extensions="cscfga.ConfigurationOfferController" >
+
+	<apex:stylesheet value="{!$Resource.cscfga__BundleDetail_css}"/>
+	<c:FixUIStyles />
+	<c:EmbedScripts />
+
+	<style type="text/css">
+		.numberCol {
+			text-align: right
+		}
+		.main {
+			padding-top: 8px;
+		}
+		.bold {
+			font-weight: bold;
+		}
+		.totalCellNumber.quantity {
+			padding-right: 5px;
+		}
+	</style>
+
+	<apex:detail relatedList="false" />
+	<apex:relatedList list="Offer_Category_Associations__r"/>
+
+	<apex:form >
+
+		<apex:pageBlock title="{!$Label.confoffdet_Configured_Products}">
+			<apex:pageBlockButtons location="top">
+				<apex:commandButton value="{!$Label.confoffdet_Add_Product_Configuration}" action="{!addNewConfiguration}" />
+			</apex:pageBlockButtons>
+
+			<table class="list bundleDetail"  width="100%" cellpadding="0" cellspacing="0"  >
+				<tbody>
+				<tr class="headerRow" >
+					<th class="headingCellText" style="width: 100px">{!$Label.confoffdet_Action}</th>
+					<th class="headingCellText" style="width: 100px">{!$Label.confoffdet_Status}</th>
+					<th class="headingCellText">{!$Label.confoffdet_Item}</th>
+					<th class="headingCellNumber">{!$Label.confoffdet_Quantity}</th>
+					<th class="headingCellNumber">{!$Label.confoffdet_Non_Recurring_Costs}</th>
+					<th class="headingCellNumber">{!$Label.confoffdet_Recurring_Costs}</th>
+				<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+					<th class="headingCellNumber">{!$Label.confoffdet_Recurring_Invoice_Amount}</th>
+				</apex:outputPanel>
+					<th class="headingCellNumber">{!IF(displayTCVColumn, $Label.confoffdet_Total_Contract_Value, $Label.confoffdet_Annualised_Total)}</th>
+				</tr>
+				<apex:repeat var="configWrapper" value="{!AllOfferItems}">
+
+				<!--
+				#############################################
+				Top Row
+				#############################################
+				-->
+					<tr class="header">
+						<td class="controls">
+							<apex:commandLink action="{!editConfiguration}" immediate="true" onclick="CS.progressOn()" value="{!$Label.confoffdet_Edit}">
+								<apex:param assignTo="{!configId}" name="configId" value="{!configWrapper.config.Id}" />
+							</apex:commandLink>
+							&nbsp;|&nbsp;
+							<apex:commandLink action="{!deleteConfiguration}" value="{!$Label.confoffdet_Del}">
+								<apex:param assignTo="{!configId}" name="configId" value="{!configWrapper.config.Id}" />
+							</apex:commandLink>
+						</td>
+
+						<td>
+							{!configWrapper.config.configuration_status__c}
+						</td>
+
+						<td class="totalCellText">
+							<a href="{!communitiesPrefix}/{!configWrapper.config.Id}">{!configWrapper.config.Name}</a>
+						</td>
+
+						<td id="{!configWrapper.config.id}_qty" class="totalCellNumber quantity">
+							<apex:outputText value="x {0, number, #,###,##0.##}">
+								<apex:param value="{!configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText>
+						</td>
+
+						<td>&nbsp;</td>
+
+						<td class="totalCellNumber">&nbsp;</td>
+
+					<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+						<td class="totalCellNumber">&nbsp;</td>
+					</apex:outputPanel>
+
+						<td class="totalCellNumber">&nbsp;</td>
+
+					</tr>
+				<!--
+				#############################################
+				LINE ITEM ATTRIBUTES
+				#############################################
+				-->
+					<apex:repeat var="attrib" value="{!configWrapper.attributeList}">
+					<tr>
+						<td colspan="2">&nbsp;</td>
+
+						<td class="detailCellText" style="padding-left: 20px">
+							{!attrib.Line_Item_Description__c}
+						</td>
+
+						<td class="detailCellText">&nbsp;</td>
+
+						<td class="detailCellNumber">
+							<apex:outputPanel Rendered="{!NOT(attrib.cscfga__Recurring__c)}">
+								<apex:outputText value="{0, number, #,###,##0.00}">
+									<apex:param value="{!attrib.cscfga__Price__c * configWrapper.config.cscfga__Quantity__c}" />
+								</apex:outputText>
+							</apex:outputPanel>
+						</td>
+
+						<td class="detailCellNumber">
+							<apex:outputPanel Rendered="{!attrib.cscfga__Recurring__c}">
+								<apex:outputText value="{0, number, #,###,##0.00}">
+									<apex:param value="{!attrib.cscfga__Price__c * configWrapper.config.cscfga__Quantity__c}" />
+								</apex:outputText>
+							</apex:outputPanel>
+						</td>
+
+						<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+						<td class="detailCellNumber">
+							<apex:outputPanel Rendered="{!attrib.cscfga__Recurring__c}">
+								<apex:outputText value="{0, number, #,###,##0.00}">
+									<apex:param value="{!attrib.cscfga__Billing_Price__c * configWrapper.config.cscfga__Quantity__c}" />
+								</apex:outputText>
+							</apex:outputPanel>
+						</td>
+						</apex:outputPanel>
+
+						<td class="detailCellText"> </td>
+					</tr>
+					</apex:repeat>
+
+				<!--
+				#############################################
+				TOTALS ROW
+				#############################################
+				-->
+					<tr class="subtotals">
+						<td colspan="2" style="border:none">&nbsp;</td>
+						<td class="totalCellText" > {!$Label.confoffdet_Totals_for} {!configWrapper.config.Name}</td>
+						<td class="totalCellNumber">
+							<!--
+							<apex:outputText value="x {0, number, #,###,##0.##}">
+								<apex:param value="{!configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText>
+
+							<a id="{!configWrapper.config.id}_qty" href="javascript:showQtyBox('{!configWrapper.config.Id}','{!configWrapper.config.Name}','{!configWrapper.config.cscfga__Quantity__c}','{!config.id}' );">Change</a>
+							 -->
+							 &nbsp;
+						</td>
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!configWrapper.oneOffCharge *  configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText>
+						</td>
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!configWrapper.RecurringCharge * configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText><br />
+							<apex:outputText value="({!configWrapper.RecurringCostFrequency})" Rendered="{! configWrapper.RecurringCostFrequency != null}">
+							</apex:outputText>
+						</td>
+
+
+					<apex:outputPanel layout="none" rendered="{!displayRecurringInvoiceColumn}">
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!configWrapper.RecurringBillingCharge * configWrapper.config.cscfga__Quantity__c}" />
+							</apex:outputText>
+							<br />
+							<apex:outputText value="({! configWrapper.RecurringBillingFrequency})" Rendered="{! configWrapper.RecurringBillingFrequency!= null}">
+							</apex:outputText>
+						</td>
+					</apex:outputPanel>
+
+						<td class="totalCellNumber">
+							<apex:outputText value="{0, number, #,###,##0.00}">
+								<apex:param value="{!IF(displayTCVColumn, configWrapper.totalContractValue, configWrapper.totalPrice)}" />
+							</apex:outputText>
+						</td>
+					</tr>
+
+					<tr><td class="spacerheight" colspan="{!IF(displayRecurringInvoiceColumn, 8, 7)}">&nbsp;</td></tr>
+				</apex:repeat>
+
+				</tbody>
+			</table>
+		</apex:pageBlock>
+	</apex:form>
+	<apex:relatedList id="noteslist" list="NotesAndAttachments" subject="{!Offer.id}" />
+</apex:page>

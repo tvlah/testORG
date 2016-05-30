@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Attribute_Definition_Group__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Attribute Definition Group</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Attribute_Definition_Group__c.Product_Definition__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Product_Definition__c</valueField>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Attribute_Definition_Group__c</referenceTo>
+        <relationshipLabel>Attribute Definitions</relationshipLabel>
+        <relationshipName>Attribute_Definitions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Base_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The default price for the attribute if used as a line item.</inlineHelpText>
+        <label>Base Price</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Calculation_Sequence__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The weight to be assigned to Attributes defined by this Attribute Definition when sorting the order of evaluation of calculations. Only relevant to &apos;calculation&apos; type Attribute Definitions.</inlineHelpText>
+        <label>Calculation Sequence</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cascade_value__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Cascade value</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Column_Size_CSV__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Comma separated value list containing column widths of select list lookup.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated value list containing displayed column widths (integers) for Attributes defined by this Attribute Definition. Only relevant for lookup Attributes set to render as select lists. Unit used for rendering is em.</inlineHelpText>
+        <label>Column Size CSV</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Column_Span__c</fullName>
+        <defaultValue>1</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The column span in the configuration screen layout for Attributes defined by this Attribute Definition. &apos;1&apos; for a single column, &apos;2&apos; for both columns.</inlineHelpText>
+        <label>Column Span</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Column_Style__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>CSS style to be applied to the display of Attributes defined by this Attribute Definition. Only relevant to &apos;text display&apos; type Attribute Definitions.</inlineHelpText>
+        <label>Column Style</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Column__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Specifies the column for Attributes defined by this Attribute Definition in the configuration screen layout. &apos;0&apos; for the left column, &apos;1&apos; for the right column.</inlineHelpText>
+        <label>Column</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Configuration_Screen__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The generated configuration screen on which Attributes of this Attribute Definition will be displayed.</inlineHelpText>
+        <label>Configuration Screen</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Configuration_Screen__c.Product_Definition__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Product_Definition__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Configuration_Screen__c</referenceTo>
+        <relationshipLabel>Attribute Definitions (generated screen)</relationshipLabel>
+        <relationshipName>Attribute_Definitions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Custom_Validation_Error_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The message to be displayed if the attribute value does not match the custom validation pattern.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Error message to be displayed for Attributes defined by this Attribute Definition when their value does not fit the custom validation pattern.</inlineHelpText>
+        <label>Custom Validation Error Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Data_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Data type indicating how to interpret the value of an Attribute defined by this Attribute Definition. E.g. &apos;String&apos;, &apos;Integer&apos; etc.</inlineHelpText>
+        <label>Data Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Decimal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Double</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Integer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>String</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Default_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Default value for Attributes defined by this Attribute Definition. In the case of calculation type Attribute Definitions, this will be evaluated as an expression. See documentation for expression syntax.</inlineHelpText>
+        <label>Default Value</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Enable_Multiple_Selection__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>For Select List and Lookup attributes, enable multiple items to be selected.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, Attributes defined by this Attribute Definition will accept multiple values. Only relevant to lookup type Attribute Definitions. In the standard UI, will cause relevant Attributes to be displayed as related lists.</inlineHelpText>
+        <label>Enable Multiple Selection</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Predictive_Search__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>For select lists, enable automatic searching of the list while the user is typing.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enables automatic search while user is typing. Only relevant for attribute type Select List.</inlineHelpText>
+        <label>Enable Predictive Search</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_null_option__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable a null option on Select Lists and Radio Buttons (which would not validate if the field is required)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, a &apos;--None--&apos; option will be available for fields that provide a list of choices. Only relevant for attribute types: Select List and Radio button.</inlineHelpText>
+        <label>Enable Null Option</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Field__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Field</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hidden__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this attribute is not displayed on the screen during the configuration process.</inlineHelpText>
+        <label>Hidden</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Line_Item__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, attributes based on this definition will be displayed as a line item on the configured product details.</inlineHelpText>
+        <label>Is Line Item</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Rate_Line_Item__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicator that attribute is Rate/Usage line item</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this attribute definition is a rate/usage line item.</inlineHelpText>
+        <label>Is Rate Line Item</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Text label which will be displayed during configuration instead of the Attribute&apos;s name.</inlineHelpText>
+        <label>Label</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Line_Item_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Description of the line item to be displayed on the pricing summary screen and potentially proposal and invoice documents. If this field has no value, ‘EMPTY’ will be displayed for all non-Text Display type attributes.</inlineHelpText>
+        <label>Line Item Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Line_Item_Sequence__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The weight to be assigned to the Attribute when sorting line items for display. Only relevant to line item Attributes.</inlineHelpText>
+        <label>Line Item Sequence</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>List_Columns__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Used for adding columns of Related Products or Multiselect Lookups as a CSV list. For Related Products provide attribute names which are to be displayed in the related list columns. For Multiselect Lookups provide the field label of the looked-up object.</inlineHelpText>
+        <label>List Columns</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lookup_Config__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Use to create a relationship between the Lookup type attribute definition and a Lookup Config.</inlineHelpText>
+        <label>Lookup Config</label>
+        <referenceTo>Lookup_Config__c</referenceTo>
+        <relationshipLabel>Attribute Definitions</relationshipLabel>
+        <relationshipName>Attribute_Definitions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lookup_Query__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Lookup Query</label>
+        <referenceTo>Lookup_Query__c</referenceTo>
+        <relationshipLabel>Attribute Definitions</relationshipLabel>
+        <relationshipName>Attribute_Definitions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Max__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum cardinality for this attribute. Only relevant for Multi-Select Lookups and Related Product type attributes.</inlineHelpText>
+        <label>Max</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Min__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Min</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Minimum_Input_Length__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Minimum input length for select list lookup style.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Minimum number of characters that have to be entered into search box on select list lookup.</inlineHelpText>
+        <label>Minimum Input Length</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Output_Mapping__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The business object &amp; field names this attribute can be mapped to.</inlineHelpText>
+        <label>Output Mapping</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pattern__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A Regular Expression pattern used to validate the value of this attribute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A regular expression to be used to validate the value of Attributes defined by this Attribute Definition.</inlineHelpText>
+        <label>Custom Validation Pattern</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Definition__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Product Definition to which this Attribute Definition belongs.</inlineHelpText>
+        <label>Product Definition</label>
+        <referenceTo>Product_Definition__c</referenceTo>
+        <relationshipLabel>Attribute Definitions</relationshipLabel>
+        <relationshipName>Attribute_Definitions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Quick_Entry_Grid_Orientation__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Quick Entry Grid Orientation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Horizontal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vertical</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Recurring__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this Attribute Definition should be treated as a recurring line item. If unchecked, this Attribute Definition should be treated as a one-off line item. Only relevant to line item Attribute Definitions.</inlineHelpText>
+        <label>Recurring</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reference_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Text included in bundle summary to clearly distinguish Rate/Usage line items from other line items</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Reference value is a text label which will be displayed next to Rate Line Item&apos;s price. Used in correlation with &apos;Is Rate Line Item&apos; checkbox. Can contain basic html mark-up and cannot contain scripts.</inlineHelpText>
+        <label>Reference Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the Attribute will be mandatory field at the start of the configuration process. Can be changed with Actions during configuration.</inlineHelpText>
+        <label>Required</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Row__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Row number that determines where attribute appears on Configuration Screen.</inlineHelpText>
+        <label>Row</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Scale__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The number of decimal places. Only relevant for Decimal attribute type. Default value is 2 decimal places.</inlineHelpText>
+        <label>Scale</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Screen_Section__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Screen Section to which the attribute belongs.</inlineHelpText>
+        <label>Screen Section</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Screen_Section__c.Configuration_Screen__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Configuration_Screen__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Screen_Section__c</referenceTo>
+        <relationshipLabel>Attribute Definitions (generated screens)</relationshipLabel>
+        <relationshipName>Attribute_Definitions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Select_List_Lookup__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This lookup style is presented as a searchable pick list which is dynamically populated with matches as the user types.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, Lookup attribute will be presented as inline select style attribute instead of pop-up dialog.</inlineHelpText>
+        <label>Select List Lookup</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Text_input_lines__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of lines for User Input box during configuration process. Only relevant for Attribute Definition type: User Input. Default is 1 line.</inlineHelpText>
+        <label>Text input lines</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Type of this Attribute Definition.</inlineHelpText>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Calculation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Checkbox</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lookup</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MultiSelect List</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Related Product</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Select List</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Text Display</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>User Input</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio Button</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Display Value</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Package Slot</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Use_Quick_Entry_Grid__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Use Quick Entry Grid</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Validation_Pattern__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Validation Pattern</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Decimal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Integer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>attribute_help_text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Text which will be displayed next to an attribute in form of a mouseover help text. If blank, no help text will be displayed.</inlineHelpText>
+        <label>Attribute Help Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>configuration_output_mapping__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the field on Product Configuration to which the Attribute value will be mapped.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the field on Product Configuration to which the Attribute value will be mapped.</inlineHelpText>
+        <label>Configuration Output Mapping</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>high_volume__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enables large numbers of related products under this attribute by restricting access to computationally expensive functionality.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enables large numbers of related products under this attribute by restricting access to computationally expensive functionality.</inlineHelpText>
+        <label>Enable for high volumes</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>is_significant__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicator that change of value of this attribute should desynchronise the bundle.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, any changes made to this attribute will cause its Product Bundle to be de-synchronised from the Opportunity, if applicable.</inlineHelpText>
+        <label>Desynchronises Bundle</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>reference_name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Hierarchical reference used to refer to attributes defined by this definition in Runtime V2.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hierarchical reference used to refer to attributes defined by this definition in Runtime V2.</inlineHelpText>
+        <label>Reference Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>show_in_summary__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, high volume related products and their line items will be presented hierarchically, in expandable lists in the basket summary page. Applicable only to attributes that are enabled for high volumes.</inlineHelpText>
+        <label>Show in summary</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Attribute Definition</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Attribute Definitions</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Product_Definition__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

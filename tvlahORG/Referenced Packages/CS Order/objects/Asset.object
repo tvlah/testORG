@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Asset_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Describes the asset in more detail</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Describes the asset in more detail</inlineHelpText>
+        <label>Asset Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>External_Identifier2__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</inlineHelpText>
+        <label>External Identifier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>External_Identifier__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>DEPRECATED. Use External Identifier2 field instead.</inlineHelpText>
+        <label>DEPRECATED External Identifier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Identification__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Identification string for the object, used as the reference from external systems.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>E.g. &quot;spokeServiceAmsterdam&quot; in Hub&amp;Spokes scenario.</inlineHelpText>
+        <label>Identification</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order_Line_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The parent of this asset.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent of this asset. Only one of Order, OrderLineItem, Service or ServiceLineItem can be filled in for any asset.</inlineHelpText>
+        <label>Order Line Item</label>
+        <referenceTo>Order_Line_Item__c</referenceTo>
+        <relationshipLabel>Salesforce Assets</relationshipLabel>
+        <relationshipName>Salesforce_Assets</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Order_Request__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Order Request object which introduced the latest changes to this object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Order Request object which introduced the latest changes to this object.</inlineHelpText>
+        <label>Order Request</label>
+        <referenceTo>Order_Request__c</referenceTo>
+        <relationshipLabel>Salesforce Assets</relationshipLabel>
+        <relationshipName>Salesforce_Assets</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The parent of this asset.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent of this asset. Only one of Order, OrderLineItem, Service or ServiceLineItem can be filled in for any asset.</inlineHelpText>
+        <label>Order</label>
+        <referenceTo>Order__c</referenceTo>
+        <relationshipLabel>Salesforce Assets</relationshipLabel>
+        <relationshipName>Salesforce_Assets</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Service_Line_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The parent of this asset.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent of this asset. Only one of Order, OrderLineItem, Service or ServiceLineItem can be filled in for any asset.</inlineHelpText>
+        <label>Service Line Item</label>
+        <referenceTo>Service_Line_Item__c</referenceTo>
+        <relationshipLabel>Salesforce Assets</relationshipLabel>
+        <relationshipName>Salesforce_Assets</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The parent of this asset.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent of this asset. Only one of Order, OrderLineItem, Service or ServiceLineItem can be filled in for any asset.</inlineHelpText>
+        <label>Service</label>
+        <referenceTo>Service__c</referenceTo>
+        <relationshipLabel>Salesforce Assets</relationshipLabel>
+        <relationshipName>Salesforce_Assets</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+</CustomObject>

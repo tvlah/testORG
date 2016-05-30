@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <webLinks>
+        <fullName>Multiple_subscriptions</fullName>
+        <availability>online</availability>
+        <description>Generate multiple subscriptions</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Change Subscription(s)</masterLabel>
+        <openType>sidebar</openType>
+        <page>AccountMultipleSubscriptions</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

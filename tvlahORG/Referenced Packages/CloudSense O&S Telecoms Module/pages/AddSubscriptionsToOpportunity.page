@@ -1,0 +1,39 @@
+<apex:page StandardController="Opportunity" extensions="csordtelcoa.AddSubscriptionsToOpportunityController" id="fullPage" showHeader="true" sidebar="true">
+    <apex:form id="pageForm">
+        <apex:sectionHeader title="Add subscriptions" subtitle="Add subscriptions to existing opportunity" />
+        <apex:pageMessages />
+        <apex:pageBlock id="pageBlock" title="">
+            <apex:pageBlockButtons id="changeRequestButtons" location="top">
+                <apex:commandButton value="Add selected subscriptions" title="Add selected subscriptions" action="{!AddMultipleSubscriptionsToMacOpportunity}" rendered="{!allowAdd}"/>
+                <apex:commandButton value="Cancel" title="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock id="pageBlockOptions" title="Opportunity">
+        	<apex:pageBlockSection >
+	        	<apex:pageBlockSectionItem >
+	        		<apex:outputLabel value="Name" for="name" /> 
+	        		<apex:outputLabel value="{!opp.Name}" id="name" />
+	       		</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+	        		<apex:outputLabel value="Stage" for="stage" /> 
+	        		<apex:outputLabel value="{!opp.StageName}" id="stage" />
+	       		</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+	        		<apex:outputLabel value="Account" for="account" /> 
+	        		<apex:outputLabel value="{!opp.Accountid}" id="account" />
+	       		</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+	        		<apex:outputLabel value="Change_Type__c" for="changeType" /> 
+	        		<apex:outputLabel value="{!opp.csordtelcoa__Change_Type__c}" id="changeType" />
+	       		</apex:pageBlockSectionItem>	       		
+       		</apex:pageBlockSection> 
+        </apex:pageBlock>
+        <apex:pageBlock id="pageBlockSubscriptions" title="Subscriptions">
+			<apex:outputpanel id="customCheckboxPanel" layout="block">  
+	            <apex:selectCheckboxes value="{!choices}" layout="pageDirection">  
+            		<apex:selectOptions value="{!list}"/><br/>  
+	            </apex:selectCheckboxes>  
+			</apex:outputpanel>         
+        </apex:pageBlock>    
+	</apex:form>
+</apex:page>

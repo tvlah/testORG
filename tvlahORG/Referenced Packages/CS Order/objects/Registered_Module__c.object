@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>All known/registered serialised modules in the system.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Callback_Responder_Classname__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The class which processes the response after the processing of the Order Request has finished.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The class which processes the response after the processing of the Order Request has finished.</inlineHelpText>
+        <label>Callback Responder Classname</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Data_Carrier_Classname__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The class into which incoming data is deserialized (the message within an order request is a representation of an object of this type).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The class into which incoming data is deserialized (the message within an order request is a representation of an object of this type).</inlineHelpText>
+        <label>Data Carrier Classname</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <defaultValue>&apos;Not provided.&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The purpose and intent of this module as registered in the Order&amp;Subscriptions.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The purpose and intent of this module as registered in the Order&amp;Subscriptions.</inlineHelpText>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Legal_State_Transitions_List__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The list of all transitions permitted in this module. Covers all objects and takes no account of object interdependencies (TODO).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The list of all transitions permitted in this module. Covers all objects and takes no account of object interdependencies (TODO).</inlineHelpText>
+        <label>Legal State Transitions List</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Module_Manager_Classname__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Module Manager class for the module.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Module Manager class for the module.</inlineHelpText>
+        <label>Module Manager Classname</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NameVersion__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A unique combination of the module name and a version. Used in validation rules.</description>
+        <externalId>false</externalId>
+        <formula>Name  &amp;  Version__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>A unique combination of the module name and a version. Used in validation rules.</inlineHelpText>
+        <label>NameVersion</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Namespace__c</fullName>
+        <defaultValue>&apos;&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The namespace in which this class occurs (may be empty).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The namespace in which this class occurs (may be empty).</inlineHelpText>
+        <label>Namespace</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order_Manager_Classname__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Order Manager class for the module.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Order Manager class for the module.</inlineHelpText>
+        <label>Order Manager Classname</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Reader_Classname__c</fullName>
+        <defaultValue>&quot;N/A&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The name of the State Reader class for the module.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the State Reader class for the module.</inlineHelpText>
+        <label>State Reader Classname</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Transition_Listener_Classname__c</fullName>
+        <defaultValue>&quot;N/A&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The name of the State Transition Listener class for the module.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the State Transition Listener class for the module.</inlineHelpText>
+        <label>State Transition Listener Classname</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Transition_Manager_Classname__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the State Transition Manager class for the module.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the State Transition Manager class for the module.</inlineHelpText>
+        <label>State Transition Manager Classname</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Version__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The version of the module.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The version of the module.</inlineHelpText>
+        <label>Version</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Registered Module</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Registered Module Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Registered Modules</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

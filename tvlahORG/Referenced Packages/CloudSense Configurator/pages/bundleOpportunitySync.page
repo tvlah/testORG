@@ -1,0 +1,18 @@
+<apex:page standardController="cscfga__Product_Bundle__c" extensions="cscfga.ProductBundleController" tabStyle="Solution">
+    <apex:form >
+        <apex:actionFunction name="syncWithOpportunity" action="{!syncWithOpportunity}" />
+        <apex:outputPanel rendered="{!csrfOK}">
+            <div style="margin-bottom: 24px"><apex:messages /></div>
+            <div>
+				<c:ButtonWrapper ><a href="{!$Site.Prefix}/{!bundle.Opportunity__c}" class="{!buttonClass}" style="{!buttonStyle}">{!$Label.bdloppsync_Return_to_Opportunity}</a></c:ButtonWrapper>
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel rendered="{!NOT(csrfOK)}">
+            {!$Label.bdloppsync_Synchronizing}
+            <script type="text/javascript">
+                window.setTimeout(syncWithOpportunity, 500);
+            </script>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

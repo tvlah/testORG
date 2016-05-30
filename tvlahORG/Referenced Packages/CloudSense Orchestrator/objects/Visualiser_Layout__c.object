@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>This object contains JSON serialized layout representations for specific Orchestrator process and User.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Layout__c</fullName>
+        <deprecated>false</deprecated>
+        <description>JSON representation of layout.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>JSON representation of layout.</inlineHelpText>
+        <label>Layout</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Record_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Id of Orchestrator process or template process.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Id of Orchestrator process or template process.</inlineHelpText>
+        <label>Record ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>User for which layout is saved.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>User for which layout is saved.</inlineHelpText>
+        <label>User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Visualiser_Layouts</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>isValid__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This flag is checked if layout is valid,
+and unchecked if layout is invalid possibly because some changes in other parts of the system.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This flag is checked if layout is valid,
+and unchecked if layout is invalid possibly because some changes in other parts of the system.</inlineHelpText>
+        <label>isValid</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Visualiser Layout</label>
+    <nameField>
+        <label>Visualiser Layouts</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Visualiser Layouts</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>User__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Layout__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>isValid__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Record_ID__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>isValid__c</searchFilterFields>
+        <searchFilterFields>User__c</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Validate_id</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT( LEN( Record_ID__c)   = 15  ||  LEN( Record_ID__c) = 18 )</errorConditionFormula>
+        <errorDisplayField>Record_ID__c</errorDisplayField>
+        <errorMessage>This is not a valid record ID.</errorMessage>
+    </validationRules>
+</CustomObject>

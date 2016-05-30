@@ -1,0 +1,57 @@
+<apex:page StandardController="csord__Subscription__c" extensions="csordtelcoa.CreateChangeOrderController" id="fullPage" showHeader="true" sidebar="true">
+    <apex:form id="pageForm">
+        <apex:sectionHeader title="Change Request" subtitle="Create a Change Order" />
+        <apex:pageMessages />
+        <apex:pageBlock id="pageBlock" title="">
+            <apex:pageBlockButtons id="changeRequestButtons" location="top">
+                <apex:commandButton value="{!$Setup.Orders_Subscriptions_Options__c.Create_Mac_Opportunities_Button_Label__c}" title="Generate MAC Opportunity" action="{!CreateMacOpportuntiyFromSubscription}" rendered="{!IF($Setup.Orders_Subscriptions_Options__c.Create_Mac_Opportunities__c && (allowChange) && NOT(InvokeProcess),true,false)}"/>
+                <apex:commandButton value="{!$Setup.Orders_Subscriptions_Options__c.Create_Mac_Baskets_Button_Label__c}" title="Generate MAC Basket" action="{!CreateMacBasketFromSubscription}" rendered="{!IF($Setup.Orders_Subscriptions_Options__c.Create_Mac_Baskets__c && (allowChange) && NOT(InvokeProcess),true,false)}"/>
+                <apex:commandButton value="Create Process" title="Create Process" action="{!createProcess}" rendered="{!InvokeProcess}"/>
+                <apex:commandButton value="Cancel" title="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="" id="pageBlockSection" showHeader="false" rendered="{!allowChange}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Subscription To Change" for="subscriptionToChange"/>
+                    <apex:outputText value="{!csord__Subscription__c.Name}" id="subscriptionToChange"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Select Change Type" for="changeType"/>
+                    <apex:selectList value="{!changeType}"  size="1" multiselect="false" required="true" id="changeType"> 
+                        <apex:actionSupport event="onchange" action="{!rerenderButtons}" rerender="pageForm" />
+                        <apex:selectOptions value="{!ChangeTypes}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!IF($Setup.Orders_Subscriptions_Options__c.Create_Mac_Opportunities__c && oppRecordTypes.size > 0 && NOT(InvokeProcess), true, false)}">
+                    <apex:outputLabel value="Select Opportunity Record Type" for="oppRecrodType"/>
+                    <apex:selectList value="{!oppRecordType}"  size="1" multiselect="false" required="true" id="oppRecrodType"> 
+                        <apex:selectOptions value="{!oppRecordTypes}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!InvokeProcess}">
+                    <apex:outputLabel value="Process Name" for="processName"/>
+                    <apex:inputText id="processName" value="{!processName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItemDate" rendered="{!RequestDate}">
+                    <apex:outputLabel value="{!requestedDateLabel}" for="cancellationDate"/>
+                    <apex:outputpanel id="outputPanelDate">
+                        <apex:inputText value="{!dateString}" size="10" id="date" onfocus="DatePicker.pickDate(false, this , false);" />
+                        <apex:outputLink value="javascript:DatePicker.insertDate('{!Today()}', 'fullPage:pageForm:pageBlock:pageBlockSection:pageBlockSectionItemDate:date', true);"> 
+                            <apex:outputText value="[ {!Today()} ]"/> 
+                        </apex:outputLink>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="" showHeader="false" rendered="{!NOT(allowChange)}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputField value="{!csord__Subscription__c.csordtelcoa__Replacement_Subscription__c}" id="replacementsubscription"/> 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- -->
+            <apex:outputText value="{!csord__Subscription__c.id}" rendered="false"/> 
+            <apex:outputText value="{!csord__Subscription__c.Name}" rendered="false"/> 
+            <apex:outputText value="{!csord__Subscription__c.csord__Account__c}" rendered="false"/> 
+            <apex:outputText value="{!csord__Subscription__c.csordtelcoa__Closed_Replaced__c}" rendered="false"/> 
+            <apex:outputText value="{!csord__Subscription__c.csord__Status__c}" rendered="false"/> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

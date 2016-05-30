@@ -1,0 +1,66 @@
+<apex:page extensions="csordcb.OrderRequestController" standardController="csord__Order_Request__c">
+	<script>
+
+		/*
+			We only get one hit to do this as you cannot rerender apex:inputFile
+		*/
+		function swapModelSource(elem){
+			changeModelSource(true);
+		}
+		
+	</script>
+
+	<apex:form >
+	
+		<apex:messages />
+		
+		<apex:Pageblock >
+	
+			<apex:pageBlockButtons style="align:center" location="both" >
+			    <apex:commandButton value="Process" action="{!processRequest}" />                            
+			    <apex:commandButton value="Cancel" action="{!cancel}" />                            
+			</apex:pageBlockButtons>
+			
+	       <apex:actionFunction name="changeModelSource" action="{!changeModelSource}" immediate="true" rerender="screen" >
+	           <apex:param name="fileOption" value="" assignTo="{!fileOption}"/>           
+	       </apex:actionFunction>
+	
+			<apex:PageBlockSection columns="2" id="screen">
+	
+				<apex:PageBlockSectionItem rendered="{!moduleName == null}"> 
+					<apex:outputlabel >Order Processing Module : </apex:outputlabel>
+					<apex:selectList id="module" size="1" value="{!moduleId}" >
+					    <apex:selectOptions value="{!modules}" />
+					</apex:selectList>           
+				</apex:PageBlockSectionItem>
+
+				<apex:PageBlockSectionItem rendered="{!moduleName != null}"> 
+					<apex:outputlabel >Order Processing Module : </apex:outputlabel>
+					<apex:outputText value="{!moduleName}" />
+				</apex:PageBlockSectionItem>
+				
+				<apex:PageBlockSectionItem > 
+					<apex:outputlabel >Model data from file? </apex:outputlabel>
+					<apex:inputCheckbox value="{!fileOption}">
+						<apex:actionSupport event="onchange" action="{!changeModelSource}" />
+					</apex:inputCheckbox>
+				</apex:PageBlockSectionItem>
+							
+				<apex:PageBlockSectionItem rendered="{!NOT(fileOption)}"> 
+					<apex:outputlabel >Paste model data : </apex:outputlabel>
+					<apex:inputTextArea value="{!modelData}" cols="80" rows="25"/>
+				</apex:PageBlockSectionItem>
+				
+				<apex:PageBlockSectionItem rendered="{!fileOption}"> 
+					<apex:inputFile value="{!attachment.body}" fileName="{!attachment.name}" id="file" />
+					<apex:commandButton value="upload" action="{!upload}" disabled="{!NOT(fileOption)}" />				
+				</apex:PageBlockSectionItem>
+
+
+			</apex:PageBlockSection>
+			
+		 </apex:Pageblock>
+	
+	</apex:form>
+	
+</apex:page>

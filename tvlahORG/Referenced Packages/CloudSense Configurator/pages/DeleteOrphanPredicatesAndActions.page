@@ -1,0 +1,138 @@
+<apex:page controller="cscfga.DeleteRuleController">
+
+
+<apex:form >
+
+
+    <apex:pageBlock title="Orphan Predicates and Actions" id="blockMain">
+            
+          <apex:pageBlockSection title="Information"  columns="1" rendered="{!ShowPredicates || ShowActions || ShowRedundantActions}" collapsible="false">
+            <h2>
+            The following Predicates and Actions are not used by any rules within the Configurator, or are redundant. <br />
+            Items can be deleted by selecting the checkbox on the left and clicking the Delete Selected Orphans button.<br /><br />
+            Click on the arrow in a section heading to expand or collapse its contents. <br/> 
+            Click on the Predicate or Action name to view it in a new Tab or Window.
+             
+            </h2>
+            <br />
+          </apex:pageBlockSection>
+
+          <apex:pageBlockSection title="Information"  columns="1" rendered="{! !ShowPredicates &&  !ShowActions && !ShowRedundantActions}" >
+            <h2>
+                There are no orphaned Predicates or Actions within the Configurator.
+            </h2>
+            <br />
+          </apex:pageBlockSection>
+
+           
+          <apex:pageBlockSection title="Oprhan Predicates" rendered="{!ShowPredicates }" columns="1" collapsible="true">
+
+
+            <apex:pageBlockTable var="item" value="{!PredicatesToBeOrphaned}" width="450">
+                <apex:column width="50" >
+                    <apex:facet name="header">Delete</apex:facet>
+                    <apex:outputPanel >                
+                        <apex:inputCheckbox value="{!item.isSelected}"/>
+                    </apex:outputPanel>
+                </apex:column>
+
+                <apex:column width="120" >
+                    <apex:facet name="header">Predicate</apex:facet>
+                    <apex:outputPanel >
+                        <a href="/{!item.id}" target="_orphan">{!item.Name}</a>
+                    </apex:outputPanel>
+                </apex:column>
+
+                <apex:column width="300">
+                    <apex:facet name="header">Label</apex:facet>
+                    <apex:outputPanel >
+                        {!item.Label}
+                    </apex:outputPanel>
+                </apex:column>
+
+             </apex:pageBlockTable> 
+                   
+            <br />
+          </apex:pageBlockSection>
+
+          <apex:pageBlockSection title="Orphan Actions" rendered="{!ShowActions}" columns="1" collapsible="true">
+
+
+            <apex:pageBlockTable var="item" value="{!ActionsToBeOrphaned}" width="450">
+                <apex:column width="50" >
+                    <apex:facet name="header">Delete</apex:facet>
+                    <apex:outputPanel >                
+                        <apex:inputCheckbox value="{!item.isSelected}"/>
+                    </apex:outputPanel>
+                </apex:column>
+
+                <apex:column width="120">
+                    <apex:facet name="header">Action</apex:facet>
+                    <apex:outputPanel >
+                        <a href="/{!item.id}" target="_orphan">{!item.Name}</a>
+                    </apex:outputPanel>
+                </apex:column>
+
+                <apex:column width="300">
+                    <apex:facet name="header">Label</apex:facet>
+                    <apex:outputPanel >
+                        {!item.Label}
+                    </apex:outputPanel>
+                </apex:column>
+
+             </apex:pageBlockTable> 
+        </apex:pageBlockSection>         
+  
+  
+      <apex:pageBlockSection title="Redundant Actions (Actions with no Target specified)" rendered="{!ShowRedundantActions}" columns="1" collapsible="true">
+
+
+            <apex:pageBlockTable var="item" value="{!RedundantActions}" width="450">
+                <apex:column width="50" >
+                    <apex:facet name="header">Delete</apex:facet>
+                    <apex:outputPanel >                
+                        <apex:inputCheckbox value="{!item.isSelected}"/>
+                    </apex:outputPanel>
+                </apex:column>
+
+                <apex:column width="120">
+                    <apex:facet name="header">Action</apex:facet>
+                    <apex:outputPanel >
+                        <a href="/{!item.id}" target="_orphan">{!item.Name}</a>
+                    </apex:outputPanel>
+                </apex:column>
+
+                <apex:column width="300">
+                    <apex:facet name="header">Label</apex:facet>
+                    <apex:outputPanel >
+                        {!item.Label}
+                    </apex:outputPanel>
+                </apex:column>
+
+             </apex:pageBlockTable> 
+        </apex:pageBlockSection>         
+  
+  
+
+          <br />          <br />
+            <apex:outputPanel id="msgMain" rendered="{!saveMessage <> ''}">
+               <b>Messages:</b>  {!saveMessage}
+            </apex:outputPanel>      
+          <br />          <br />
+
+            <apex:commandButton action="{!deleteOrphans}"  value="Delete Selected Orphans" rendered="{!ShowPredicates  || ShowActions }"></apex:commandButton>
+   
+
+        
+    
+                   
+        </apex:pageBlock>
+
+
+
+
+    
+    
+    </apex:form>
+
+</apex:page>

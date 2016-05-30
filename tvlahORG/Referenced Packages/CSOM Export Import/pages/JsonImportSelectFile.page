@@ -1,0 +1,59 @@
+<apex:page Controller="csexpimp1.JsonImportSelectFileController" showHeader="true" >
+	<apex:form >
+		<apex:pageBlock title="Import Product Definitions from JSON">
+			<apex:pageBlock title="Step 1: Select JSON file to import">
+				<p>Import a file previously exported from the Cloudsense Configurator</p> <br />
+				<table width="600">
+					<tr>
+						<td width="250"> File to Import (required):     </td>
+						<td>  <apex:inputFile id="import_file" accept="*.json"
+									required="true" fileName="{!fileName}"
+									value="{!fileContents}"   >
+								</apex:inputFile>
+								<apex:message for="import_file"/>
+						</td>
+				</tr>
+				<tr>
+					<td>Enter Import Comments:</td>
+					<td>
+						<apex:inputText Title="Enter import comments"
+									id="comments_text"
+									accesskey=""
+									required="false"
+									value="{!importComments}"
+									Size="40"
+									maxlength="100"
+									/>
+						<apex:message for="comments_text"/>
+					</td>
+				</tr>
+				<tr>
+					<td>Enter suffix to append to Categories and Product Definition names (optional): </td>
+					<td>
+						<apex:inputText Title="Enter name suffix (optional)"
+									id="name_suffix"
+									accesskey=""
+									required="false"
+									value="{!nameSuffix}"
+									Size="20"
+									maxlength="20"
+									/>
+					</td>
+				</tr>
+				<tr>
+						<td colspan="2">
+							<apex:commandButton title="Next >" value="Next >" action="{!wzUploadFile}"/>
+						</td>
+				</tr>
+				</table>
+			</apex:pageBlock>
+		</apex:pageBlock>
+
+		<apex:pageBlock >
+				<apex:pageBlockSection >
+				<p> {!Message}  </p>
+				<p> <apex:messages ></apex:messages> </p>
+				</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

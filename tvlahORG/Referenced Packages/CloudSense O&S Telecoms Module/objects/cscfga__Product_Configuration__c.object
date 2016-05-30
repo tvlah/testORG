@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <fields>
+        <fullName>Config_Key__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Config Key</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hierarchy_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Helper field used for pre-populating the hierarchy level in hierarchical PC structures regardless of their origin. The field is used only for backend processing and should not be visible to anyone.</description>
+        <externalId>false</externalId>
+        <label>Hierarchy Level</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Lookup_Configuraiton__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Helper field used for pre-populating of lookup based hierarchy parent IDs. The field is used only for backend processing and should not be visible to anyone.</description>
+        <externalId>false</externalId>
+        <label>Parent Lookup Configuration</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Replaced_Product_Configuration__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Replaced Product Configuration</label>
+        <referenceTo>cscfga__Product_Configuration__c</referenceTo>
+        <relationshipLabel>Product Configurations (Replaced Product Configuration)</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Replaced_Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Replaced Service</label>
+        <referenceTo>csord__Service__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Replaced_Subscription__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Replaced Subscription</label>
+        <referenceTo>csord__Subscription__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Solution__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Lookup to a Solution encompassing the Product Configuration object</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to a Solution encompassing the Product Configuration object</inlineHelpText>
+        <label>Solution</label>
+        <referenceTo>csord__Solution__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+</CustomObject>

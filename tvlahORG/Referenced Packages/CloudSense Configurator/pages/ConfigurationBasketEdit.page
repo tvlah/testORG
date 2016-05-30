@@ -1,0 +1,20 @@
+<apex:page standardController="cscfga__Product_Basket__c">
+
+	<apex:form >
+		<apex:pageBlock title="{!$Label.prodbaskedit_product_basket_edit_title}">
+			<apex:pageBlockButtons location="both">
+				<apex:commandButton value="{!$Label.prodbaskedit_save}" action="{!save}" />
+				<apex:commandButton value="{!$Label.prodbaskedit_cancel}" action="{!cancel}" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="{!$Label.prodbaskedit_information}" columns="1" collapsible="false">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.prodbaskedit_name_label}" for="name" />
+					<apex:inputField id="name" value="{!cscfga__Product_Basket__c.name}" required="true" style="width: 95%"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+	</apex:form>
+
+</apex:page>

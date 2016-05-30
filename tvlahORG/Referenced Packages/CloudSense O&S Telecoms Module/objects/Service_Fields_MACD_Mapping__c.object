@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Enumerates service fields that will be transferred to a MACD service. If service field is not listed here, any changes on it will be transferred to the new service</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Product_Definition_Attribute_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of the product definition attribute that is mapped to the service field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the product definition attribute that is mapped to the service field</inlineHelpText>
+        <label>Product Definition Attribute Name</label>
+        <length>64</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Definition_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of the product definition this service is related to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the product definition this service is related to</inlineHelpText>
+        <label>Product Definition Name</label>
+        <length>64</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Service_Field_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of a service field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of a service field</inlineHelpText>
+        <label>Service Field Name</label>
+        <length>64</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Service Fields MACD Mapping</label>
+    <visibility>Public</visibility>
+</CustomObject>

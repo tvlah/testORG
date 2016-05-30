@@ -1,0 +1,12 @@
+<apex:page showHeader="true" sidebar="true" controller="csordcb.ObjectTypeSelectorController">
+	<apex:form id="theForm">
+		<apex:sectionHeader title="Asset object type selection" subtitle="Manage SObject usage - Use either standard Salesforce Assets or CloudSense Assets object" />
+		<apex:pageMessages id="msg" />
+		<apex:pageBlock id="pbToggleAssets" title="Asset selection">
+			<apex:inputCheckbox value="{!useCloudSenseAssets}" label="aaa ffff" /> Check this field to use CloudSense Asset SObject. Clear it to use standard Salesforce Asset SObject.
+        	<div style='padding:10px 0px;'>NOTE: There is no switching mechanism for existing Assets. Switch at your own peril. </div>
+
+            <apex:commandButton value="Save changes" action="{!save}" />
+        </apex:pageBlock>
+	</apex:form>	
+</apex:page>

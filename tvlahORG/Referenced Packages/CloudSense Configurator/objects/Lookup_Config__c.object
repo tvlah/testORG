@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Enhanced_Lookup_Enabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the lookup window will contain Filters section which displays the individual fields for user to filter on.</inlineHelpText>
+        <label>Enhanced Lookup Enabled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Filter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>A lookup query used to apply specific filter criteria to available items in the lookup.</inlineHelpText>
+        <label>Filter</label>
+        <referenceTo>Lookup_Query__c</referenceTo>
+        <relationshipLabel>Lookup Configs</relationshipLabel>
+        <relationshipName>Lookup_Configs</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>List_Columns__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Specifies Object Mapping which contains Fields (columns) that will be displayed in the lookup dialog. List Columns cannot be referenced in calculation attributes.</inlineHelpText>
+        <label>List Columns</label>
+        <referenceTo>Object_Mapping__c</referenceTo>
+        <relationshipLabel>Lookup Configs</relationshipLabel>
+        <relationshipName>List_Columns</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Object__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The API name of the object to be displayed in the lookup. Must match object used in the Object mapping assigned to Lookup Config.</inlineHelpText>
+        <label>Object</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quick_Create_Page__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Visualforce page to be displayed when the user clicks &apos;New&apos; button on the lookup window (see Allow Quick Create field).</inlineHelpText>
+        <label>Quick Create Page</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quick_Create__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, button &apos;New&apos; will be displayed on the Lookup dialog, so that users can create a new item instead of looking up an existing one. It is used in combination with Quick Create Page field where Visualforce page is specified.</inlineHelpText>
+        <label>Allow Quick Create</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Search_Columns__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Specifies Object Mapping which contains Fields that can be searched through using search box on the lookup dialog. Search Columns can also be referenced by calculation attributes.</inlineHelpText>
+        <label>Search Columns</label>
+        <referenceTo>Object_Mapping__c</referenceTo>
+        <relationshipLabel>Lookup Configs (Search Columns)</relationshipLabel>
+        <relationshipName>Search_Columns</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>lookup_customisations_impl__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of a class implementing lookup customizations.</inlineHelpText>
+        <label>Lookup customisations implementation</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Lookup Config</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Lookup Configs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>QuickCreate_rules</fullName>
+        <active>true</active>
+        <description>Must define page used for Quick Create if enabled.</description>
+        <errorConditionFormula>AND( Quick_Create__c , ISBLANK( Quick_Create_Page__c ) )</errorConditionFormula>
+        <errorDisplayField>Quick_Create_Page__c</errorDisplayField>
+        <errorMessage>You must define a page used for Quick Create.</errorMessage>
+    </validationRules>
+</CustomObject>

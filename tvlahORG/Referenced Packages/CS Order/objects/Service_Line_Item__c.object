@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A billable component of a Service.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Discount_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>What type of discount to apply. The value of this field determines whether the Discount Amount or Discount Percentage value is used.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Type of the discount applied.</inlineHelpText>
+        <label>Discount Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Percentage</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Discount_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The value of the discount. The value in interpreted either as an amount or a percentage, depending on the Discount Type field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Depending on the Discount Type field either a percentage or an amount.</inlineHelpText>
+        <label>Discount Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Discounted_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Discounted amount value</description>
+        <externalId>false</externalId>
+        <label>Discounted Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>External_Identifier2__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</inlineHelpText>
+        <label>External Identifier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>External_Identifier__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>DEPRECATED. Use External Identifier2 field instead.</inlineHelpText>
+        <label>DEPRECATED External Identifier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Identification__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Identification string for the object, used as the reference from external systems.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>E.g. &quot;spokeServiceAmsterdam&quot; in Hub&amp;Spokes scenario.</inlineHelpText>
+        <label>Identification</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Denotes if the item is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Denotes if the item is active</inlineHelpText>
+        <label>Is Active</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Adhoc__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Identifies the Service Line Item as an Adhoc Line Item. Default value of &quot;false&quot;/&quot;unchecked&quot; represents a normal Service Line Item.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies the Service Line Item as an Adhoc Line Item. Default value of &quot;false&quot;/&quot;unchecked&quot; represents a normal Service Line Item.</inlineHelpText>
+        <label>Is Adhoc</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Recurring__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates whether this line item is a recurring item.</description>
+        <externalId>false</externalId>
+        <label>Is Recurring</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Line_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Line Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Line_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <displayFormat>OL{00000000}</displayFormat>
+        <externalId>false</externalId>
+        <label>Line Number</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Order_Request__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Order Request object which introduced the latest changes to this object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Order Request object which introduced the latest changes to this object.</inlineHelpText>
+        <label>Order Request</label>
+        <referenceTo>Order_Request__c</referenceTo>
+        <relationshipLabel>Service line Items</relationshipLabel>
+        <relationshipName>Service_line_Items</relationshipName>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Price_Before_Discount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Price Before Discount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Service__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The parent Service of this ServiceLineItem.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent Service of this ServiceLineItem.</inlineHelpText>
+        <label>Service</label>
+        <referenceTo>Service__c</referenceTo>
+        <relationshipLabel>Service line Items</relationshipLabel>
+        <relationshipName>Service_line_Items</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Total_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Total Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Service Line Item</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Service Line Item Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Service line Items</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

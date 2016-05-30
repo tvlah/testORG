@@ -1,0 +1,559 @@
+<apex:page standardController="cscfga__Product_Definition__c"  extensions="cspduia.ExportOrCloneAttributeController" showHeader="false" sidebar="false" standardStylesheets="true">
+    <apex:includeScript value="{!$Resource.cspduia__jQuery}" />
+    <apex:includeScript value="{!$Resource.cspduia__JQueryUI}" />
+	<apex:includeScript value="{!$Resource.cspduia__jQueryBlockUI}"/>
+	<style>
+    	body {
+			background: #ddd;
+		}
+		fieldset {
+			background: #eee;
+		}
+        .close-image {
+            display: block;
+            float:right;
+            position:relative;
+            top:0px;
+            margin-right: 10px;
+            right: 0px;
+            cursor: pointer;
+            width:24px;
+            height:24px;
+            z-index:10;
+        }
+		ol.progtrckr {
+		    margin: 0;
+		    padding: 0;
+		    list-style-type none;
+		}
+		ol.progtrckr li {
+		    display: inline-block;
+		    text-align: center;
+		    line-height: 3em;
+		    margin-left: 0px;
+		    float: left;
+		}
+		ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+		ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+		ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+		ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+		ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+		ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+		ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+		ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+		ol.progtrckr li.progtrckr-done {
+		    color: black;
+		    border-bottom: 4px solid yellowgreen;
+		}
+		ol.progtrckr li.progtrckr-todo {
+		    color: silver; 
+		    border-bottom: 4px solid silver;
+		}
+		ol.progtrckr li.progtrckr-todo-current {
+		    background-color: #ddd;
+		    border-bottom: 4px solid skyblue;
+		}
+		ol.progtrckr li:after {
+		    content: "\00a0\00a0";
+		}
+		ol.progtrckr li:before {
+		    position: relative;
+		    bottom: -2.5em;
+		    float: left;
+		    left: 50%;
+		    line-height: 1em;
+		}
+		ol.progtrckr li.progtrckr-done:before {
+		    content: "\2713";
+		    color: white;
+		    background-color: yellowgreen;
+		    height: 1.2em;
+		    width: 1.2em;
+		    line-height: 1.2em;
+		    border: none;
+		    border-radius: 1.2em;
+		}
+		ol.progtrckr li.progtrckr-todo-current:before {
+		    content: "\25C9";
+		    color: skyblue;
+		    background-color: #ddd;
+		    font-size: 1.5em;
+		    bottom: -1.6em;
+		}
+		ol.progtrckr li.progtrckr-todo:before {
+		    content: "\039F";
+		    color: silver;
+		    background-color: #ddd;
+		    font-size: 1.5em;
+		    bottom: -1.6em;
+		}
+		table.json {
+			width: 100%;
+			border-spacing: 0px;
+		}
+		table.json th {
+			margin-bottom: 2px;
+			padding-bottom: 5px;
+			padding-left: 3px;
+			vertical-align: top;
+			border-spacing: 0px;
+			border-bottom: 1px double #000000;
+		}
+		table.json td {
+			margin-top: 0px;
+			padding-top: 3px;
+			padding-left: 3px;
+			vertical-align: top;
+			border-spacing: 2px;
+		}
+		table.json tr.odd {
+			margin: 0px;
+			padding: 0px;
+			vertical-align: top;
+			background: #e8edff;
+			border-spacing: 0px;
+		}
+		table.json tr.even {
+			margin: 0px;
+			padding: 0px;
+			vertical-align: top;
+			background: #e8ffff;
+			border-spacing: 0px;
+		}
+		table.json tr.header {
+			margin: 0px;
+			padding: 0px;
+			vertical-align: top;
+			background: #eee;
+			border-spacing: 0px;
+		}
+		tr.odd {
+			margin: 0px;
+			padding: 0px;
+			vertical-align: top;
+			background: #e8edff;
+			border-spacing: 0px;
+		}
+		tr.even {
+			margin: 0px;
+			padding: 0px;
+			vertical-align: top;
+			background: #e8ffff;
+			border-spacing: 0px;
+		}
+		img.ruleImageClass {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'rule-20.png')});
+		  margin-right: 10px;
+		}
+		img.calculation {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'calculation-20.png')});
+		  margin-right: 10px;
+		}
+		
+		img.checkbox {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'checkbox-20.png')});
+		  margin-right: 10px;
+		}
+		
+		img.date {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'date-20.png')});
+		  margin-right: 10px;
+		}
+		
+		img.lookup {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'lookup-20.png')});
+		  margin-right: 10px;
+		  padding-left: 0px;
+		}
+		
+		img.radio-button {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'radio-20.png')});
+		  margin-right: 10px;
+		}
+		
+		img.related-product {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'related-product-20.png')});
+		  margin-right: 10px;
+		}
+		
+		img.select-list {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'select-list-20.png')});
+		  margin-right: 10px;
+		}
+		
+		img.text-display {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'text-display-20.png')});
+		  margin-right: 10px;
+		}
+		
+		img.user-input {
+		  content: url({!URLFOR($Resource.ProductDefinitionBuilderIcons, 'user-input-20.png')});
+		  margin-right: 10px;
+		}
+	</style>
+	<script>
+		var fileName;
+		$('document').ready(function () {	
+			// unblock when ajax activity stops 
+			$(document).ajaxStop($.unblockUI);
+			//
+			// step 1 completed
+			$('#li-step1').removeClass().addClass('progtrckr-todo-current');
+			// step 2 now active
+			$('#li-step2').removeClass().addClass('progtrckr-todo');
+			// step 3 waiting
+			$('#li-step3').removeClass().addClass('progtrckr-todo');
+			//
+			$('#menu-product').change(function(){
+				getProductScreenList($(this).val());
+				getAttributeList($(this).val(),null);
+				//
+				if ($(this).val() != '-1') {
+					// step 1 completed
+					$('#li-step1').removeClass().addClass('progtrckr-done');
+					// step 2 now active
+					$('#li-step2').removeClass().addClass('progtrckr-todo-current');
+					// step 3 waiting
+					$('#li-step3').removeClass().addClass('progtrckr-todo');
+				} else {
+					// step 1 completed
+					$('#li-step1').removeClass().addClass('progtrckr-todo-current');
+					// step 2 now active
+					$('#li-step2').removeClass().addClass('progtrckr-todo');
+					// step 3 waiting
+					$('#li-step3').removeClass().addClass('progtrckr-todo');
+				}
+			});
+			$('#menu-product-screen').change(function(){
+				getAttributeList($('#menu-product').val(),$(this).val());
+			});
+			
+			//
+			blockScreenElement('html');
+			//
+			getProductList();
+			//
+		});
+		//
+		function blockScreenElement(elementSelector) {
+			$(elementSelector).block({
+				message: '<div style="width:300px;height:300px"></div>',
+				css: {
+					border: '0px solid #A4D48C',
+					background: 'url("{!URLFOR($Resource.ProductDefinitionBuilderIcons, "ProgressWheel.gif")}") 50% 50% no-repeat',
+					cursor: 'default'
+				},
+				overlayCSS: {
+					backgroundColor: '#ccc',
+					opacity: 0.6,
+					cursor: 'default'
+				},
+			});
+		}
+		//
+		function getProductList() {
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.ExportOrCloneAttributeController.getProductList}',
+				handleGetProductListResponse,
+				{escape: false}
+			);
+		}
+		//
+		function handleGetProductListResponse(result, event) {
+			if (event.type == 'exception') {
+				alert(event.message);
+			} else {
+				productList = result;
+				//
+				//console.log('**result: '+result);
+				for(var i = 0; i <productList.length; i++) {
+					var product = productList[i];
+					var option = '<option value="'+product.Id+'">'+product.Name+'</option>';
+					$('#menu-product').append(option);
+				}
+				//
+				$('html').unblock();
+				//
+			}
+		} 
+		//
+		function getProductScreenList(productId) {
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.ExportOrCloneAttributeController.getScreenList}',
+				productId,
+				handleGetProductScreenListResponse,
+				{escape: false}
+			);
+		}
+		//
+		function handleGetProductScreenListResponse(result, event) {
+			if (event.type == 'exception') {
+				alert(event.message);
+			} else {
+				productScreenList = result;
+				//
+				//console.log('**result: '+result);
+				$('#menu-product-screen').find('option').first().siblings().remove();
+				for(var i = 0; i <productScreenList.length; i++) {
+					var screen = productScreenList[i];
+					var option = '<option value="'+screen.Id+'">'+screen.Name+'</option>';
+					$('#menu-product-screen').append(option);
+				}
+				//
+				$('html').unblock();
+				//
+			}
+		} 
+		//
+		function getAttributeList(productId,screenId) {
+			blockScreenElement('html');
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.ExportOrCloneAttributeController.getAttributeList}',
+				productId,
+				screenId,
+				handleGetAttributeListResponse,
+				{escape: false}
+			);
+		}
+		//
+		function handleGetAttributeListResponse(result, event) {
+			if (event.type == 'exception') {
+				alert(event.message);
+			} else {
+				attributeList = result;
+				//
+				//console.log('**result: '+result);
+				$('#attribute-list').find('tr').first().siblings().remove();
+				for(var i = 0; i <attributeList.length; i++) {
+					var attribute = attributeList[i];
+					var attTypeClass = '';
+					if (attribute.cscfga__Type__c != undefined )
+						attTypeClass = attribute.cscfga__Type__c.split(' ').join('-').toLowerCase();
+					var rowClass = 'odd';
+					if (i % 2 == 0) rowClass = 'even';
+					var tr = '<tr class="'+rowClass+'">';
+					tr += '<td><input type="checkbox" class="checkbox-attribute" value="'+attribute.Id+'"/></td>';
+					tr += '<td><img src="" class="'+attTypeClass+'"/> '+attribute.Name+'</td>';
+					tr += '<td>'+(attribute.cscfga__Label__c == undefined ? '' : attribute.cscfga__Label__c)+'</td>';
+					tr += '<td>'+(attribute.cscfga__Configuration_Screen__r == undefined ? '' : attribute.cscfga__Configuration_Screen__r.Name)+'</td>';
+					tr += '</tr>';
+					//
+					$('#attribute-list').append(tr);
+				}
+				//
+				$('html').unblock();
+				//
+			}
+			//
+			$('.checkbox-attribute').click(function() {
+				if (!$(this).is(':checked')) {	
+					$('#check-all').prop('checked',false);
+				}
+				if ($('.checkbox-attribute').is(':checked')) {
+					// step 1 completed
+					$('#li-step1').removeClass().addClass('progtrckr-done');
+					// step 2 now active
+					$('#li-step2').removeClass().addClass('progtrckr-done');
+					// step 3 waiting
+					$('#li-step3').removeClass().addClass('progtrckr-todo-current');
+					$('.clone-button').attr('disabled',false);
+					$('.export-button').attr('disabled',false);
+				} else {
+					// step 1 completed
+					$('#li-step1').removeClass().addClass('progtrckr-done');
+					// step 2 now active
+					$('#li-step2').removeClass().addClass('progtrckr-todo-current');
+					// step 3 waiting
+					$('#li-step3').removeClass().addClass('progtrckr-todo');
+					$('.clone-button').attr('disabled',true);
+					$('.export-button').attr('disabled',true);
+				}
+			});
+		}
+		//
+		function toggleSelectAll(thisCheckbox) {
+			if ($(thisCheckbox).is(':checked')) {
+				$('.checkbox-attribute').prop('checked',true);
+				$('.clone-button').attr('disabled',false);
+				$('.export-button').attr('disabled',false);
+				// step 1 completed
+				$('#li-step1').removeClass().addClass('progtrckr-done');
+				// step 2 now active
+				$('#li-step2').removeClass().addClass('progtrckr-done');
+				// step 3 waiting
+				$('#li-step3').removeClass().addClass('progtrckr-todo-current');
+			} else {
+				$('.checkbox-attribute').prop('checked',false);
+				$('.clone-button').attr('disabled',true);
+				$('.export-button').attr('disabled',true);
+				// step 1 completed
+				$('#li-step1').removeClass().addClass('progtrckr-done');
+				// step 2 now active
+				$('#li-step2').removeClass().addClass('progtrckr-todo-current');
+				// step 3 waiting
+				$('#li-step3').removeClass().addClass('progtrckr-todo');
+			}
+		}
+    	//
+		function cloneSelectedAttributes(productId) {
+			//
+			// Get the selected attribute Id's
+			var attIdListString = ''; 
+			var i = 0;
+			$('.checkbox-attribute').each(function () {
+				if ($(this).is(':checked')) {
+					attIdListString += $(this).attr('value');
+					//
+					if (i < $('input:checked').length) {
+						attIdListString += ',';
+					} 
+					//
+					i++;
+				}
+			});
+			//
+			console.log('attIdListString: '+attIdListString);
+			//
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.ExportOrCloneAttributeController.cloneAttributes}',
+				productId,
+				attIdListString,
+				handleCloneSelectedAttributesResponse,
+				{escape: false}
+			);
+		}
+		//
+		function handleCloneSelectedAttributesResponse(result, event) {
+			if (event.type == 'exception') {
+				alert(event.message);
+			} else {
+				var productName = $('#menu-product :selected').text(); 
+				postCopyDone(productName);
+			}
+		}  
+    	//
+		function exportSelectedAttributes() {
+			//
+			// Get the selected attribute Id's
+			var attIdListString = ''; 
+			var i = 0;
+			$('.checkbox-attribute').each(function () {
+				if ($(this).is(':checked')) {
+					attIdListString += $(this).attr('value');
+					//
+					if (i < $('input:checked').length) {
+						attIdListString += ',';
+					} 
+					//
+					i++;
+				}
+			});
+			//
+			console.log('attIdListString: '+attIdListString);
+			//
+			fileName = prompt("Please enter attachment name");
+			var productId = $('#menu-product').val(); 
+			//
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.ExportOrCloneAttributeController.exportSelectedAttributes}',
+				fileName,
+				productId,
+				attIdListString,
+				handleExportSelectedAttributesResponse,
+				{escape: false}
+			);
+		}
+		//
+		function handleExportSelectedAttributesResponse(result, event) {
+			if (event.type == 'exception') {
+				alert(event.message);
+			} else {
+				var productName = $('#menu-product :selected').text(); 
+				postExportDone(productName,fileName);
+			}
+		} 
+		//
+    	function postCloseWindow(productName) {
+    		//
+    		var msg = '{"action": "CloseWindow"';
+			msg += '}';
+			window.top.postMessage(msg, '*');
+    	} 
+		//
+    	function postCopyDone(productName) {
+    		//
+    		var msg = '{"action": "CloneAttributeDone","productName": "'+productName+'"';
+			msg += '}';
+			window.top.postMessage(msg, '*');
+    	} 
+		//
+    	function postExportDone(productName,attachName) {
+    		//
+    		var msg = '{"action": "ExportAttributeDone","productName": "'+productName+'", "attachName": "'+attachName+'"';
+			msg += '}';
+			window.top.postMessage(msg, '*');
+    	} 
+	</script>
+	
+	<img class="close-image" title="Close dialog" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'close.png')}" id="closedialog" onClick="postCloseWindow();"/>
+	<br/>
+	<br/>
+	<ol class="progtrckr" data-progtrckr-steps="3">
+		<li id="li-step1" class="progtrckr-todo">Select product definition</li>
+		<li id="li-step2" class="progtrckr-todo">Select attributes</li>
+		<li id="li-step3" class="progtrckr-todo">Finish</li>
+	 </ol>
+			 
+    <apex:form id="mainform">
+            <table cellspacing="8" border="0" style="width:100%;" id="containerTable">
+            	<tr>
+            		<td align="left">
+            			<p>
+				            Select the attributes you want to export or clone
+				        </p>
+            		</td>
+            	</tr>
+                <tr>
+                    <td  style="vertical-align: top;">
+                        <fieldset style="width:90%;">
+                        	<legend>Upload product definition</legend>
+                            <table style="width:100%;">
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <input type="button" class="clone-button" disabled="true" value="Clone Selected Attributes" onClick="cloneSelectedAttributes('{!cscfga__Product_Definition__c}');"/>
+                                        <input type="button" class="export-button" disabled="true" value="Export Selected Attributes" onClick="exportSelectedAttributes();"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                	<td>
+                                		<input type="checkbox" id="check-all" onClick="toggleSelectAll(this);"/>
+										<select id="menu-product">
+											<option value="-1"> Select a product</option>
+										</select>
+										<select id="menu-product-screen">
+											<option value="-1"> Select a screen</option>
+										</select>
+                                	</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <table id="attribute-list" style="width:100%;">
+                                        	<tr>
+                                        		<th>Select</th><th>Attribute Name</th><th>Attribute Label</th><th>Associated Screen Name</th>
+                                        	</tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <input type="button" class="clone-button" disabled="true" value="Clone Selected Attributes" onClick="cloneSelectedAttributes('{!cscfga__Product_Definition__c}');"/>
+                                        <input type="button" class="export-button" disabled="true" value="Export Selected Attributes" onClick="exportSelectedAttributes();"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Sets Expiry time for dead sessions, and schedule information for the housekeeping job.
+THERE SHOULD ONLY EVER BE ONE ROW OF DATA!</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Anonymous_Profile_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to see if the Customer is Anonymous so the Customer can be redirected to the Anonymous start page.</inlineHelpText>
+        <label>Anonymous Profile Id</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chron_Job_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Id of last chron job scheduled for session cleanup.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Id of last chron job scheduled for session cleanup.</inlineHelpText>
+        <label>Chron Job Id</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Housekeeping_Chron_Schedule_String__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Contains shcedule information for when Session housekeeping will run
+in Chron Job sytntax such as : 0 0 0 * * ?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Contains schedule information for when Session housekeeping will run in Chron Job syntax such as : 0 0 0 * * ?</inlineHelpText>
+        <label>Housekeeping Chron Schedule String</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Session_Timeout_Minutes__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Miniumum age of minutes of a User Session before it is purged</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Session timeout period in minutes.</inlineHelpText>
+        <label>Session Timeout Minutes</label>
+        <precision>5</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>User Session Configuration</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>User Session Management Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>User Session Configurations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

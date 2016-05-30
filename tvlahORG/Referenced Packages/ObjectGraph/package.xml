@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ObjectGraph</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <namespacePrefix>csog</namespacePrefix>
+    <types>
+        <members>JSONSerializer</members>
+        <members>Log</members>
+        <members>LogTests</members>
+        <members>ObjectGraph</members>
+        <members>ObjectGraphTests</members>
+        <members>PendingLoad</members>
+        <members>TextUtils</members>
+        <members>TextUtilsTests</members>
+        <members>TypeInfo</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>OGCfg__c.Enable_debug_logging__c</members>
+        <members>OGCfg__c.Enable_info_logging__c</members>
+        <members>OGCfg__c.Log_System_INFO_level__c</members>
+        <members>OGCfg__c.Log_sink_impl__c</members>
+        <members>OGCfg__c.Log_to_browser__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>OGCfg__c</members>
+        <name>CustomObject</name>
+    </types>
+    <version>36.0</version>
+</Package>

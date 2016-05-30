@@ -1,0 +1,44 @@
+<apex:page controller="CSPOFA.JsonExportController" >
+	<apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"/>
+	<script>
+		var j$ = jQuery.noConflict();
+		j$(document).ready(function(){
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.JsonExportController.cleanup}',
+				'{!JSENCODE(docId)}',
+				function() {
+					 //if Internet Explorer, show the "Go Back" button
+					if ((/msie/i).test(navigator.userAgent) || (/trident/i).test(navigator.userAgent)){
+						j$('#working').hide();
+						j$('#finished').show();
+					} else {
+					//if not Internet Explorer, immediately go back
+						history.go(-1);
+					}
+				}
+			);
+		});
+	</script>
+	<div style="visibility:hidden;display:none;">
+		<apex:iframe src="/apex/JsonExport?docId={!URLENCODE(docId)}&name={!URLENCODE(exportName)}" ></apex:iframe>
+	</div>
+	<apex:pageBlock id="blockExportNotification" title="JSON Export">
+		<div id="working">
+			<img class="progress_wheel" src="/img/loading.gif" id="json_progress_wheel"/>
+		</div>
+		<div id="finished" style="display:none;">
+			<p>Save the exported file before returning to the previous screen.</p>
+			<!--[if IE 8]>
+			<p><b>If you are seeing the message that your browser blocked this site from downloading files</b>, do the following: <br />
+				- go to Tools &gt; Internet Options &gt; tab Security &gt; click the button "Custom level..." <br />
+				- scroll down to Download sections, set "Automatic prompting for file downloads" to "Enable" <br />
+				- press OK (and confirm with "Yes" when your browser asks if you are sure you want to change the settings) <br />
+				- press OK to close the Internet Options dialog <br />
+				- click on the Go back button below, and try the procedure again (by clicking on the Export to JSON button on the previous page) <br /> 
+			</p>
+			<![endif]-->
+			<br />
+			<input type="button" value="Go back" onclick="history.go(-1);" />
+		</div>
+	</apex:pageBlock>
+</apex:page>

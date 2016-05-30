@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Copy_opportunity_owner_to_configurations__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>When Opportunity&apos;s owner changes, should the configuration&apos;s owner change too?</description>
+        <externalId>false</externalId>
+        <label>Copy opportunity owner to configurations</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Cascade_Delete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Option to disable cascade delete on opportunity and bundle configuration child objects: product configuration, attribute, attribute fields, baskets, opportunity line items, quote line items.</description>
+        <externalId>false</externalId>
+        <label>Disable Cascade Delete</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Triggers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Option to disable triggers on custom objects : Use for bulk loading or testing specific scenarios.</description>
+        <externalId>false</externalId>
+        <label>Disable Triggers</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Display_Loading_Overlay__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Display Loading Overlay</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Display_Recurring_Invoice_Amount__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Display the &apos;Recurring Invoice Amount&apos; column on the Product Bundle summary page.</description>
+        <externalId>false</externalId>
+        <label>Display Recurring Invoice Amount</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Display_Total_Contract_Value_Column__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If selected, the &apos;Annualised Total&apos; column on the standard Product Bundle detail page is replaced by &apos;Total Contract Value&apos;. The TCV is calculated from the &apos;Contract Term&apos; field on the Product Configuration object.</description>
+        <externalId>false</externalId>
+        <label>Display Total Contract Value Column</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Debug_Logging__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable Debug Logging</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Info_Logging__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable Info Logging</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Logging_to_Documents__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable Logging to Documents</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_SOQL_logging__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable SOQL logging</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Warning_Logging__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable Warning Logging</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_logging_in_browser__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable logging in browser</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_logging_to_database__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable logging to database</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_logging_to_screen__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable logging to screen</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Loading_Overlay_Timeout__c</fullName>
+        <defaultValue>1000</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Timeout for loading indicator in milliseconds.
+Indicator will be shown only if background processing lasts longer than timeout and it will be shown after the timeout delay.
+Indicator will be shown immediately on page and screen loads.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Timeout for loading indicator in milliseconds.</inlineHelpText>
+        <label>Loading Overlay Timeout</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Multi_Lingual_Support__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Allow labels to be translated into local language. All fields and error messages will be translated if translation exists, else the default name/value will be used.</description>
+        <externalId>false</externalId>
+        <label>Multi Lingual Support</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_List_Price_and_Discount_Amount__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Selecting this option enables Bundle Summary page to display additional two columns with sales price columns. Additional columns are: list price and discount.</description>
+        <externalId>false</externalId>
+        <label>Show List Price and Discount Amount</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Rate_Line_Items_In_Separate_Column__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Controls whether Rate/Usage line items are displayed in the bundle summary in own column or will share a columns with other line items.</description>
+        <externalId>false</externalId>
+        <label>Show Rate Line Items In Separate Column</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>log_sink_implementation_class__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of the local class that implements Log.Sink interface and provides the local debug log access to the Configurator package</description>
+        <externalId>false</externalId>
+        <label>LogSink implementation class</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Configurator Options</label>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <fieldSets>
+        <fullName>SectionFieldSet</fullName>
+        <description>This fieldset will hold all the fields for Section.</description>
+        <displayedFields>
+            <field>Name</field>
+            <isFieldManaged>true</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>cscfga__Index__c</field>
+            <isFieldManaged>true</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>SectionFieldSet</label>
+    </fieldSets>
+</CustomObject>

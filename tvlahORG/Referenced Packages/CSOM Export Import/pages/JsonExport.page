@@ -1,0 +1,3 @@
+<apex:page controller="csexpimp1.JsonExportController" contentType="application/json#{!name}" cache="false" showheader="false" action="{!loadJSon}">
+<apex:outputText value="{!jsonData}"></apex:outputText>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page controller="CSPOFA.JsonExportController" contentType="application/json#{!name}" cache="false" showheader="false">
+<apex:outputText value="{!json}"></apex:outputText>
+</apex:page>

@@ -1,0 +1,3384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Annualised_total_header</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Annualised total header</shortDescription>
+        <value>Annualised Total</value>
+    </labels>
+    <labels>
+        <fullName>Non_recurring_header</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Non-recurring header</shortDescription>
+        <value>Non-Recurring Charge</value>
+    </labels>
+    <labels>
+        <fullName>Recurring_header</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recurring header</shortDescription>
+        <value>Recurring Charge</value>
+    </labels>
+    <labels>
+        <fullName>Recurring_invoice_header</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recurring invoice header</shortDescription>
+        <value>Recurring Invoice Amount</value>
+    </labels>
+    <labels>
+        <fullName>Total_contract_value_header</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Total contract value header</shortDescription>
+        <value>Total Contract Value</value>
+    </labels>
+    <labels>
+        <fullName>actionscls_Action_cannot_have_null_ConfigItem</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Action cannot have null ConfigItem</shortDescription>
+        <value>Action cannot have null ConfigItem</value>
+    </labels>
+    <labels>
+        <fullName>actionscls_Value_cannot_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Value cannot be null</shortDescription>
+        <value>Value cannot be null</value>
+    </labels>
+    <labels>
+        <fullName>acttrg_ExecuteJavaScriptAction_can_not_be_created_for_attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Execute JavaScript Action can not be created for attribute</shortDescription>
+        <value>Execute JavaScript Action can not be created for attribute, please use reference to product definition instead.</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Cannot_persist_configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cannot persist configuration</shortDescription>
+        <value>Cannot persist configuration - validation failed and allow incomplete progress not set for this definition</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Configuration_id_must_not_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration id must not be null.</shortDescription>
+        <value>Configuration id must not be null.</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Either_Opportunity_or_SessionInfo_must</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Either Opportunity or SessionInfo must</shortDescription>
+        <value>Either Opportunity or SessionInfo must not be null</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_No_products_in_basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No products in basket</shortDescription>
+        <value>No products in basket - bundle not created</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Product_Configuration_c_cannot_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product_Configuration__c cannot be null</shortDescription>
+        <value>Product_Configuration__c cannot be null</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Product_Configuration_c_id_cannot_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product_Configuration__c.id cannot be null</shortDescription>
+        <value>Product_Configuration__c.id cannot be null</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Product_Configuration_cannot_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Configuration cannot be null</shortDescription>
+        <value>Product Configuration cannot be null and must have an Id</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Product_Configuration_list_cannot_be_null_or_empty</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Configuration list cannot be null or empty</shortDescription>
+        <value>Product Configuration list cannot be null or empty</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Product_Definition_cannot_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Definition cannot be null</shortDescription>
+        <value>Product Definition cannot be null and must have an Id</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Product_Definition_id_cannot_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Definition id cannot be null</shortDescription>
+        <value>Product Definition id cannot be null or empty</value>
+    </labels>
+    <labels>
+        <fullName>api1cls_Product_Definition_reference_cannot_be_null_or_empty</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Definition reference cannot be null or empty</shortDescription>
+        <value>Product Definition reference cannot be null or empty</value>
+    </labels>
+    <labels>
+        <fullName>assatrg_invalid</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid override type for attribute of type {0}</shortDescription>
+        <value>Invalid override type for attribute of type {0}, allowed presentation overrides are: {1}</value>
+    </labels>
+    <labels>
+        <fullName>async_task_status_after_finish</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task has finished.</shortDescription>
+        <value>Task has finished.</value>
+    </labels>
+    <labels>
+        <fullName>async_task_status_after_last_execute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task execute chunk finished.</shortDescription>
+        <value>Task execute invocations finished. Invoking finish method.</value>
+    </labels>
+    <labels>
+        <fullName>async_task_status_after_start</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task has started.</shortDescription>
+        <value>Task has started; about to invoke batch execute method(s).</value>
+    </labels>
+    <labels>
+        <fullName>async_task_status_in_execute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task execute.</shortDescription>
+        <value>Invoked {0} out of {1} tasks batch execute method(s).</value>
+    </labels>
+    <labels>
+        <fullName>async_task_status_in_queue</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task is queued.</shortDescription>
+        <value>In queue, waiting for execution.</value>
+    </labels>
+    <labels>
+        <fullName>asynctaskindicator_no_running_task_label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No running task over object at the moment.</shortDescription>
+        <value>No task is running at the moment.</value>
+    </labels>
+    <labels>
+        <fullName>asynctaskindicator_task_class_label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Class:</shortDescription>
+        <value>Class:</value>
+    </labels>
+    <labels>
+        <fullName>asynctaskindicator_task_errors_label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Errors:</shortDescription>
+        <value>Errors:</value>
+    </labels>
+    <labels>
+        <fullName>asynctaskindicator_task_message_label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Message:</shortDescription>
+        <value>Message:</value>
+    </labels>
+    <labels>
+        <fullName>asynctaskindicator_task_progress_label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Progress:</shortDescription>
+        <value>Progress:</value>
+    </labels>
+    <labels>
+        <fullName>asynctaskindicator_tasks_in_queue_header</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Tasks in queue indicator header</shortDescription>
+        <value>{{ count }} task(s) waiting in queue.</value>
+    </labels>
+    <labels>
+        <fullName>asynctaskindicator_tasks_in_queue_tooltip_header</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Tasks in queue tooltip header</shortDescription>
+        <value>{{ count }} task(s) in queue:</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Attribute_type_data_type_combination_invalid</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute type/data type combination invalid</shortDescription>
+        <value>Attribute type/data type combination invalid</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Attribute_type_prod_def_record_type_combination_invalid</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute type/product definition record type combination invalid</shortDescription>
+        <value>Product definition of record type {0} cannot have attribute definition of type {1}</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Below_errors_happened_while_propagating_change</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Below errors happened while propagating change</shortDescription>
+        <value>Below errors happened while propagating change on RateLineItem field of attribute:</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_For_this_attribute_you_already_have_Select_options_defined</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>For this attribute you already have Select options defined.</shortDescription>
+        <value>For this attribute you already have Select options defined.</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Formula_fields_autonumbers_and_summary_roll_up_fields</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Formula fields, autonumbers and summary roll-up fields can not be mapped</shortDescription>
+        <value>Formula fields, autonumbers and summary roll-up fields can not be mapped.</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Is_rate_line_item_can_be_checked</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>&quot;Is rate line item&quot; can be checked</shortDescription>
+        <value>&quot;Is rate line item&quot; can be checked only if &quot;Is Line Item&quot; is also checked.</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Please_enter_a_number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please enter a number</shortDescription>
+        <value>Please enter a number</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Please_enter_a_number_with_at_most</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please enter a number with at most</shortDescription>
+        <value>Please enter a number with at most</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Please_enter_a_whole_number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please enter a whole number</shortDescription>
+        <value>Please enter a whole number</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Please_supply_a_message_to_display_if_pattern_validation_fails</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please supply a message to display if pattern validation fails</shortDescription>
+        <value>Please supply a message to display if pattern validation fails</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Reference_value_can_be_used_only_if</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>&quot;Reference value&quot; can be used only if</shortDescription>
+        <value>&quot;Reference value&quot; can be used only if &quot;Is rate line item&quot; is checked.</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Reference_value_can_not_contain_any_script</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>&quot;Reference value&quot; can not contain any script.</shortDescription>
+        <value>&quot;Reference value&quot; can not contain any script. Please correct your entry.</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Scale_must_be_empty_for_non_decimal_attributes</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Scale must be empty for non-decimal attributes</shortDescription>
+        <value>Scale must be empty for non-decimal attributes</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Scale_value_can_not_be_zero_or_less</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Scale value can not be zero or less.</shortDescription>
+        <value>Scale value can not be zero or less AND can not be larger than {0}.</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_This_pattern_is_not_a_valid_regular_expression</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>This pattern is not a valid regular expression:</shortDescription>
+        <value>This pattern is not a valid regular expression:</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_To_change_an_attribute_s_Type_to_another_value</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>To change an attribute&apos;s Type to another value</shortDescription>
+        <value>To change an attribute&apos;s Type to another value please delete already defined Select options.</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_Too_many_attributes_would_need_to_be_updated_for_changed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Too many attributes would need to be updated for changed</shortDescription>
+        <value>Too many attributes would need to be updated for changed &quot;Is Rate Line Item&quot; field. Changing this field in production is not a good idea.</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_When_you_have_Select_options_defined_for_an_attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>When you have Select options defined for an attribute</shortDescription>
+        <value>When you have Select options defined for an attribute it is not possible to change attribute Type to other than:</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_decimals</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>decimals</shortDescription>
+        <value>decimals</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_field_does_not_exist</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field does not exist</shortDescription>
+        <value>Entered field for value mapping does not exist on Product_Configuration__c object!</value>
+    </labels>
+    <labels>
+        <fullName>atrdeftrg_field_mismatch</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field types mismatch</shortDescription>
+        <value>Data types for the attribute and for the mapped field in product configuration don&apos;t match.</value>
+    </labels>
+    <labels>
+        <fullName>atrtrg_Attribute_can_t_be_created_for_a_configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute can&apos;t be created for a configuration</shortDescription>
+        <value>Attribute can&apos;t be created for a configuration that is a part of an immutable template offer.</value>
+    </labels>
+    <labels>
+        <fullName>atrtrg_Attribute_that_is_a_part_of_a_configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute that is a part of a configuration</shortDescription>
+        <value>Attribute that is a part of a configuration that is attached to an immutable template offer and can&apos;t be changed.</value>
+    </labels>
+    <labels>
+        <fullName>atrtrg_Configuration_can_t_be_deleted</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration can&apos;t be deleted</shortDescription>
+        <value>Configuration can&apos;t be deleted because it is attached to an immutable template offer.</value>
+    </labels>
+    <labels>
+        <fullName>atrtrg_Update_of_Is_Rate_Line_Item_not_allowed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update of &quot;Is Rate Line Item&quot; not allowed</shortDescription>
+        <value>Update of &quot;Is Rate Line Item&quot; not allowed, unless triggered by change in definition</value>
+    </labels>
+    <labels>
+        <fullName>attrcls_Failed_resolving_attribute_reference</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Failed resolving attribute reference</shortDescription>
+        <value>Failed resolving attribute reference</value>
+    </labels>
+    <labels>
+        <fullName>attrcls_Lookup_Attribute_Type_id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup Attribute Type (id:</shortDescription>
+        <value>Lookup Attribute Type (id:</value>
+    </labels>
+    <labels>
+        <fullName>attrcls_The_maximum_number_of</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The maximum number of</shortDescription>
+        <value>The maximum number of</value>
+    </labels>
+    <labels>
+        <fullName>attrcls_contains_CSV_list_with_ID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>) contains CSV list with ID</shortDescription>
+        <value>) contains CSV list with ID</value>
+    </labels>
+    <labels>
+        <fullName>attrcls_from_attribute_value</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>from attribute value.</shortDescription>
+        <value>from attribute value.</value>
+    </labels>
+    <labels>
+        <fullName>attrcls_related_items_have_already_been_configured</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>related items have already been configured.</shortDescription>
+        <value>related items have already been configured.</value>
+    </labels>
+    <labels>
+        <fullName>attrcls_that_does_not_exist_Please_remove_the_ID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>that does not exist. Please remove the ID</shortDescription>
+        <value>that does not exist. Please remove the ID</value>
+    </labels>
+    <labels>
+        <fullName>attrcls_to_lookup_or_related_product</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>to lookup or related product</shortDescription>
+        <value>to lookup or related product</value>
+    </labels>
+    <labels>
+        <fullName>avseloptcontrcls_No_action_reference_supplied</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No action reference supplied</shortDescription>
+        <value>No action reference supplied</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel button label</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_close</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close button label</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_copy_batch_failed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy batch failed</shortDescription>
+        <value>Failed starting copy batch job:</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_copy_batch_id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy batch job started</shortDescription>
+        <value>Copy batch job started.</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_copy_button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy button label</shortDescription>
+        <value>Copy</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_copy_related</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy dialog title</shortDescription>
+        <value>Copy related products within parent</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_delete_batch_failed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete batch failed</shortDescription>
+        <value>Failed starting delete batch job:</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_delete_batch_id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete job started</shortDescription>
+        <value>Delete job started.</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_delete_confirm</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm button label</shortDescription>
+        <value>Confirm</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_delete_dialog_question</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Question for the delete dialog</shortDescription>
+        <value>You are about to delete {{ items }} configurations.</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_delete_sure</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Are you sure</shortDescription>
+        <value>Are you sure?</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_loading</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading...</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_monitor_batch</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Monitor apex jobs</shortDescription>
+        <value>Monitor apex jobs.</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_number_of_copies</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of copies</shortDescription>
+        <value>Number of copies:</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_reload_after_batch</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reload after batch finish</shortDescription>
+        <value>After the job finishes, please reload this page.</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_starting_copy_batch</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Starting copy batch</shortDescription>
+        <value>Starting copy batch job...</value>
+    </labels>
+    <labels>
+        <fullName>basksumm_starting_delete_batch</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Starting delete batch</shortDescription>
+        <value>Starting delete batch job...</value>
+    </labels>
+    <labels>
+        <fullName>bdloppsync_Return_to_Opportunity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Return to Opportunity</shortDescription>
+        <value>Return to Opportunity</value>
+    </labels>
+    <labels>
+        <fullName>bdloppsync_Synchronizing</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Synchronizing</shortDescription>
+        <value>Synchronizing... please wait, the page should refresh shortly.</value>
+    </labels>
+    <labels>
+        <fullName>binnumopcls_Unsupported_Operation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unsupported Operation</shortDescription>
+        <value>Unsupported Operation</value>
+    </labels>
+    <labels>
+        <fullName>binoptcls_Attempted_to_bind_third_operand_to_binary_operator</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attempted to bind third operand to binary operator:</shortDescription>
+        <value>Attempted to bind third operand to binary operator:</value>
+    </labels>
+    <labels>
+        <fullName>binoptcls_Neither_object_can_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Neither object can be null:</shortDescription>
+        <value>Neither object can be null:</value>
+    </labels>
+    <labels>
+        <fullName>binoptcls_Undefined</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Undefined</shortDescription>
+        <value>Undefined</value>
+    </labels>
+    <labels>
+        <fullName>binoptcls_Unknown_data_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unknown data type:</shortDescription>
+        <value>Unknown data type:</value>
+    </labels>
+    <labels>
+        <fullName>binoptcls_Unsupported_Operation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unsupported Operation</shortDescription>
+        <value>Unsupported Operation</value>
+    </labels>
+    <labels>
+        <fullName>catper_Access_Granted</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Access Granted</shortDescription>
+        <value>Access Granted</value>
+    </labels>
+    <labels>
+        <fullName>catper_Access_permission_for_profiles</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Access permission for profiles</shortDescription>
+        <value>Access permission for profiles</value>
+    </labels>
+    <labels>
+        <fullName>catper_Back_to_Category</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to Category</shortDescription>
+        <value>Back to Category</value>
+    </labels>
+    <labels>
+        <fullName>catper_Cascade_permissions_to_all_children</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cascade permissions to all children</shortDescription>
+        <value>Cascade permissions to all children</value>
+    </labels>
+    <labels>
+        <fullName>catper_Profile</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Profile</shortDescription>
+        <value>Profile</value>
+    </labels>
+    <labels>
+        <fullName>catper_Restrict_access_for_category</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Restrict access for category</shortDescription>
+        <value>Restrict access for category</value>
+    </labels>
+    <labels>
+        <fullName>catper_Save</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>catper_Set_access_permissions_for</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Set access permissions for</shortDescription>
+        <value>Set access permissions for</value>
+    </labels>
+    <labels>
+        <fullName>cfgvalmessage_Warning</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Warning:</shortDescription>
+        <value>Warning:</value>
+    </labels>
+    <labels>
+        <fullName>clbndcontrcls_Bundle_could_not_be_copied</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Bundle could not be copied:</shortDescription>
+        <value>Bundle could not be copied:</value>
+    </labels>
+    <labels>
+        <fullName>clbndcontrcls_Copied_from</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copied from</shortDescription>
+        <value>Copied from</value>
+    </labels>
+    <labels>
+        <fullName>clbndcontrcls_Selected_Opportunity_is_closed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Selected Opportunity is closed</shortDescription>
+        <value>Selected Opportunity is closed. New bundles cannot be added.</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Click_the</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>: Click the</shortDescription>
+        <value>: Click the</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Copy_Configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy Configuration</shortDescription>
+        <value>Copy Configuration</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Copy_Configuration_to_same_basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy Configuration to same basket</shortDescription>
+        <value>Copy Configuration to same basket</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Copy_Configuration_to_same_bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy Configuration to same bundle</shortDescription>
+        <value>Copy Configuration to same bundle</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Copy_Configuration_to_specified_Basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy Configuration to specified Basket</shortDescription>
+        <value>Copy Configuration to specified Basket</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Copy_Configuration_to_specified_Bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy Configuration to specified Bundle</shortDescription>
+        <value>Copy Configuration to specified Bundle</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Create_a_copy_of_Configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create a copy of Configuration</shortDescription>
+        <value>Create a copy of Configuration</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Get_Bundles</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Get Bundles</shortDescription>
+        <value>Get Bundles</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Get_the_bundles_for_the_destination_Opportunity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>: Get the bundles for the destination Opportunity:</shortDescription>
+        <value>: Get the bundles for the destination Opportunity:</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Select_an_object_type_of_the_target_Basket_container</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select an object type of the target Basket container</shortDescription>
+        <value>Select an object type of the target Basket container</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Select_opportunity_containing_the_target_Bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>: Select opportunity containing the target Bundle:</shortDescription>
+        <value>: Select opportunity containing the target Bundle:</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Select_record_containing_the_target_Basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select a record containing the target Basket</shortDescription>
+        <value>Select a record containing the target Basket</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Select_target_Basket_within_chosen_object_record</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select the target Basket within the chosen object record</shortDescription>
+        <value>Select the target Basket within the chosen object record</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Select_the_target_Bundle_within_the_chosen_Opportunity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>: Select the target Bundle within the chosen Opportunity:</shortDescription>
+        <value>: Select the target Bundle within the chosen Opportunity:</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Step_1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Step 1</shortDescription>
+        <value>Step 1</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Step_2</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Step 2</shortDescription>
+        <value>Step 2</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Step_3</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Step 3</shortDescription>
+        <value>Step 3</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_Step_4</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Step 4</shortDescription>
+        <value>Step 4</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_button_below_to_start_the_copy_process</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>button below to start the copy process.</shortDescription>
+        <value>button below to start the copy process.</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_to_another_Basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>to another Basket</shortDescription>
+        <value>to another Basket</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_to_another_Bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>to another Bundle</shortDescription>
+        <value>to another Bundle</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_within_the_same_Basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>within the same Basket.</shortDescription>
+        <value>within the same Basket.</value>
+    </labels>
+    <labels>
+        <fullName>clinconf_within_the_same_Bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>within the same Bundle.</shortDescription>
+        <value>within the same Bundle.</value>
+    </labels>
+    <labels>
+        <fullName>clnbndl_Bundle_copied_successfully</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Bundle copied successfully.</shortDescription>
+        <value>Bundle copied successfully.</value>
+    </labels>
+    <labels>
+        <fullName>clnbndl_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>clnbndl_Click_here_to_go_to_the_new_bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Click here to go to the new bundle</shortDescription>
+        <value>Click here to go to the new bundle</value>
+    </labels>
+    <labels>
+        <fullName>clnbndl_Copy_bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy bundle</shortDescription>
+        <value>Copy bundle</value>
+    </labels>
+    <labels>
+        <fullName>clnbndl_Enter_name_for_new_bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Enter name for new bundle:</shortDescription>
+        <value>Enter name for new bundle:</value>
+    </labels>
+    <labels>
+        <fullName>clnbndl_Select_opportunity_to_copy_to</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select opportunity to copy to:</shortDescription>
+        <value>Select opportunity to copy to:</value>
+    </labels>
+    <labels>
+        <fullName>clnbndl_to_another_Opportunity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>to another Opportunity</shortDescription>
+        <value>to another Opportunity</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_Configuration_copied_successfully</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration copied successfully</shortDescription>
+        <value>Configuration copied successfully</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_Configuration_copied_successfully_Close_this_window</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration copied successfully. Close this window</shortDescription>
+        <value>Configuration copied successfully. Close this window and refresh the Product Bundle Detail page in your browser.</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_Configuration_could_not_be_copied</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration could not be copied:</shortDescription>
+        <value>Configuration could not be copied:</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_Invalid_target_Opportunity_Bundle_combination</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid target Opportunity / Bundle combination</shortDescription>
+        <value>Invalid target Opportunity / Bundle combination. Please select the Opportunity and click the Get Bundles button again.</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_Selected_Opportunity_is_closed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Selected bundle is synchronised with closed opportunity.</shortDescription>
+        <value>Selected bundle is synchronised with closed opportunity.</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_Target_bundle_must_be_selected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Target bundle must be selected</shortDescription>
+        <value>Target bundle must be selected for the opportunity.</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_The_Opportunity_for_this_bundle_is_closed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The Opportunity for this bundle is closed</shortDescription>
+        <value>Selected bundle is synchronised with closed opportunity.</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_There_was_a_problem_locating_the_bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>There was a problem locating the bundle</shortDescription>
+        <value>There was a problem locating the bundle and opportunity for this configuration. The configuration was not copied.</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_You_must_enter_a_value</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>You must enter a value.</shortDescription>
+        <value>You must enter a value.</value>
+    </labels>
+    <labels>
+        <fullName>clnconfcls_copy_would_cause_unique_field_to_duplicate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>copy would cause an unique field to be duplicated!</shortDescription>
+        <value>copy would cause an unique field to be duplicated!</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Action</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Cancel</fullName>
+        <language>fr</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Change_quantity_for</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Change quantity for</shortDescription>
+        <value>Change quantity for</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Configured_Products</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configured Products</shortDescription>
+        <value>Configured Products</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Copy</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy</shortDescription>
+        <value>Copy</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Del</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Del</shortDescription>
+        <value>Del</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Discount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Discount</shortDescription>
+        <value>Discount</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Enter_New_Quantity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Enter New Quantity:</shortDescription>
+        <value>Enter New Quantity:</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Grand_Total</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Grand Total</shortDescription>
+        <value>Grand Total</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Invalid_quantity_value_entered</fullName>
+        <language>fr</language>
+        <protected>false</protected>
+        <shortDescription>Invalid quantity value entered</shortDescription>
+        <value>Invalid quantity value entered</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Item</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Item</shortDescription>
+        <value>Item</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_ListPrice</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>List Price</shortDescription>
+        <value>List Price</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_New_Product_Configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Product Configuration</shortDescription>
+        <value>New Product Configuration</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Quantity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quantity</shortDescription>
+        <value>Quantity</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Rate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rate</shortDescription>
+        <value>Rate</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_SalesPrice</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sales Price</shortDescription>
+        <value>Sales Price</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Save</fullName>
+        <language>fr</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Shared_Item</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Shared Item</shortDescription>
+        <value>Shared Item</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_This_bundle_cannot_be_edited_because</fullName>
+        <language>fr</language>
+        <protected>false</protected>
+        <shortDescription>This bundle cannot be edited because</shortDescription>
+        <value>This bundle cannot be edited because it has been linked to one or more quotes. Please clone the bundle or delete the quotes to make changes.</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Totals_for</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Totals for</shortDescription>
+        <value>Totals for</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Update_Configurations</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update Configurations</shortDescription>
+        <value>Update Configurations</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Updating</fullName>
+        <language>fr</language>
+        <protected>false</protected>
+        <shortDescription>Updating...</shortDescription>
+        <value>Updating...</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_Updating_Configurations</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Updating Configurations</shortDescription>
+        <value>Updating Configurations</value>
+    </labels>
+    <labels>
+        <fullName>confbundet_delete_selected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete selection</shortDescription>
+        <value>Delete selection</value>
+    </labels>
+    <labels>
+        <fullName>configuration_There_are_validation_errors</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>There are validation errors within the configuration.</shortDescription>
+        <value>There are validation errors within the configuration. The configuration can still be saved but the basket cannot be synchronised with an Opportunity until the errors have been corrected.</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Action</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Add_Product_Configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add Product Configuration</shortDescription>
+        <value>Add Product Configuration</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Annualised_Total</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Annualised Total</shortDescription>
+        <value>Annualised Total</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Configured_Products</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configured Products</shortDescription>
+        <value>Configured Products</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Del</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Del</shortDescription>
+        <value>Del</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Item</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Item</shortDescription>
+        <value>Item</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Non_Recurring_Costs</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Non-Recurring Costs</shortDescription>
+        <value>Non-Recurring Costs</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Quantity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quantity</shortDescription>
+        <value>Quantity</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Recurring_Costs</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recurring Costs</shortDescription>
+        <value>Recurring Costs</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Recurring_Invoice_Amount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recurring Invoice Amount</shortDescription>
+        <value>Recurring Invoice Amount</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Total_Contract_Value</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Total Contract Value</shortDescription>
+        <value>Total Contract Value</value>
+    </labels>
+    <labels>
+        <fullName>confoffdet_Totals_for</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Totals for</shortDescription>
+        <value>Totals for</value>
+    </labels>
+    <labels>
+        <fullName>confofftrg_Only_one_version_of_a_template_offer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Only one version of a template offer</shortDescription>
+        <value>Only one version of a template offer can be active at a time</value>
+    </labels>
+    <labels>
+        <fullName>confofftrg_Template_offer_must_have_at_least_one</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Template offer must have at least one</shortDescription>
+        <value>Template offer must have at least one configuration to become active</value>
+    </labels>
+    <labels>
+        <fullName>confofftrg_This_offer_is_immutable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>This offer is immutable</shortDescription>
+        <value>This offer is immutable</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Action</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Configuration_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration Name</shortDescription>
+        <value>Configuration Name</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Continue</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Continue</shortDescription>
+        <value>Continue</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Continue_anyway</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Continue anyway</shortDescription>
+        <value>Continue anyway</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Copy</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy</shortDescription>
+        <value>Copy</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Del</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Del</shortDescription>
+        <value>Del</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Finish</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Finish</shortDescription>
+        <value>Finish</value>
+    </labels>
+    <labels>
+        <fullName>confprod_General_Information</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>General Information</shortDescription>
+        <value>General Information</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Next</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Previous</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Product</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product</shortDescription>
+        <value>Product</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Refresh</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refresh</shortDescription>
+        <value>Refresh</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Save_without_Validation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save without Validation</shortDescription>
+        <value>Save without Validation</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Skip</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Skip</shortDescription>
+        <value>Skip</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Validate_and_Save</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Validate and Save</shortDescription>
+        <value>Validate and Save</value>
+    </labels>
+    <labels>
+        <fullName>confprod_Warning</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Warning:</shortDescription>
+        <value>Warning:</value>
+    </labels>
+    <labels>
+        <fullName>confprof_New</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>confprof_The_product_you_have_chosen_requires_the_following_shared</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The product you have chosen requires the following shared</shortDescription>
+        <value>The product you have chosen requires the following shared top-level configuration information. You can complete this now or skip this stage and complete it later from the configuration summary screen.</value>
+    </labels>
+    <labels>
+        <fullName>conoffcontrcls_Only_template_offers_can_be_versioned</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Only template offers can be versioned</shortDescription>
+        <value>Only template offers can be versioned</value>
+    </labels>
+    <labels>
+        <fullName>cpycfgbatch_Error_Copies_Positive</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of copies must be a positive, non-zero integer</shortDescription>
+        <value>Number of copies must be a positive, non-zero integer</value>
+    </labels>
+    <labels>
+        <fullName>cpycfgbatch_Error_No_Correlation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Can&apos;t copy configurations</shortDescription>
+        <value>Can&apos;t copy configurations: target bundle doesn&apos;t correlate with target basket</value>
+    </labels>
+    <labels>
+        <fullName>datacls_Called_get_reference_on_value_only_Data</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Called get reference on value-only Data</shortDescription>
+        <value>Called get reference on value-only Data</value>
+    </labels>
+    <labels>
+        <fullName>datrangtrg_From</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>From</shortDescription>
+        <value>From</value>
+    </labels>
+    <labels>
+        <fullName>datrangtrg_Until</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Until</shortDescription>
+        <value>Until</value>
+    </labels>
+    <labels>
+        <fullName>datrangtrg_to</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>to</shortDescription>
+        <value>to</value>
+    </labels>
+    <labels>
+        <fullName>dltbndl_Click</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Click</shortDescription>
+        <value>Click</value>
+    </labels>
+    <labels>
+        <fullName>dltbndl_here</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>here</shortDescription>
+        <value>here</value>
+    </labels>
+    <labels>
+        <fullName>dltbndl_to_return_to_the_previous_page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>to return to the previous page.</shortDescription>
+        <value>to return to the previous page.</value>
+    </labels>
+    <labels>
+        <fullName>elicrittrg_Field</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Field</shortDescription>
+        <value>Field</value>
+    </labels>
+    <labels>
+        <fullName>elicrittrg_is_not_available_on_the</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>is not available on the</shortDescription>
+        <value>is not available on the</value>
+    </labels>
+    <labels>
+        <fullName>elicrittrg_object</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>object</shortDescription>
+        <value>object</value>
+    </labels>
+    <labels>
+        <fullName>eligruletrg_Object_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Object Name (object to query) can only have values: {0}</shortDescription>
+        <value>Object Name (object to query) can only have values: {0}</value>
+    </labels>
+    <labels>
+        <fullName>embscr_Loading</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading...</shortDescription>
+        <value>Loading...</value>
+    </labels>
+    <labels>
+        <fullName>error_child_config_with_wrong_quantity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quantity for related configurations must be &quot;1&quot;</shortDescription>
+        <value>Quantity for related configurations must be 1</value>
+    </labels>
+    <labels>
+        <fullName>layhelpcls_Attempt_to_associate_an_attribute_via_a_section_from_a_different_con</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attempted to associate an attribute via a section from a different configuration</shortDescription>
+        <value>Attempted to associate an attribute via a section from a different configuration screen</value>
+    </labels>
+    <labels>
+        <fullName>layhelpcls_Screen_Section_id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Screen Section id</shortDescription>
+        <value>Screen Section id</value>
+    </labels>
+    <labels>
+        <fullName>layhelpcls_not_found_for_screen</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>not found for screen</shortDescription>
+        <value>not found for screen</value>
+    </labels>
+    <labels>
+        <fullName>lkpcrttrg_You_can_not_use_operator</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>You can not use operator {0} on field type {1}</shortDescription>
+        <value>You can not use operator {0} on field type {1}</value>
+    </labels>
+    <labels>
+        <fullName>lkpcrttrg_You_can_use_contains</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Contains operator only on Multi-Select Picklist and Text</shortDescription>
+        <value>The Contains operator can only be used on fields of types Multi-Select Picklist and Text</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_Attribute_names_are_case_sensitive_in_this_context</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute names are case sensitive in this context.</shortDescription>
+        <value>Lookup criteria ({0}) attribute {1} not found in configuration. Attribute names are case sensitive in this context. Please check the spelling in the lookup Criteria fields.</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_Attribute_value_provider_not_defined</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute value provider not defined</shortDescription>
+        <value>Lookup criteria (&apos;{0}&apos;) expression &quot;{1}&quot; cannot be interpreted. Attribute value provider not defined.</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_Error_evaluating_lookup_criterion_value</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error_evaluating_lookup_criterion</shortDescription>
+        <value>Error evaluating lookup criterion &quot;{0}&quot;: {1}</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_Field_not_found_on_object</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Field not found on object</shortDescription>
+        <value>Field &quot;{0}&quot; not found on object {1}</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_Lookup_config_does_not_have_search_object_mapping</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup config does not have search object mapping</shortDescription>
+        <value>Lookup config {0} (id={1}) does not have search object mapping defined or it was not found.</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_Lookup_criterion_has_empty_value_data</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup criterion has empty value data</shortDescription>
+        <value>Lookup criterion {0} has empty value data.</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_Lookup_criterion_no_lookup_query_has_empty_value_data</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup criterion no lookup query has empty value data</shortDescription>
+        <value>Lookup criterion {0} is an expression and no lookup query filter value holder is provided.</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_SObject_type_not_found_for_lookup_config</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SObject type not found for lookup config</shortDescription>
+        <value>SObject type {0} not found for lookup config: {1}</value>
+    </labels>
+    <labels>
+        <fullName>lkpsoqlbuildercls_Unsupported_operator</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unsupported operator</shortDescription>
+        <value>Unsupported operator {0} in lookup criterion {1}.</value>
+    </labels>
+    <labels>
+        <fullName>lkupcontrcls_Config_without_list_columns_with_name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup config without list columns defined (name can be used)</shortDescription>
+        <value>Lookup config ({0}) does not have List Columns field defined. Instead, using only Name field.</value>
+    </labels>
+    <labels>
+        <fullName>lkupcontrcls_Config_without_list_columns_without_name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup config without list columns defined</shortDescription>
+        <value>Lookup config ({0}) does not have List Columns field defined. Instead, using only Id field.</value>
+    </labels>
+    <labels>
+        <fullName>lkupcontrcls_Config_without_search_columns</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup config without search columns used</shortDescription>
+        <value>Lookup config ({0}) does not have Search Columns field defined. Searching by Name field instead.</value>
+    </labels>
+    <labels>
+        <fullName>lkupcontrcls_Lookup_config_has_mapping_targeting_object_which_does_not_exist</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup config has mapping targeting object which does not exist</shortDescription>
+        <value>A List Object Mapping on the Lookup Config {0} targets a non-existing object {1}.</value>
+    </labels>
+    <labels>
+        <fullName>lkupcontrcls_Lookup_config_not_found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup config not found:</shortDescription>
+        <value>Lookup config not found:</value>
+    </labels>
+    <labels>
+        <fullName>lkupcontrcls_No_information_could_be_retrieved</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No information could be retrieved</shortDescription>
+        <value>No information could be retrieved</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_Can_t_build_dynamic_lookup_query</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Can&apos;t build dynamic lookup query</shortDescription>
+        <value>Can&apos;t build dynamic lookup query</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_Could_not_build_LookupQuery_Filter</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not build LookupQuery Filter</shortDescription>
+        <value>Could not build LookupQuery Filter where clause:</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_Could_not_find_Lookup_Query</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not find Lookup Query</shortDescription>
+        <value>Could not find Lookup Query: No lookup_query__c found for id</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_Either_no_field_was_provided</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Either no field was provided</shortDescription>
+        <value>. Either no field was provided, or field is a reference (__r) and no object/field mappings are defined</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_Lookup_criteria_attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup criteria attribute</shortDescription>
+        <value>Lookup criteria attribute</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_Malformed_query</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The query used on screen has no search value.</shortDescription>
+        <value>The query used on screen has no search value. Please check lookup query for non existing value on compared field.</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_No_lookup_query_c_found_for_name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No lookup_query__c found for name</shortDescription>
+        <value>Could not find Lookup Query: No lookup_query__c found for name</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_Unsupported_operator_used_on_Multipicklist</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Unsupported operator used on Multiselect picklist</shortDescription>
+        <value>Unsupported operator used on Multiselect picklist: {0}</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_lookup_searcher_implementation_not_found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>lookup_searcher_implementation_not_found</shortDescription>
+        <value>Lookup searcher implementation not found: {0}</value>
+    </labels>
+    <labels>
+        <fullName>lkuphlpcls_not_found_in_configuration_Attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>not found in configuration. Attribute</shortDescription>
+        <value>not found in configuration. Attribute names are case sensitive in this context. Please check the spelling in the lookup Criteria fields.</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Apply_Filters</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Filters</shortDescription>
+        <value>Apply Filters</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Checked</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Checked</shortDescription>
+        <value>Checked</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Clear_Filters</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Clear Filters</shortDescription>
+        <value>Clear Filters</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Filtered_by</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Filtered by:</shortDescription>
+        <value>Filtered by:</value>
+    </labels>
+    <labels>
+        <fullName>lookup_First</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>First</shortDescription>
+        <value>First</value>
+    </labels>
+    <labels>
+        <fullName>lookup_First_page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>First page</shortDescription>
+        <value>First page</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Go</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Go!</shortDescription>
+        <value>Go!</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Hide_Filters</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hide Filters</shortDescription>
+        <value>Hide Filters</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Last</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Last page</shortDescription>
+        <value>Last</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Last_page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Last page</shortDescription>
+        <value>Last page</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Lookup</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup</shortDescription>
+        <value>Lookup</value>
+    </labels>
+    <labels>
+        <fullName>lookup_New</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Next</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Next_page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next page</shortDescription>
+        <value>Next page</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Previous</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Previous_page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous page</shortDescription>
+        <value>Previous page</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Reset</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reset</shortDescription>
+        <value>Reset</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Show_Filters</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Show Filters</shortDescription>
+        <value>Show Filters</value>
+    </labels>
+    <labels>
+        <fullName>lookup_Unchecked</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unchecked</shortDescription>
+        <value>Unchecked</value>
+    </labels>
+    <labels>
+        <fullName>lookup_use_wildcard</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>use wildcard</shortDescription>
+        <value>You can use &quot;*&quot; as a wildcard next to other characters to improve your search results. For example, &quot;ad*&quot; returns all records with a word in one of the searched fields that begins with &quot;ad&quot;.</value>
+    </labels>
+    <labels>
+        <fullName>lsmcls_Limit_for_querying_records_page_by_page_is_2000</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Limit for querying records page-by-page is 2000. Please narrow down your search</shortDescription>
+        <value>&apos;Too many results - please narrow down your search.</value>
+    </labels>
+    <labels>
+        <fullName>multsecontr_Add</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>multsecontr_Bottom</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Bottom</shortDescription>
+        <value>Bottom</value>
+    </labels>
+    <labels>
+        <fullName>multsecontr_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>multsecontr_Down</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Down</shortDescription>
+        <value>Down</value>
+    </labels>
+    <labels>
+        <fullName>multsecontr_Remove</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Remove</shortDescription>
+        <value>Remove</value>
+    </labels>
+    <labels>
+        <fullName>multsecontr_Save</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>multsecontr_Top</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Top</shortDescription>
+        <value>Top</value>
+    </labels>
+    <labels>
+        <fullName>multsecontr_Up</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Up</shortDescription>
+        <value>Up</value>
+    </labels>
+    <labels>
+        <fullName>newprobdl_An_unexpected_error_has_occurred_New_bundle_redirect_failed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>An unexpected error has occurred (New bundle redirect failed)</shortDescription>
+        <value>An unexpected error has occurred (New bundle redirect failed)</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Addition_operator_not_supported_on_Date_and</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Addition operator not supported on Date and</shortDescription>
+        <value>Addition operator not supported on Date and</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Addition_operator_not_supported_on_String_and</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Addition operator not supported on String and</shortDescription>
+        <value>Addition operator not supported on String and</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Attempt_to_bind_second_parameter_to_unary_operator</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attempt to bind second parameter to unary operator</shortDescription>
+        <value>Attempt to bind second parameter to unary operator</value>
+    </labels>
+    <labels>
+        <fullName>opercls_No_value_bound</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No value bound</shortDescription>
+        <value>No value bound!</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Only_Boolean_types_can_be_bound</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Only Boolean types can be bound</shortDescription>
+        <value>Only Boolean types can be bound.</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Only_String_types_can_be_bound</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Only String types can be bound</shortDescription>
+        <value>Only String types can be bound.</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Operator</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Operator</shortDescription>
+        <value>Operator</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Processing_StartsWith_operator</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Processing StartsWith operator</shortDescription>
+        <value>Processing StartsWith operator</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Subtraction_operator_not_supported_on_Date_and</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subtraction operator not supported on Date and</shortDescription>
+        <value>Subtraction operator not supported on Date and</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Undefined</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Undefined</shortDescription>
+        <value>Undefined</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Unimplemented</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unimplemented</shortDescription>
+        <value>Unimplemented</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Unrecognised_operator</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unrecognised operator</shortDescription>
+        <value>Unrecognised operator</value>
+    </labels>
+    <labels>
+        <fullName>opercls_Unsupported_Operation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unsupported Operation</shortDescription>
+        <value>Unsupported Operation</value>
+    </labels>
+    <labels>
+        <fullName>opercls_failed_to_apply</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>failed to apply</shortDescription>
+        <value>failed to apply</value>
+    </labels>
+    <labels>
+        <fullName>pagehead_Help_for_this_Page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help for this Page</shortDescription>
+        <value>Help for this Page</value>
+    </labels>
+    <labels>
+        <fullName>pagehead_New_Product_Configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Product Configuration</shortDescription>
+        <value>New Product Configuration</value>
+    </labels>
+    <labels>
+        <fullName>pagehead_Product_Configuration_Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Configuration Edit</shortDescription>
+        <value>Product Configuration Edit</value>
+    </labels>
+    <labels>
+        <fullName>pcasynctask_aggregate_title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Aggregate configuration in basket</shortDescription>
+        <value>Calculating prices in basket {0}</value>
+    </labels>
+    <labels>
+        <fullName>pcasynctask_copy_title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy product configurations job title</shortDescription>
+        <value>Copying {0} product configuration(s) - x{1} time(s)</value>
+    </labels>
+    <labels>
+        <fullName>pcasynctask_delete_title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete product configurations job title</shortDescription>
+        <value>Deleting {0} product configuration(s)</value>
+    </labels>
+    <labels>
+        <fullName>pcasynctask_revalidate_title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Revalidate product configurations job title</shortDescription>
+        <value>Revalidating {0} product configuration(s)</value>
+    </labels>
+    <labels>
+        <fullName>pcc_Unable_to_save_Product_Configuration_Error_occured_on_conf_out_mapping</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Unable to save Product Configuration. Error occurred while trying to map</shortDescription>
+        <value>Unable to save Product Configuration. Error occurred while trying to map value of Attribute &quot;{0}&quot; to Product Configuration object field &quot;{1}&quot;.</value>
+    </labels>
+    <labels>
+        <fullName>pcc_configuration_customiser_implementation_not_found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration Customiser class not found.</shortDescription>
+        <value>Configuration Customiser class &quot;{0}&quot; not found.</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute</shortDescription>
+        <value>Attribute</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Attribute_type_is_not_a_related_product</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute type is not a related product</shortDescription>
+        <value>Attribute type is not a related product</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_ConfigIdentifier_was_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ConfigIdentifier was null</shortDescription>
+        <value>ConfigIdentifier was null</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Could_not_find_reference</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not find reference</shortDescription>
+        <value>Could not find reference</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Could_not_understand_attribute_reference</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not understand attribute reference</shortDescription>
+        <value>Could not understand attribute reference in Lookup Query:</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Could_not_understand_attribute_reference_in_Count</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not understand attribute reference in Count():</shortDescription>
+        <value>Could not understand attribute reference in Count():</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Count_can_only_be_applied_to_related_list_attributes</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Count() can only be applied to related list attributes.</shortDescription>
+        <value>Count() can only be applied to related list attributes.</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Lookup_query_creation_failed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lookup query creation failed.</shortDescription>
+        <value>Lookup query creation failed</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_No_Product_definition_found_with_name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Product definition found with name</shortDescription>
+        <value>No Product definition found with name</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_No_category_found_with_reference</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No category found with reference</shortDescription>
+        <value>No category found with reference</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_No_parent_found_for_ProductConfiguration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No parent found for ProductConfiguration</shortDescription>
+        <value>No parent found for ProductConfiguration</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_No_related_products_found_on_attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No related products found on attribute</shortDescription>
+        <value>No related products found on attribute</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_No_results_found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No results found:</shortDescription>
+        <value>No results found:</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_No_return_field_set_for_Lookup_Query</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No return field set for Lookup Query</shortDescription>
+        <value>No return field set for Lookup Query</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Please_enter_a_number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please enter a number</shortDescription>
+        <value>Please enter a number</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Please_enter_a_number_with_at_most</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please enter a number with at most</shortDescription>
+        <value>Please enter a number with at most</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Please_enter_a_whole_number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please enter a whole number</shortDescription>
+        <value>Please enter a whole number</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_Related_product_for_Attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Related product for Attribute</shortDescription>
+        <value>Related product for Attribute</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_could_not_be_found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>could not be found</shortDescription>
+        <value>could not be found</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_decimals</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>decimals</shortDescription>
+        <value>decimals</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_in_category</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>in category</shortDescription>
+        <value>in category</value>
+    </labels>
+    <labels>
+        <fullName>pchlpcls_requested_at_out_of_range_index</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>requested at out-of-range index:</shortDescription>
+        <value>requested at out-of-range index:</value>
+    </labels>
+    <labels>
+        <fullName>ppc_does_not_extend_configuration_customiser</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PPC does not extend AConfigurationCustomiser class</shortDescription>
+        <value>Class &quot;{0}&quot; does not extend AConfigurationCustomiser class</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlcontrcls_Could_not_update_configurations</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not update configurations:</shortDescription>
+        <value>Could not update configurations:</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlcontrcls_Deprecated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Deprecated</shortDescription>
+        <value>Deprecated</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlcontrcls_Invalid_Quantity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid Quantity</shortDescription>
+        <value>Invalid Quantity</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlcontrcls_No_opportunity_is_associated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No opportunity is associated with this product bundle.</shortDescription>
+        <value>No opportunity is associated with this product bundle.</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlcontrcls_The_bundle_cannot_be_synchronised</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The bundle cannot be synchronised</shortDescription>
+        <value>The bundle cannot be synchronised with the opportunity because the opportunity is closed.</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlcontrcls_The_product_bundle_line_items_were_successfully_synchronised</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The product bundle line items were successfully synchronised with the opportunit</shortDescription>
+        <value>The product bundle line items were successfully synchronised with the opportunity.</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlmngcls_Destination_opportunity_Id_does_not_exist</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Destination opportunity Id does not exist</shortDescription>
+        <value>Destination opportunity Id does not exist</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlmngcls_ProductBundleManager_updateDirtyConfigurations</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductBundleManager.updateDirtyConfigurations</shortDescription>
+        <value>ProductBundleManager.updateDirtyConfigurations only works with ONE bundle</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlmngcls_Product_Configurations_having_Definitions_for_Runtime_V2</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Configurations having Definitions for UX Engine</shortDescription>
+        <value>Product Configurations having Definitions for UX Engine cannot be copied to Product Bundles or their companion Baskets</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlmngcls_Source_bundle_Id_does_not_exist</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Source bundle Id does not exist</shortDescription>
+        <value>Source bundle Id does not exist</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlmngcls_The_configurations_to_be_copied_use_a_different</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The configurations to be copied use a different context product to the items alr</shortDescription>
+        <value>The configurations to be copied use a different context product to the items already in the bundle. A bundle can only contain a single shared context product.</value>
+    </labels>
+    <labels>
+        <fullName>prdbndlmngcls_The_configurations_to_be_copied_use_multiple</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The configurations to be copied use multiple</shortDescription>
+        <value>The configurations to be copied use multiple shared context product definitions. A bundle can only contain a single shared context product.</value>
+    </labels>
+    <labels>
+        <fullName>prdcatcontrcls_Could_not_find_Opportunity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not find Opportunity:</shortDescription>
+        <value>Could not find Opportunity:</value>
+    </labels>
+    <labels>
+        <fullName>prdcatcontrcls_No_linked_id_or_retURL_parameters_provided</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No linked id or retURL parameters provided</shortDescription>
+        <value>No linked id or retURL parameters provided!</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcls_Definitions_and_ScreenFlows_must_be</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Definitions and ScreenFlows must be</shortDescription>
+        <value>Definitions and ScreenFlows must be of equal size in ProductConfiguration.loadScreens</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcls_Error_in_ProductConfiguration_executeRules</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error in ProductConfiguration executeRules()</shortDescription>
+        <value>Error in ProductConfiguration executeRules()</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcls_ProductConfiguration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductConfiguration</shortDescription>
+        <value>ProductConfiguration</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcls_already_has_a_parent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>already has a parent</shortDescription>
+        <value>already has a parent</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_An_Error_has_occurred</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>An Error has occurred</shortDescription>
+        <value>An Error has occurred. Please contact the systems administrator. Error is:</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_An_error_occurred_updating_attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>An error occurred updating attribute</shortDescription>
+        <value>An error occurred updating attribute</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Attempted_to_add_related_product_for_attribute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attempted to add related product for attribute</shortDescription>
+        <value>Attempted to add related product for attribute</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Bundle_ID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Bundle ID</shortDescription>
+        <value>Bundle ID</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Cannot_select_an_offer_containing_v2_configurations</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cannot select an offer containing V2 configurations</shortDescription>
+        <value>Cannot select an offer containing V2 configurations for a bundle or its companion basket</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Could_not_find_Opportunity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not find Opportunity:</shortDescription>
+        <value>Could not find Opportunity:</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Could_not_locate_related_product_to_copy</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not locate related product to copy</shortDescription>
+        <value>Could not locate related product to copy</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Could_not_select_offer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Could not select offer:</shortDescription>
+        <value>Could not select offer:</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_New_item_cannot_be_added</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New item cannot be added</shortDescription>
+        <value>New item cannot be added - the maximum number of</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Please_address_the_problems_indicated_below</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please address the problems indicated below</shortDescription>
+        <value>Please address the problems indicated below</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_ProductConfiguratorController_buildSharedContext</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductConfiguratorController.buildSharedContext</shortDescription>
+        <value>ProductConfiguratorController.buildSharedContext can only be called with ONE definition</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_ProductConfiguratorController_generateBundleName</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductConfiguratorController.generateBundleName</shortDescription>
+        <value>ProductConfiguratorController.generateBundleName can only be called with ONE opportunity</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_ProductConfiguratorController_persistConfig_basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductConfiguratorController.persistConfig basket</shortDescription>
+        <value>ProductConfiguratorController.persistConfig can only be called with ONE basket</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_ProductConfiguratorController_persistConfig_baskets_match</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductConfiguratorController.persistConfig baskets match</shortDescription>
+        <value>ProductConfiguratorController.persistConfig if basket is specified and the config is already in a basket, they must match</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_ProductConfiguratorController_persistConfig_bundle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductConfiguratorController.persistConfig bundle</shortDescription>
+        <value>ProductConfiguratorController.persistConfig can only be called with ONE bundle</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_ProductConfiguratorController_persistConfig_linked_obj</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductConfiguratorController.persistConfig</shortDescription>
+        <value>ProductConfiguratorController.persistConfig can only be called with ONE linked object id</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_ProductConfiguratorController_persistConfig_offer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProductConfiguratorController.persistConfig offer</shortDescription>
+        <value>ProductConfiguratorController.persistConfig can only be called with ONE offer</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Product_Definitions_for_Runtime_V2</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Definitions for UX Engine</shortDescription>
+        <value>Product Definitions defined for UX Engine cannot be used on Product Bundles or their companion Baskets</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Product_Definitions_for_Runtime_V2_Related_Products</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Definitions for UX Engine - Related Products</shortDescription>
+        <value>Product Definitions defined for UX Engine cannot be used as Related Products in configurations on Bundles or their companion Baskets</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_Template_offers_can_only_be_added_to_baskets</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Template offers can only be added to baskets.</shortDescription>
+        <value>Template offers can only be added to baskets.</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_The_bundle_can_still_be_saved_but</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The bundle can still be saved but</shortDescription>
+        <value>The bundle can still be saved but cannot be synchronised with an Opportunity</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_The_previous_screen_is_incomplete</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The previous screen is incomplete</shortDescription>
+        <value>The previous screen is incomplete or has an invalid configuration.</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_There_are_validation_errors_within_the_configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>There are validation errors within the configuration.</shortDescription>
+        <value>There are validation errors within the configuration.</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_This_opportunity_is_closed_no_new_configurations_can_be_added</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>This opportunity is closed, no new configurations can be added.</shortDescription>
+        <value>This opportunity is closed, no new configurations can be added.</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_This_product_requires_a_different_top_level</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>This product requires a different top-level</shortDescription>
+        <value>This product requires a different top-level configuration from another product already configured. Please configure in a separate bundle.</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_User_does_not_have_access_to_Product_Definition</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>User does not have access to Product Definition</shortDescription>
+        <value>User does not have access to Product Definition</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_basket_id_not_found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Basket id not found</shortDescription>
+        <value>Basket id {0} not found</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_cannot_invoke_selectOffer_without_setting_offerId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>cannot invoke selectOffer without setting offerId</shortDescription>
+        <value>Cannot invoke selectOffer without setting offerId</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_more_than_one_screen_flow_predicate_true</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>More than one Screen Flow Predicate evaluates to true</shortDescription>
+        <value>More than one Screen Flow Predicate evaluates to true. This is not a valid scenario. Please correct Screen Flow Predicates!</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_not_found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>not found</shortDescription>
+        <value>not found</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_of_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>of type</shortDescription>
+        <value>of type</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_records_is</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>records is</shortDescription>
+        <value>records is</value>
+    </labels>
+    <labels>
+        <fullName>prdconfcontrcls_until_the_errors_have_been_corrected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>until the errors have been corrected.</shortDescription>
+        <value>until the errors have been corrected.</value>
+    </labels>
+    <labels>
+        <fullName>prdconfhlpcls_A_valid_Configuration_ID_must_be_supplied</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A valid Configuration ID must be supplied</shortDescription>
+        <value>A valid Configuration ID must be supplied</value>
+    </labels>
+    <labels>
+        <fullName>prdconfhlpcls_numCopiesRequired_must_be_a_positive_integer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>numCopiesRequired must be a positive integer</shortDescription>
+        <value>numCopiesRequired must be a positive integer</value>
+    </labels>
+    <labels>
+        <fullName>probunded_Information</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Information</shortDescription>
+        <value>Information</value>
+    </labels>
+    <labels>
+        <fullName>probunded_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>probunded_Product_Bundle_Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Bundle Edit</shortDescription>
+        <value>Product Bundle Edit</value>
+    </labels>
+    <labels>
+        <fullName>probundtrg_Product_bundles_on_closed_opportunities_cannot_be_deleted</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product bundles on closed opportunities cannot be deleted.</shortDescription>
+        <value>Product bundles that are synchronised with closed opportunities cannot be deleted.</value>
+    </labels>
+    <labels>
+        <fullName>probundtrg_Product_bundles_on_closed_opportunities_cannot_be_edited</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product bundles on closed opportunities cannot be edited.</shortDescription>
+        <value>Product bundles that are synchronised with closed opportunities cannot be edited.</value>
+    </labels>
+    <labels>
+        <fullName>proconftrg_Configuration_can_t_be_attached_to_an_immutable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration can&apos;t be attached to an immutable</shortDescription>
+        <value>Configuration can&apos;t be attached to an immutable template offer.</value>
+    </labels>
+    <labels>
+        <fullName>proconftrg_Configuration_can_t_be_deleted_because</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration can&apos;t be deleted because</shortDescription>
+        <value>Configuration can&apos;t be deleted because it is attached to an immutable template offer.</value>
+    </labels>
+    <labels>
+        <fullName>proconftrg_Configuration_is_attached_to_an_immutable_template</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configuration is attached to an immutable template</shortDescription>
+        <value>Configuration is attached to an immutable template offer and can&apos;t be changed.</value>
+    </labels>
+    <labels>
+        <fullName>proconftrg_Product_configurations_in_bundles_synchronised</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product configurations in bundles synchronised</shortDescription>
+        <value>Product configurations of bundles synchronised with closed opportunities cannot be deleted or edited.</value>
+    </labels>
+    <labels>
+        <fullName>prodbaskedit_cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>prodbaskedit_information</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Information</shortDescription>
+        <value>Information</value>
+    </labels>
+    <labels>
+        <fullName>prodbaskedit_name_label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>prodbaskedit_product_basket_edit_title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Basket Edit</shortDescription>
+        <value>Product Basket Edit</value>
+    </labels>
+    <labels>
+        <fullName>prodbaskedit_save</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>prodbaskettrigger_async_tasks_running_over_basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cannot delete basket while asynchronous processing on basket is running.</shortDescription>
+        <value>Cannot delete basket while asynchronous processing on basket is running.</value>
+    </labels>
+    <labels>
+        <fullName>prodbundedit_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>prodbundedit_Save</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>proddeftrg_Product_definition_can_not_be_archived</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product definition can not be archived</shortDescription>
+        <value>Product definition can not be archived and active at the same time. Please correct configuration settings.</value>
+    </labels>
+    <labels>
+        <fullName>proddeftrg_Product_definition_can_not_have_record_type_changed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product definition can not have record type changed.</shortDescription>
+        <value>Product definition can not have record type changed.</value>
+    </labels>
+    <labels>
+        <fullName>proddeftrg_Product_definition_must_have_runtime_engine</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Product definition must have runtime engine</shortDescription>
+        <value>Product definition must have Runtime Version selected. Please correct configuration settings.</value>
+    </labels>
+    <labels>
+        <fullName>proddeftrg_Shared_context_mark_cannot_be_removed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Shared context mark cannot be removed</shortDescription>
+        <value>Shared context mark cannot be removed while shared context configurations referencing this definition exist and are assigned to a bundle.</value>
+    </labels>
+    <labels>
+        <fullName>proddeftrg_Shared_context_mark_cannot_be_removed_definition</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Shared context mark cannot be removed - definition</shortDescription>
+        <value>Shared context mark cannot be removed while another product definition references this one as a shared context definition.</value>
+    </labels>
+    <labels>
+        <fullName>prodper_Access_Granted</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Access Granted</shortDescription>
+        <value>Access Granted</value>
+    </labels>
+    <labels>
+        <fullName>prodper_Access_permission_for_profiles</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Access permission for profiles</shortDescription>
+        <value>Access permission for profiles</value>
+    </labels>
+    <labels>
+        <fullName>prodper_Back_to_Product_Definition</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to Product Definition</shortDescription>
+        <value>Back to Product Definition</value>
+    </labels>
+    <labels>
+        <fullName>prodper_Profile</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Profile</shortDescription>
+        <value>Profile</value>
+    </labels>
+    <labels>
+        <fullName>prodper_Restrict_access_for_Product_Definition</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Restrict access for Product Definition</shortDescription>
+        <value>Restrict access for Product Definition</value>
+    </labels>
+    <labels>
+        <fullName>prodper_Save</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>prodper_Set_access_permissions_for</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Set access permissions for</shortDescription>
+        <value>Set access permissions for</value>
+    </labels>
+    <labels>
+        <fullName>reindefcontrcls_Definition_Id_not_specified</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Definition Id not specified</shortDescription>
+        <value>Definition Id not specified</value>
+    </labels>
+    <labels>
+        <fullName>reindefcontrcls_Definition_reinstated_from_Archive</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Definition reinstated from Archive</shortDescription>
+        <value>Definition reinstated from Archive</value>
+    </labels>
+    <labels>
+        <fullName>reindefcontrcls_Product_Definition_could_not_be_reinstated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Definition could not be reinstated:</shortDescription>
+        <value>Product Definition could not be reinstated:</value>
+    </labels>
+    <labels>
+        <fullName>relprod_Add</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>relprod_Del</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Del</shortDescription>
+        <value>Del</value>
+    </labels>
+    <labels>
+        <fullName>relprod_Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>revalidatecfg_hvrelated_not_validated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>High volume related product not validated.</shortDescription>
+        <value>High volume related product not validated. Please invoke revalidation of all high volume related product before revalidation of its parents.</value>
+    </labels>
+    <labels>
+        <fullName>rulpredasstrg_Please_remove_Rule_Predicate_Associations</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please remove Rule/Predicate Association references</shortDescription>
+        <value>Please remove Rule/Predicate Association references ( {0} ) from field Logic ( {1} ).</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Categories</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Categories</shortDescription>
+        <value>Categories</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Category</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>selcat_New_Configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Configuration</shortDescription>
+        <value>New Configuration</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Offers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Offers</shortDescription>
+        <value>Offers</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Packages_Section</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Packages</shortDescription>
+        <value>Product Packages</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Product_Definitions_Categories</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Definitions &amp; Categories</shortDescription>
+        <value>Product Definitions &amp; Categories</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Product_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name</shortDescription>
+        <value>Product Name</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Products_Offers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Products &amp; Offers</shortDescription>
+        <value>Products &amp; Offers</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Related_Product_Selection</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Related Product Selection</shortDescription>
+        <value>Related Product Selection</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Select_Category</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select Category</shortDescription>
+        <value>Select Category</value>
+    </labels>
+    <labels>
+        <fullName>selcat_Select_Product</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select Product</shortDescription>
+        <value>Select Product</value>
+    </labels>
+    <labels>
+        <fullName>selcat_There_are_no_products_or_sub_categories_available_to_configure</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>There are no products or sub categories available to configure in this context,</shortDescription>
+        <value>There are no products or sub categories available to configure in this context, possibly because eligibility criteria have not been met.</value>
+    </labels>
+    <labels>
+        <fullName>selcat_This_opportunity_is_closed_no_product_bundles_can_be_added_to_it</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>This opportunity is closed - no product bundles can be added to it.</shortDescription>
+        <value>This opportunity is closed - no product bundles can be added to it.</value>
+    </labels>
+    <labels>
+        <fullName>selcat_cat_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>selcat_off_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>selcat_prod_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>selectlistlookup_Please_enter_search</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please enter search term</shortDescription>
+        <value>Please enter search term</value>
+    </labels>
+    <labels>
+        <fullName>selectlistlookup_Please_select_value</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please select value</shortDescription>
+        <value>Please select value</value>
+    </labels>
+    <labels>
+        <fullName>selopttrg_Attribute_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute type &quot;</shortDescription>
+        <value>Attribute type &quot;</value>
+    </labels>
+    <labels>
+        <fullName>selopttrg_Attribute_types_that_support_Select_options_are</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute types that support &quot;Select options&quot; are :</shortDescription>
+        <value>Attribute types that support &quot;Select options&quot; are :</value>
+    </labels>
+    <labels>
+        <fullName>selopttrg_Please_select_different_attribute_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please select different attribute type</shortDescription>
+        <value>Please select different attribute type if you need &quot;Select options&quot; defined for attribute.</value>
+    </labels>
+    <labels>
+        <fullName>selopttrg_does_not_support_Select_options</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>&quot; does not support &quot;Select options&quot;.</shortDescription>
+        <value>&quot; does not support &quot;Select options&quot;.</value>
+    </labels>
+    <labels>
+        <fullName>selprod_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>selprod_Offer_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Offer Name</shortDescription>
+        <value>Offer Name</value>
+    </labels>
+    <labels>
+        <fullName>selprod_Product_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name</shortDescription>
+        <value>Product Name</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_Category_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category Name</shortDescription>
+        <value>Category Name</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_Help_for_this_Page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help for this Page</shortDescription>
+        <value>Help for this Page</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_New_Product_Configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Product Configuration</shortDescription>
+        <value>New Product Configuration</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_Offers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Offers</shortDescription>
+        <value>Offers</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_Product_Configuration_Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Configuration Edit</shortDescription>
+        <value>Product Configuration Edit</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_Products</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Products</shortDescription>
+        <value>Products</value>
+    </labels>
+    <labels>
+        <fullName>selprodcat_There_are_no_products_or_sub_categories</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>There are no products or sub categories</shortDescription>
+        <value>There are no products or sub categories available to configure in this context, possibly because eligibility criteria have not been met.</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_Back_to</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to</shortDescription>
+        <value>Back to</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_Category_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category Name</shortDescription>
+        <value>Category Name</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_Either_no_products_options</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Either no products options</shortDescription>
+        <value>Either no products options have been defined, none is active or you do not have permission to access them.</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_Help_for_this_Page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help for this Page</shortDescription>
+        <value>Help for this Page</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_New_Related_Product_Configuration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Related Product Configuration</shortDescription>
+        <value>New Related Product Configuration</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_No_products_available</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No products available</shortDescription>
+        <value>No products available</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_Product_Configuration_Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Configuration Edit</shortDescription>
+        <value>Product Configuration Edit</value>
+    </labels>
+    <labels>
+        <fullName>selrelopt_Product_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name</shortDescription>
+        <value>Product Name</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_Failed_to_validate_expression</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Failed to validate expression</shortDescription>
+        <value>{0} does not exist as an attribute in &quot;{1}.&quot;</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_Limit_cannot_be_less_than_0</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Limit must be greater or equal to zero.</shortDescription>
+        <value>Limit must be greater or equal to zero.</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_Offset_cannot_be_less_than_0</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Offset must be zero or greater.</shortDescription>
+        <value>Offset must be zero or greater.</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_Select_clause_at_SOQL_builder_not_built_correctly</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select clause at SOQL builder not built correctly</shortDescription>
+        <value>Select clause at SOQL builder not built correctly.</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_Select_column_cannot_be_null_in_SOQL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select column cannot be null in SOQL.</shortDescription>
+        <value>Select column cannot be null in SOQL.</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_Where_clause_expression_most_not_be_null</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Where clause expression most not be null</shortDescription>
+        <value>Where clause expression most not be null..</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_is_not_queryable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>is not queryable</shortDescription>
+        <value>{0} is not queryable therefore SOQL builder cannot be used over it.</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_object_type_must_be_defined_for_SOQLBuilder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Object type must be defined for SOQLBuilder</shortDescription>
+        <value>bject type must be defined for SOQLBuilder to work properly.</value>
+    </labels>
+    <labels>
+        <fullName>soqlbuildercls_where_clause_entity_is_empty</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>where clause entity is empty</shortDescription>
+        <value>A where clause entity with identifier &apos; + identifier + &apos; is empty and cannot be injected to SOQL</value>
+    </labels>
+    <labels>
+        <fullName>statuictrlcls_Failed_to_capture_default_screen_flow</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Failed to capture default screen flow</shortDescription>
+        <value>Failed to capture default screen flow; cause: {0}</value>
+    </labels>
+    <labels>
+        <fullName>statuictrlcls_Failed_to_capture_product_model</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Failed to capture product model</shortDescription>
+        <value>Failed to capture product model; cause: {0}</value>
+    </labels>
+    <labels>
+        <fullName>statuictrlcls_Failed_to_capture_screen_flow</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Failed to capture screen flow</shortDescription>
+        <value>Failed to capture screen flow &quot;{0}&quot;; cause: {1}</value>
+    </labels>
+    <labels>
+        <fullName>statuictrlcls_Required_parameters_missing</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required parameter(s) missing</shortDescription>
+        <value>Required parameter(s) missing: {0}</value>
+    </labels>
+    <labels>
+        <fullName>tempofftrg_Only_active_template_offers_be_attached</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Only active template offers be attached</shortDescription>
+        <value>Only active template offers be attached to a basket with this junction object (basket id</value>
+    </labels>
+    <labels>
+        <fullName>tempofftrg_Shuffling_around_template_offer_to_basket</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Shuffling around template offer to basket</shortDescription>
+        <value>Shuffling around template offer to basket associations is not allowed. Please delete this association and create a new one</value>
+    </labels>
+    <labels>
+        <fullName>tempofftrg_template_offer_id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>template offer id</shortDescription>
+        <value>template offer id</value>
+    </labels>
+    <labels>
+        <fullName>uisupportcls_Cant_Edit_Bundle_Configuration_With_Runtime_V2</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Can&apos;t edit Bundle Configuration with UX Engine</shortDescription>
+        <value>Configurations attached to a bundle can&apos;t be edited with UX Engine</value>
+    </labels>
+    <labels>
+        <fullName>upsertlconftrg_Type_missmatch_between_list_and_search_objects</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Type missmatch between list and search objects.</shortDescription>
+        <value>Type missmatch between list and search objects.</value>
+    </labels>
+</CustomLabels>

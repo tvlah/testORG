@@ -1,0 +1,3 @@
+<apex:page standardController="cscfga__Product_Bundle__c" extensions="cscfga.ProductBundleController" action="{!configureProduct}" tabStyle="Solution">
+<h2>{!$Label.newprobdl_An_unexpected_error_has_occurred_New_bundle_redirect_failed}</h2>
+</apex:page>

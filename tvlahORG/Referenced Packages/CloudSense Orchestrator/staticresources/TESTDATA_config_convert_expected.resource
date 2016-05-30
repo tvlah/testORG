@@ -1,0 +1,18 @@
+Name,CSPOFA__key__c,CSPOFA__object__c,CSPOFA__relation__c,CSPOFA__field_name__c,CSPOFA__Type__c
+L1 field,L1 field,Opportunity [Opportunity],opportunity__c,opportunity__c,REFERENCE
+L1 relation,L1 relation,Opportunity [Opportunity] : Last Modified By ID [User],opportunity__r.lastmodifiedbyid,lastmodifiedbyid,REFERENCE
+L2 field,L2 field,Opportunity [Opportunity] : Last Modified By ID [User],opportunity__r.lastmodifiedbyid,lastmodifiedbyid,REFERENCE
+L2 relation,L2 relation,Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account],opportunity__r.lastmodifiedby.accountid,accountid,REFERENCE
+L3 field,L3 field,Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account],opportunity__r.lastmodifiedby.accountid,accountid,REFERENCE
+L3 relation,L3 relation,Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account] : Master Record ID [Account],opportunity__r.lastmodifiedby.account.masterrecordid,masterrecordid,REFERENCE
+L4 field,L4 field,Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account] : Master Record ID [Account],opportunity__r.lastmodifiedby.account.masterrecordid,masterrecordid,REFERENCE
+L4 relation,L4 relation,Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account] : Master Record ID [Account] : Last Modified By ID [User],opportunity__r.lastmodifiedby.account.masterrecord.lastmodifiedbyid,lastmodifiedbyid,REFERENCE
+L5 field,L5 field,Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account] : Master Record ID [Account] : Last Modified By ID [User],opportunity__r.lastmodifiedby.account.masterrecord.lastmodifiedbyid,lastmodifiedbyid,REFERENCE
+L5 relation,L5 relation,Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account] : Master Record ID [Account] : Last Modified By ID [User] : Delegated Approver ID [Group],opportunity__r.lastmodifiedby.account.masterrecord.lastmodifiedby.delegatedapproverid,delegatedapproverid,REFERENCE
+L4 relation alt,L4 relation alt,Account [Account] : Created By ID [User] : Account ID [Account] : Owner ID [User] : Delegated Approver ID [Group],account__r.createdby.account.owner.delegatedapproverid,delegatedapproverid,REFERENCE
+L5 relation (long 2),L5 relation (long 2),Account [Account] : Parent Account ID [Account] : Last Modified By ID [User] : Delegated Approver ID [Group] : Owner ID [Organization] : Last Modified By ID [User],account__r.parent.lastmodifiedby.delegatedapprover.owner.lastmodifiedbyid,lastmodifiedbyid,REFERENCE
+L5 relation (long 3),L5 relation (long 3),Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account] : Parent Account ID [Account] : Last Modified By ID [User] : Delegated Approver ID [Group],opportunity__r.lastmodifiedby.account.parent.lastmodifiedby.delegatedapproverid,delegatedapproverid,REFERENCE
+L5 relation (long 4),L5 relation (long 4),Opportunity [Opportunity] : Last Modified By ID [User] : Account ID [Account] : Last Modified By ID [User] : Delegated Approver ID [Group] : Owner ID [Organization],opportunity__r.lastmodifiedby.account.lastmodifiedby.delegatedapprover.ownerid,ownerid,REFERENCE
+L5 relation (long 5),L5 relation (long 5),Account [Account] : Created By ID [User] : Contact ID [Contact] : Master Record ID [Contact] : Reports To ID [Contact] : Created By ID [User],account__r.createdby.contact.masterrecord.reportsto.createdbyid,createdbyid,REFERENCE
+Opportunity Owner,Opportunity Owner,Opportunity [Opportunity] : Owner ID [User],opportunity__r.ownerid,ownerid,REFERENCE
+Account Owner,Account Owner,Account [Account] : Owner ID [User],account__r.ownerid,ownerid,REFERENCE

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>image/gif</contentType>
+    <description>Image of a &quot;please wait&quot; style &quot;progress wheel&quot;</description>
+</StaticResource>

@@ -1,0 +1,342 @@
+<apex:page controller="cscfga.LookupController" showHeader="false" sidebar="false" standardStylesheets="true" >
+
+	<apex:includeScript value="{!$Resource.cscfga__jQuery_min}" />
+
+	<body class="lookupTab">
+
+		<div class="lookup">
+			<div class="bPageTitle">
+				<div class="ptBody secondaryPalette">
+					<div class="content">
+						<img src="/s.gif" alt="Lookup" class="pageTitleIcon" title="{!$Label.lookup_Lookup}" />
+						<h1>
+							{!$Label.lookup_Lookup}
+						</h1>
+					</div>
+				</div>
+			</div>
+
+			<apex:form >
+
+				<script type="text/javascript">
+					jQuery.noConflict();
+					jQuery('body').addClass('lookupTab');
+
+					var recordData = {};
+
+					function logError(o) {
+						if (typeof (CS) != 'undefined' && typeof (CS.Log) != 'undefined' && typeof (CS.Log.error) != 'undefined') {
+							CS.Log.error(o);
+						} else if (typeof (console) != 'undefined' && typeof (console.log) != 'undefined') {
+							console.log(o);
+						}
+					}
+
+					function selectRecord(id, name) {
+						var lookupSelected = false;
+						if (window.opener || window.parent) {
+							try {
+								if (window.opener.lookupSelect) {
+									window.opener.lookupSelect(id, name, recordData[id]);
+									lookupSelected = true;
+								}
+							} catch(e) { logError(e); }
+
+							try {
+								if (!lookupSelected) {
+									var message = JSON.stringify({action: 'Lookup.SelectRecord', id: id, name: name, data: recordData[id]});
+									if (jQuery.browser.msie) {
+										var callerWindow = ("postMessage" in window.parent) ? window.parent : window.parent.document;
+										callerWindow.postMessage(message, '*');
+									} else {
+										window.opener.postMessage(btoa(message), '*');
+									}
+								}
+							} catch(e) { logError(e); }
+						}
+						window.close();
+					}
+
+					function changePage(amount) {
+						var field = jQuery('#{!$Component.currentPage}'.replace(/:/g, '\\:'));
+						var currentPage = parseInt(field.val());
+						if (currentPage === 0 || currentPage) field.val(currentPage + amount);
+					}
+
+					function clearFilters() {
+						var filterFields = jQuery('#enhancedLookupFilter').find('input[text]');
+						jQuery.each(filterFields, function(i, it) {
+							jQuery(it).val('');
+						});
+					}
+
+					function hideFilters() {
+						jQuery('#enhancedLookupFilter').slideUp();
+						jQuery('#showFiltersButton').show();
+						jQuery('#hideFiltersButton').hide();
+					}
+
+					function showFilters() {
+						jQuery('#enhancedLookupFilter').slideDown();
+						jQuery('#showFiltersButton').hide();
+						jQuery('#hideFiltersButton').show();
+					}
+				</script>
+
+				<div class="pBody">
+
+					<apex:outputText >Search &nbsp;&nbsp;&nbsp;</apex:outputText>
+					<apex:inputText maxlength="80" size="20" title="Search Word" value="{!searchValue}" />&nbsp;&nbsp;
+					<apex:commandButton title="Start Search" value="{!$Label.lookup_Go}" action="{!goSearch}"/>&nbsp;
+					<apex:commandButton title="Quick Create" value="{!$Label.lookup_New}" action="{!newQuickCreate}" rendered="{!quickCreate}"/>&nbsp;
+					<apex:commandLink title="Reset Search" value="{!$Label.lookup_Reset}" action="{!resetSearch}"/>&nbsp;&nbsp;
+					<apex:inputHidden value="{!thisPage}" id="currentPage" />
+					<input type="hidden" value="{!excludeIds}" name="excludeIds" id="excludeIds" />
+
+					<div class="bDescription">
+						{!$Label.lookup_use_wildcard}
+						<br />
+						<apex:Messages />
+					</div>
+
+				</div>
+
+				<div style="margin-top:20px">
+					<apex:pageBlock >
+
+						<apex:outputPanel layout="none" rendered="{!enhancedLookupEnabled}">
+							<a href="#" class="customizeColumns filterFields" id="showFiltersButton" onclick="showFilters()" style="display: none">{!$Label.lookup_Show_Filters}</a>
+							<a href="#" class="customizeColumns filterFields" id="hideFiltersButton" onclick="hideFilters()">{!$Label.lookup_Hide_Filters}</a>
+						</apex:outputPanel>
+
+						<apex:outputPanel layout="" rendered="{!enhancedLookupEnabled}">
+							<div class="searchFilterFieldsHolder searchFilterFieldsHolderFirst" id="enhancedLookupFilter">
+								<ul class="searchFilterFields" style="list-style-type: none">
+									<apex:repeat var="col" value="{!enhancedLookup}">
+										<apex:outputPanel layout="none" rendered="{!col.colType != 'BOOLEAN'}">
+											<li style="display: block; float: left ">
+												<label for="filter_{!col.name}" style="display:block; float: left; font-weight: bold; overflow: hidden; width: 100px">{!col.label}</label>&nbsp;
+												<input id="filter_{!col.name}" name="frm_filter_{!col.name}" size="20" type="text" value="{!col.requestValue}" style="width: 120px" />
+											</li>
+										</apex:outputPanel>
+										<apex:outputPanel layout="none" rendered="{!col.colType == 'BOOLEAN'}">
+											<li style="display: block; float: left ">
+												<label for="filter_{!col.name}" style="display:block; float: left; font-weight: bold; overflow: hidden; width: 100px">{!col.label}</label>&nbsp;
+												<select id="filter_{!col.name}" name="frm_filter_{!col.name}" style="width: 120px">
+													<apex:outputText escape="false" value="{!JSENCODE(col.options)}"></apex:outputText>
+												</select>
+											</li>
+										</apex:outputPanel>
+									</apex:repeat>
+									<li style="clear:both; padding-top: 8px">
+										<c:ButtonWrapper >
+											<apex:commandLink action="{!goSearch}" value="{!$Label.lookup_Apply_Filters}"
+												styleClass="{!buttonClass}" style="{!buttonStyle}" />
+										</c:ButtonWrapper>
+										<br style="clear:both" />&nbsp;
+									</li>
+								</ul>
+							</div>
+
+							<div class="searchFilterFieldsHolder" style="margin: 8px 0">
+								<apex:outputPanel layout="none" rendered="{!resultsAreFiltered}">
+									<strong>{!$Label.lookup_Filtered_by}</strong>
+									<apex:variable var="sep" value="" />
+									<apex:repeat var="col" value="{!enhancedLookup}">
+										<apex:outputPanel rendered="{!AND(NOT(ISBLANK(col.requestValue)), col.requestValue != '')}">
+											{!sep} {!col.label} ({!col.requestValue})
+											<apex:variable var="sep" value="," />
+										</apex:outputPanel>
+									</apex:repeat>
+									&nbsp;|&nbsp; &nbsp;
+									<apex:commandLink action="{!clearFilters}" value="{!$Label.lookup_Clear_Filters}" onclick="clearFilters()" />
+								</apex:outputPanel>
+							</div>
+
+						</apex:outputPanel>
+
+						<apex:outputPanel layout="block" style="font-weight: bold; margin: 8px 0; text-align: center">
+							<apex:outputPanel layout="none" rendered="{!thisPage <= 0}">
+								<span style="color: #ccc">&#171; {!$Label.lookup_First} &nbsp;&nbsp; &lt; {!$Label.lookup_Previous}</span>
+							</apex:outputPanel>
+							<apex:outputPanel layout="none" rendered="{!thisPage > 0}">
+								&#171; <apex:commandLink title="{!$Label.lookup_First_page}" value="{!$Label.lookup_First}" onclick="changePage({!(0 - thisPage)})" action="{!goSearch}" />
+								&nbsp;&nbsp;
+								<apex:commandLink title="{&lt; !$Label.lookup_Previous_page}" value="&lt; {!$Label.lookup_Previous}" onclick="changePage(-1)" action="{!goSearch}"/>
+							</apex:outputPanel>
+							<span style="color: #999">&nbsp;|&nbsp;</span>
+							<apex:outputPanel layout="none" rendered="{!dataSize > pageSize}">
+							<apex:commandLink title="{!$Label.lookup_Next_page}" value="{!$Label.lookup_Next}" onclick="changePage(1)" action="{!goSearch}"/> &gt;
+								&nbsp;&nbsp;
+							</apex:outputPanel>
+							<apex:outputPanel layout="none" rendered="{!dataSize <= pageSize}">
+								<span style="color: #ccc">{!$Label.lookup_Next} &gt;</span>
+							</apex:outputPanel>
+						</apex:outputPanel>
+
+						<apex:pageBlockTable var="result" value="{!results}">
+							<apex:variable var="numCols" value="{!result.numCols}" />
+							<apex:variable var="header1" value="{!result.col1Header}" rendered="{!numCols > 0}" />
+							<apex:variable var="header2" value="{!result.col2Header}" rendered="{!numCols > 1}" />
+							<apex:variable var="header3" value="{!result.col3Header}" rendered="{!numCols > 2}" />
+							<apex:variable var="header4" value="{!result.col4Header}" rendered="{!numCols > 3}" />
+							<apex:variable var="header5" value="{!result.col5Header}" rendered="{!numCols > 4}" />
+							<apex:variable var="header6" value="{!result.col6Header}" rendered="{!numCols > 5}" />
+							<apex:variable var="header7" value="{!result.col7Header}" rendered="{!numCols > 6}" />
+							<apex:variable var="header8" value="{!result.col8Header}" rendered="{!numCols > 7}" />
+							<apex:variable var="header9" value="{!result.col9Header}" rendered="{!numCols > 8}" />
+							<apex:variable var="header10" value="{!result.col10Header}" rendered="{!numCols > 9}" />
+
+							<apex:column rendered="{!numCols > 0}">
+								<apex:facet name="header">{!header1}</apex:facet>
+								<a href="javascript: void selectRecord('{!result.id}', '{!JSENCODE(result.name)}')">{!result.col1Value}</a>
+								<script type="text/javascript">
+									recordData['{!JSENCODE(result.id)}'] = {!result.recordData};
+								</script>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 1}">
+								<apex:facet name="header">{!header2}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col2Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col2Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col2Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col2Type != 'BOOLEAN'}">{!result.col2Value}</apex:outputText>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 2}">
+								<apex:facet name="header">{!header3}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col3Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col3Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col3Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col3Type != 'BOOLEAN'}">{!result.col3Value}</apex:outputText>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 3}">
+								<apex:facet name="header">{!header4}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col4Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col4Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col4Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col4Type != 'BOOLEAN'}">{!result.col4Value}</apex:outputText>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 4}">
+								<apex:facet name="header">{!header5}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col5Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col5Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col5Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col5Type != 'BOOLEAN'}">{!result.col5Value}</apex:outputText>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 5}">
+								<apex:facet name="header">{!header6}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col6Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col6Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col6Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col6Type != 'BOOLEAN'}">{!result.col6Value}</apex:outputText>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 6}">
+								<apex:facet name="header">{!header7}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col7Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col7Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col7Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col7Type != 'BOOLEAN'}">{!result.col7Value}</apex:outputText>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 7}">
+								<apex:facet name="header">{!header8}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col8Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col8Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col8Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col8Type != 'BOOLEAN'}">{!result.col8Value}</apex:outputText>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 8}">
+								<apex:facet name="header">{!header9}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col9Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col9Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col9Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col9Type != 'BOOLEAN'}">{!result.col9Value}</apex:outputText>
+							</apex:column>
+
+							<apex:column rendered="{!numCols > 9}">
+								<apex:facet name="header">{!header10}</apex:facet>
+								<apex:outputPanel layout="none" rendered="{!result.col10Type == 'BOOLEAN'}">
+									<apex:outputPanel layout="none" rendered="{!result.col10Value == 'true'}">
+										<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Checked}" />
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!result.col10Value != 'true'}">
+										<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="{!$Label.lookup_Unchecked}" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+								<apex:outputText rendered="{!result.col10Type != 'BOOLEAN'}">{!result.col10Value}</apex:outputText>
+							</apex:column>
+
+						</apex:pageBlockTable>
+
+						<apex:outputPanel layout="block" style="font-weight: bold; margin: 8px 0; text-align: center">
+							<apex:outputPanel layout="none" rendered="{!thisPage <= 0}">
+								<span style="color: #ccc">&#171; {!$Label.lookup_First} &nbsp;&nbsp; &lt; {!$Label.lookup_Previous}</span>
+							</apex:outputPanel>
+							<apex:outputPanel layout="none" rendered="{!thisPage > 0}">
+								&#171; <apex:commandLink title="{!$Label.lookup_First_page}" value="{!$Label.lookup_First}" onclick="changePage({!(0 - thisPage)})" action="{!goSearch}" />
+								&nbsp;&nbsp;
+								<apex:commandLink title="{&lt; !$Label.lookup_Previous_page}" value="&lt; {!$Label.lookup_Previous}" onclick="changePage(-1)" action="{!goSearch}"/>
+							</apex:outputPanel>
+							<span style="color: #999">&nbsp;|&nbsp;</span>
+							<apex:outputPanel layout="none" rendered="{!dataSize > pageSize}">
+								<apex:commandLink title="{!$Label.lookup_Next_page}" value="{!$Label.lookup_Next}" onclick="changePage(1)" action="{!goSearch}"/> &gt;
+								&nbsp;&nbsp;
+							</apex:outputPanel>
+							<apex:outputPanel layout="none" rendered="{!dataSize <= pageSize}">
+								<span style="color: #ccc">{!$Label.lookup_Next} &gt;</span>
+							</apex:outputPanel>
+						</apex:outputPanel>
+
+					</apex:pageBlock>
+				</div>
+			</apex:form>
+		</div>
+	</body>
+
+</apex:page>

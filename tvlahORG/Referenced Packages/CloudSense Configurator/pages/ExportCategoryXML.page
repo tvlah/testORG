@@ -1,0 +1,8 @@
+<apex:page standardController="cscfga__Product_Category__c" extensions="cscfga.XMLDefinitionIOController" 
+    contentType="application/xml" 
+    showHeader="false" ><?xml version="1.0" encoding="UTF-8"?>
+
+    <apex:outputText >{!XMLExport}</apex:outputText>
+    
+
+</apex:page>

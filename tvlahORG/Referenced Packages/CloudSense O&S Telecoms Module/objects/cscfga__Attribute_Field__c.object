@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <fields>
+        <fullName>Replaced_Asset__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Replaced Asset</label>
+        <referenceTo>csord__Asset__c</referenceTo>
+        <relationshipLabel>Attribute Fields</relationshipLabel>
+        <relationshipName>Attribute_Fields</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Replaced_Attribute_Field__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Lookup to original attribute field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to original attribute field</inlineHelpText>
+        <label>Replaced Attribute Field</label>
+        <referenceTo>cscfga__Attribute_Field__c</referenceTo>
+        <relationshipLabel>Replacement Attribute Fields</relationshipLabel>
+        <relationshipName>Replaced_Attribute_Fields</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Replaced_Salesforce_Asset__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Replaced Salesforce Asset</label>
+        <referenceTo>Asset</referenceTo>
+        <relationshipLabel>Attribute Fields</relationshipLabel>
+        <relationshipName>Attribute_Fields</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+</CustomObject>

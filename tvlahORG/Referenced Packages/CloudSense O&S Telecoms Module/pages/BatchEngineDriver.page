@@ -1,0 +1,21 @@
+<apex:page controller="csordtelcoa.BatchEngineDriverController">
+	<apex:form id="theForm">
+		<apex:sectionHeader title="Batch engine management" subtitle="Manage behavior of O&S module batch engine" />
+		<apex:pageMessages id="msg" />
+		<apex:pageBlock id="pbToggleEngine" title="Engine background processing">
+           	<apex:commandButton id="startQueueable" value="Start Queueable" title="Start Queueable" action="{!startQueueableEngine}" disabled="{!engineRunning || engineStopping}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+           	<apex:commandButton id="startSchedulable" value="Start Schedulable" title="Start Schedulable" action="{!startSchedulableEngine}" disabled="{!engineRunning || engineStopping}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+           	<apex:commandButton id="stop" value="{!StopString}" title="Stop" action="{!stopEngine}" disabled="{!NOT(engineRunning)  || engineStopping}"/>
+            <div style='padding-top:10px;'>Click "Start Queueable" to start the batch engine in queueable mode. 
+            	Click "Start Schedulable" to start the batch engine in schedulable mode. 
+            	Frequency of execution for schedulable is set in the Batch Engine Tracker Detail custom setting.</div>
+        </apex:pageBlock>
+        <apex:pageBlock id="pbRunOnce" title="Run engine once">
+        	<apex:commandButton id="runNow" value="Run now" title="Run now" action="{!runOnce}" disabled="{!engineRunning || engineStopping}"/>
+        	<div style='padding-top:10px;'>Execute one engine execution cycle. It checks whether there are eligible records to process and ensures 
+        		that previously invoked batch job reached the final state.</div>
+        </apex:pageBlock>
+        
+		<apex:actionPoller id="poller" rerender="startQueueable, startSchedulable, stop, runNow, msg" action="{!checkStopped}" interval="5" enabled="{!isPollerEnabled}" />       
+	</apex:form>
+</apex:page>

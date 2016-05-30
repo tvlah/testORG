@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Product Baskets</relationshipLabel>
+        <relationshipName>Product_Baskets</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Change_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Change Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Add</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Upgrade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Downgrade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Relocation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Order_Generation_Batch_Job_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Order Generation Batch Job Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Process_Order_Generation_In_Batch__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates whether the opportunity is set to be processed in batch mode</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Force batch processing of the opportunity</inlineHelpText>
+        <label>Process Order Generation In Batch</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Product_Configuration_Clone_Batch_Job_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product Configuration Clone Batch Job Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Configuration_Clone_In_Batch__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates whether the product configuration cloning is set to be processed in batch mode</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Force generation of MACD basket in a batch</inlineHelpText>
+        <label>Product Configuration Clone In Batch</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Subscription_To_Be_Added_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Subscription To Be Added To</label>
+        <referenceTo>csord__Subscription__c</referenceTo>
+        <relationshipLabel>Product Baskets (Subscription To Be Added To)</relationshipLabel>
+        <relationshipName>Product_Baskets1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Subscription_To_Be_Changed__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Subscription To Be Changed</label>
+        <referenceTo>csord__Subscription__c</referenceTo>
+        <relationshipLabel>Product Baskets</relationshipLabel>
+        <relationshipName>Product_Baskets</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Synchronised_with_Opportunity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Synchronised with Opportunity</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+</CustomObject>

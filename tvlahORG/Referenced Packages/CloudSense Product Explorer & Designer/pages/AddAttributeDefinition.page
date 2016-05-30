@@ -1,0 +1,302 @@
+<apex:page standardController="cscfga__Product_Definition__c" extensions="cspduia.AddAttributeDefinitionController" showHeader="false" sidebar="false" standardStylesheets="true">
+	<apex:includeScript value="{!$Resource.cspduia__jQuery}" />
+    <apex:includeScript value="{!$Resource.cspduia__JQueryUI}" />
+    <style type="text/css">
+    	body {
+			background: #ddd;
+		}
+		fieldset {
+			background: #eee;
+		}
+        .close-image {
+            display: block;
+            float:right;
+            position:relative;
+            top:0px;
+            margin-right: 10px;
+            right: 0px;
+            cursor: pointer;
+            width:24px;
+            height:24px;
+            z-index:10;
+        }
+		.ui-helper-hidden-accessible { display:none; }
+		.ui-front {
+			z-index: 100;
+		}
+				
+		.ui-autocomplete {
+			position: absolute;
+			top: 0;
+			left: 0;
+			cursor: default;
+			max-height: 200px;
+			overflow-y: auto;
+			/* prevent horizontal scrollbar */
+			overflow-x: hidden;
+		}
+				
+		.ui-menu {
+			list-style: none;
+			padding: 2px;
+			margin: 0;
+			display: block;
+			outline: none;
+		}
+		.ui-menu .ui-menu {
+			margin-top: -3px;
+			position: absolute;
+		}
+		.ui-menu .ui-menu-item {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			/* support: IE10, see #8844 */
+			list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+		}
+		.ui-menu .ui-menu-divider {
+			margin: 5px -2px 5px -2px;
+			height: 0;
+			font-size: 0;
+			line-height: 0;
+			border-width: 1px 0 0 0;
+		}
+		.ui-menu .ui-menu-item a {
+			text-decoration: none;
+			display: block;
+			padding: 2px .4em;
+			line-height: 1.5;
+			min-height: 0; /* support: IE7 */
+			font-weight: normal;
+		}
+		.ui-menu .ui-menu-item a:hover { 
+		        	background:#ddd; 
+		        	color:#000;
+		        }
+		
+		.ui-menu .ui-menu-item a.ui-state-focus,
+		.ui-menu .ui-menu-item a.ui-state-active {
+			font-weight: normal;
+			margin: -1px;
+		        	background:#ddd; 
+		}
+		
+		.ui-menu .ui-state-disabled {
+			font-weight: normal;
+			margin: .4em 0 .2em;
+			line-height: 1.5;
+		}
+		.ui-menu .ui-state-disabled a {
+			cursor: default;
+		}
+		.ui-widget {
+			font-family: Verdana,Arial,sans-serif;
+			font-size: 1.1em;
+		}
+		.ui-widget .ui-widget {
+			font-size: 1em;
+		}
+		.ui-widget input,
+		.ui-widget select,
+		.ui-widget textarea,
+		.ui-widget button {
+			font-family: Verdana,Arial,sans-serif;
+			font-size: 1em;
+		}
+		.ui-widget-content {
+			border: 1px solid #aaaaaa;
+			background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x;
+			color: #222222;
+		}
+		.ui-widget-content a {
+			color: #222222;
+		}
+		.ui-widget-header {
+			border: 1px solid #aaaaaa;
+			background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
+			color: #222222;
+			font-weight: bold;
+		}
+		.ui-widget-header a {
+			color: #222222;
+		}
+		.ui-autocomplete-category {
+		    font-weight: bold;
+		    padding: .2em .4em;
+		    margin: .8em 0 .2em;
+		    line-height: 1.5;
+		}
+    </style>
+    <script type="text/javascript">
+    	
+		//
+		var expressionOptions;
+		getExpressionOptions();
+		
+		function getExpressionOptions() {
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.AddAttributeDefinitionController.getExpressionOptions}',
+				'{!cscfga__Product_Definition__c}',
+				handleGetExpressionOptionsResponse,
+				{escape: false}
+			);
+		}
+		
+		function handleGetExpressionOptionsResponse(result, event) {
+			if (event.type == 'exception') {
+				alert(event.message);
+			} else {
+				expressionOptions = result;
+				//
+				console.log('**result: ' + result);
+				for (var i = 0; i < result.length; i++) {
+					//console.log('**result: '+result.["label"]+' - '+result.["category"]);
+				}
+			}
+		}
+		$(function () {
+			$('#fieldSetTable1 tr').slice(7).detach().appendTo(
+				'#fieldSetTable2');
+		});
+		
+		function postSaveDone() {
+			//
+			var msg = '{"action": "AttributeCreated"';
+			msg += '}';
+			window.top.postMessage(msg, '*');
+		}
+		//
+		$.widget("custom.catcomplete", $.ui.autocomplete, {
+			_renderMenu: function (ul, items) {
+				var that = this,
+					currentCategory = "";
+				$.each(items, function (index, item) {
+					if (item.category != currentCategory) {
+						ul.append("<li class='ui-autocomplete-category'>" + item.category +
+							"</li>");
+						currentCategory = item.category;
+					}
+					that._renderItemData(ul, item);
+				});
+			}
+		});
+		$(function () {
+			//
+		
+			function split(val) {
+				return val.split(/,\s*/);
+			}
+		
+			function extractLast(term) {
+				return split(term).pop();
+			}
+			//
+			$('.accept-expression')
+				.bind("keydown", function (event) {
+					// don't navigate away from the field on tab when selecting an item
+					if (event.keyCode === $.ui.keyCode.TAB &&
+						$(this).data("ui-autocomplete").menu.active) {
+						event.preventDefault();
+					}
+				})
+				.catcomplete({
+					minLength: 1,
+					source: function (request, response) {
+						// delegate back to autocomplete, but extract the last term
+						console.log('***' + request.term);
+						if (request.term.match('{')) {
+							console.log('>>>' + request.term);
+							var searchTerm = request.term.substring(request.term.lastIndexOf(
+								'{') + 1);
+							response($.ui.autocomplete.filter(
+								expressionOptions, searchTerm));
+						}
+					},
+					focus: function () {
+						// prevent value inserted on focus
+						return false;
+					},
+					select: function (event, ui) {
+						//var terms = split( this.value );
+						console.log(this.value);
+						// remove the search term from the string:
+						var searchTerm = this.value.substring(this.value.lastIndexOf(
+							'{') + 1);
+						console.log('>>--' + searchTerm);
+						var currentValue = this.value.replace(this.value.substring(this
+							.value.lastIndexOf('{') + 1), '');
+						//
+						var newExpression = ui.item.value;
+						if (newExpression.match('^Lookup') || newExpression.match('^Linked') || newExpression.match('^Config') || newExpression.match('^Parent') || newExpression.match('^Context')) newExpression = '$' + newExpression;
+						this.value = currentValue + '' + newExpression + '}';
+						return false;
+					}
+				});
+		});
+    </script>
+    <apex:form >
+    		<img class="close-image" title="Close dialog" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'close.png')}" id="closedialog" onClick="postSaveDone();"/>
+            <table cellspacing="8" border="0" id="containerTable">
+            	<tr>
+            		<td align="left">
+            			<p>
+				            Please enter the details of the new attribute definition you want to create
+				        </p>
+            		</td>
+            	</tr>
+                <tr>
+                    <td  style="vertical-align: top;">
+                        <fieldset style="width:700px;">
+                        	<legend>Property inspector</legend>
+                            <apex:outputPanel id="idAttributes">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <apex:commandButton value="Add Attribute" action="{!saveAddedAttribute}" onComplete="postSaveDone();" />
+                                            <b>(Number of Attributes to Create: <apex:inputText size="3" maxlength="3" value="{!quantity}" label="Quantity" id="quantity"/>)</b>
+                                        </td>
+                                    </tr>
+                                	<tr>
+                                		<td valign="top" style="padding-right:30px;">
+                                			<table id="fieldSetTable1">
+                                			<apex:variable value="{!0}" var="numberOfFieldsAdded"/>
+		                                    <apex:repeat value="{! $ObjectType.cscfga__Attribute_Definition__c.FieldSets[fieldSetName]}" var="att">
+                                       			<tr>
+		                                            <td align="left">
+		                                                <apex:outputText value="{!att.label}" />
+		                                            </td>
+		                                            <td align="left">
+		                                            	<apex:outputPanel layout="none" rendered="{!IF(att.label == 'Default Value',true,false)}">
+		                                                	<apex:inputField value="{!attributeToCreate[att.fieldPath]}" styleClass="accept-expression" id="default-value" required="{!OR(att.required, att.dbrequired)}"/>
+		                                                </apex:outputPanel>
+		                                            	<apex:outputPanel layout="none" rendered="{!IF(att.Label == 'Line Item Description',true,false)}">
+		                                                	<apex:inputField value="{!attributeToCreate[att.fieldPath]}" styleClass="accept-expression" id="line-item-description" required="{!OR(att.required, att.dbrequired)}"/>
+		                                                </apex:outputPanel>
+		                                            	<apex:outputPanel layout="none" rendered="{!IF(att.label != 'Default Value' && att.Label != 'Line Item Description',true,false)}">
+		                                                	<apex:inputField value="{!attributeToCreate[att.fieldPath]}" required="{!OR(att.required, att.dbrequired)}"/>
+		                                                </apex:outputPanel>
+		                                            </td>
+		                                        </tr>
+					                        	<apex:variable value="{!numberOfFieldsAdded+1}" var="numberOfFieldsAdded"/>
+		                                    </apex:repeat>
+		                                    </table>
+		                            	</td>
+		                            	<td>
+		                            		<table id="fieldSetTable2">
+		                            		</table>
+		                            	</td>
+		                            </tr>
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <apex:commandButton value="Add Attribute" action="{!saveAddedAttribute}" onComplete="postSaveDone();" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+            
+    </apex:form>
+</apex:page>

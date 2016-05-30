@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Eligibility_Rule__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Eligibility rule.</inlineHelpText>
+        <label>Eligibility Rule</label>
+        <referenceTo>Eligibility_Rule__c</referenceTo>
+        <relationshipLabel>Eligibility Rule Criteria</relationshipLabel>
+        <relationshipName>Eligibility_Rule_Criteria</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Field__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>API Name of the field whose value will be used for evaluation. If a field e.g. Industry on the Account object is investigated in an Eligibility Rule that interrogates Opportunity, then this field should contain &apos;account.industry&apos;.</inlineHelpText>
+        <label>Field</label>
+        <length>250</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Object_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Eligibility_Rule__r.Object_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The API name of the Salesforce object to be interrogated, auto-populated from Eligibility Rule.</inlineHelpText>
+        <label>Object Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Operator__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Logical operator that is used for evaluation.</inlineHelpText>
+        <label>Operator</label>
+        <picklist>
+            <picklistValues>
+                <fullName>equals</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is not</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is greater than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is greater than or equal to</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is less than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is less than or equal to</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>starts with</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ends with</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>contains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>does not contain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is in</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is not in</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Value to be compared with the specified object Field.</inlineHelpText>
+        <label>Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Eligibility Rule Criterion</label>
+    <nameField>
+        <displayFormat>ERC-{000000}</displayFormat>
+        <label>Eligibility Rule Criterion Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Eligibility Rule Criteria</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

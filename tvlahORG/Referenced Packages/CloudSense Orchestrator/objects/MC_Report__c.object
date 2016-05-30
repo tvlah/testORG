@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Object containing report/view definitions for Orchestrator Managment Console.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Component_Instantiator__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of the component instantiator class. Class has to implement interface ComponentConstructor.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the component instantiator class.</inlineHelpText>
+        <label>Component Instantiator</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Context__c</fullName>
+        <deprecated>false</deprecated>
+        <description>JSON formatted map of context parameters to desired object fields.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Mapping of context parameters to desired object fields.</inlineHelpText>
+        <label>Context</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Fields__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Meta data field that will contain JSON formatted list of field names that will be used in the report/view. Currently this data is case sensitive.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>List of field names that will be shown in the report/view.</inlineHelpText>
+        <label>Fields</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Filter__c</fullName>
+        <deprecated>false</deprecated>
+        <description>JSON formatted filter definition applied for report. Expressions with labels should be shown on the UI.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Filter applied to a report.</inlineHelpText>
+        <label>Filter</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Object__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of the object on which we are reporting on.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the object on which we are reporting on.</inlineHelpText>
+        <label>Object</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Orchestartor Managment Console report type.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Orchestartor Managment Console report type.</inlineHelpText>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Standard</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Custom</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standard View</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Management Console Report</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>OMC Report</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Management Console Reports</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Unique_Name</fullName>
+        <active>true</active>
+        <errorConditionFormula>Name = VLOOKUP( $ObjectType.MC_Report__c.Fields.Name , $ObjectType.MC_Report__c.Fields.Name , Name ) &amp;&amp; Id &lt;&gt; VLOOKUP( $ObjectType.MC_Report__c.Fields.Id , $ObjectType.MC_Report__c.Fields.Name , Name )</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Report name must be unique.</errorMessage>
+    </validationRules>
+</CustomObject>

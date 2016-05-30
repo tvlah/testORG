@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Describes if a user profile has access to a Category or Product Definition.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Product_Category__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of Product Category associated with this Profile Permission.</inlineHelpText>
+        <label>Product Category</label>
+        <referenceTo>Product_Category__c</referenceTo>
+        <relationshipLabel>Profile Permissions</relationshipLabel>
+        <relationshipName>Profile_Permissions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of Product Definition associated with this Profile Permission.</inlineHelpText>
+        <label>Product Definition</label>
+        <referenceTo>Product_Definition__c</referenceTo>
+        <relationshipLabel>Profile Permissions</relationshipLabel>
+        <relationshipName>Profile_Permissions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Profile_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Profile Id to which permission will be given to access the specified Product Category or Product Definition. Used in conjunction with Restrict Access checkbox on Product Definition page.</inlineHelpText>
+        <label>Profile Id</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Profile Permission</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Product_Category__c</columns>
+        <columns>Product_Definition__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>Permission Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Profile Permissions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Either_Category_Or_Product_Definition</fullName>
+        <active>true</active>
+        <errorConditionFormula>($ObjectType.Profile_Permission__c.Fields.Product_Category__c != null &amp;&amp; $ObjectType.Profile_Permission__c.Fields.Product_Definition__c != null) ||
+($ObjectType.Profile_Permission__c.Fields.Product_Category__c == null &amp;&amp; $ObjectType.Profile_Permission__c.Fields.Product_Definition__c == null)</errorConditionFormula>
+        <errorMessage>Either a Category or Product Definition must be specified (but not both).</errorMessage>
+    </validationRules>
+</CustomObject>

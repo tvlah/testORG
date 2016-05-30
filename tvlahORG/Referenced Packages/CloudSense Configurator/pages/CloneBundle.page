@@ -1,0 +1,44 @@
+<apex:page StandardController="cscfga__Product_Bundle__c" Extensions="cscfga.CloneBundleController" >
+
+    <!--
+    //#####################################################################
+    //# Apex page to Clone an existing Bundle
+    //#
+    //# CPS 04/10/2010
+    //#
+    -->
+
+    <apex:form >
+
+        <apex:pageBlock title="{!$Label.clnbndl_Copy_bundle}">
+        <apex:pageBlock >
+        <h2>{!$Label.clnbndl_Copy_bundle} '{!sourceBundle.name}'  {!$Label.clnbndl_to_another_Opportunity} </h2>
+
+           <br /><br />
+                <table width="90%" cellpadding="1" cellspacing="1">
+                    <tr>
+                        <td>{!$Label.clnbndl_Select_opportunity_to_copy_to}</td>
+                        <td><apex:inputField id="selOpportunity" value="{!targetBundle.cscfga__Opportunity__c}"   required="true"/></td>
+                    </tr>
+                    <tr>
+                        <td>{!$Label.clnbndl_Enter_name_for_new_bundle}</td>
+                        <td><apex:inputText id="targetName"  value="{!targetName}" size="50"/></td> 
+                    </tr>
+
+                </table>
+
+                <apex:pageBlockButtons location="bottom">                   
+                    <apex:commandButton value="{!$Label.clnbndl_Copy_bundle}" action="{!cloneBundle}"  />
+                    <apex:commandButton value="{!$Label.clnbndl_Cancel}" action="{!cancel}" immediate="true"  />
+                </apex:pageBlockButtons>
+                <apex:Messages />
+                <apex:outputPanel layout="block" rendered="{!not(isblank(newBundleId))}">
+                	{!$Label.clnbndl_Bundle_copied_successfully}
+                	<apex:commandLink value="{!$Label.clnbndl_Click_here_to_go_to_the_new_bundle}" action="{!viewNewBundle}" />
+                </apex:outputPanel>
+
+            </apex:pageBlock>
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,16 @@
+<apex:page standardController="cscfga__Rule_Action_Association__c" recordSetVar="tmp" extensions="cscfga.RuleActionAssociationController" action="{!associateWithNewRule}">
+	<apex:form >
+		<apex:actionFunction name="doAssociateWithNewRule" action="{!doAssociateWithNewRule}" />
+	</apex:form>
+
+	<apex:outputPanel rendered="{!counter > 0}">
+		An unexpected error has occurred.  
+	</apex:outputPanel>
+
+	<apex:outputPanel rendered="{!counter == 0}">
+		Executing associate... please wait.
+	    <script>
+			doAssociateWithNewRule();
+		</script>
+	</apex:outputPanel>
+</apex:page>

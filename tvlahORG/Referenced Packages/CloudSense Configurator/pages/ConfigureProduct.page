@@ -1,0 +1,24 @@
+<apex:page standardController="cscfga__Product_Bundle__c" extensions="cscfga.ProductConfiguratorController" action="{!doCommand}" tabStyle="Solution">
+	<c:EmbedScripts />
+	<apex:includeScript value="{!$Resource.cscfga__bigJS}" />
+	<script type="text/javascript">
+		CS.indicator.start('#indicatorContainer');
+	</script>
+
+	<c:SelectProductCategory parentController="{!controller}" rendered="{!currentPageStr == 'SelectProductCategory'}"/>
+
+	<c:SelectProduct parentController="{!controller}" rendered="{!currentPageStr == 'SelectProduct'}"/>
+
+	<c:ConfigureProduct parentController="{!controller}" rendered="{!currentPageStr == 'ConfigureProduct'}" id="configure"/>
+
+	<c:SelectRelatedOption parentController="{!controller}" rendered="{!currentPageStr == 'SelectRelatedOption'}"/>
+
+	<script type="text/javascript">
+		CS.$(document).ready(function() {
+			if(!CS.lookupQueriesAreQueued() && CS.executeAfterLookupQueriesQueue.length === 0){
+				CS.indicator.stop();
+			}
+		});
+	</script>
+
+</apex:page>

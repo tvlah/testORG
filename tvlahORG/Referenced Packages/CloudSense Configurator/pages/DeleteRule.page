@@ -1,0 +1,78 @@
+<apex:page standardController="cscfga__Rule__c" Extensions="cscfga.DeleteRuleController">
+<apex:form >
+	<apex:pageBlock title="Delete {!cscfga__Rule__c.Name} " id="blockMain">
+		<apex:pageBlockSection title="Rule Details"  columns="1">
+			<h2><apex:outputText value="{!cscfga__Rule__c.Name} : {!cscfga__Rule__c.cscfga__Description__c}" /></h2>
+		</apex:pageBlockSection>
+
+		<apex:pageBlockSection title="Predicates to be orphaned" rendered="{!ShowPredicates && hasDeleted==false}" columns="1">
+			<h2>The following Predicates will be orphaned when this rule is deleted. Please select which ones should be deleted with the rule:</h2>
+			<br />
+			<br />
+			<apex:pageBlockTable var="item" value="{!PredicatesToBeOrphaned}" width="450">
+				<apex:column width="50" >
+					<apex:facet name="header">Delete</apex:facet>
+					<apex:outputPanel >
+						<apex:inputCheckbox value="{!item.isSelected}"/>
+					</apex:outputPanel>
+				</apex:column>
+
+				<apex:column width="120" >
+					<apex:facet name="header">Predicate</apex:facet>
+					<apex:outputPanel >
+						<a href="/{!item.id}" target="_orphan">{!item.Name}</a>
+					</apex:outputPanel>
+				</apex:column>
+
+				<apex:column width="300">
+					<apex:facet name="header">Label</apex:facet>
+					<apex:outputPanel >
+						{!item.Label}
+					</apex:outputPanel>
+				</apex:column>
+			</apex:pageBlockTable>
+			<br />
+		</apex:pageBlockSection>
+
+		<apex:pageBlockSection title="Actions to be orphaned" rendered="{!ShowActions && hasDeleted== false}" columns="1">
+			<h2>The following Actions will be orphaned when this rule is deleted. Please select which ones should be deleted with the rule:</h2>
+			<br />
+			<br />
+
+			<apex:pageBlockTable var="item" value="{!ActionsToBeOrphaned}" width="450">
+				<apex:column width="50" >
+					<apex:facet name="header">Delete</apex:facet>
+					<apex:outputPanel >
+						<apex:inputCheckbox value="{!item.isSelected}"/>
+					</apex:outputPanel>
+				</apex:column>
+
+				<apex:column width="120">
+					<apex:facet name="header">Action</apex:facet>
+					<apex:outputPanel >
+						<a href="/{!item.id}" target="_orphan">{!item.Name}</a>
+					</apex:outputPanel>
+				</apex:column>
+
+				<apex:column width="300">
+					<apex:facet name="header">Label</apex:facet>
+					<apex:outputPanel >
+						{!item.Label}
+					</apex:outputPanel>
+				</apex:column>
+
+			</apex:pageBlockTable>
+		</apex:pageBlockSection>
+		<br />
+
+		<apex:commandButton action="{!deleteRule}" value="Delete {!cscfga__Rule__c.Name} and selected Predicates & Actions" rendered="{!hasDeleted==false}" />
+		&nbsp;
+		<apex:commandButton action="{!Cancel}" value="Cancel" rendered="{!NOT(hasDeleted)}" />
+		<apex:commandButton action="{!Cancel}" value="Back" rendered="{!hasDeleted}" />
+
+		<apex:outputPanel id="msgMain" rendered="{!NOT(ISBLANK(saveMessage))}">
+			<b>Messages:</b> {!saveMessage}
+		</apex:outputPanel>
+	</apex:pageBlock>
+</apex:form>
+</apex:page>

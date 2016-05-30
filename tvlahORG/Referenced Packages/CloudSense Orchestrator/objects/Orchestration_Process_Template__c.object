@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>CreateOrchestrationProcessTpl</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>CreateOrchestrationProcessTpl</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Associated_Profile__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Associated Profile</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OLA_Activity_Linked_By__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Defines a record that is used to link with OLA Activity Definition. In case of Scheduler integration Calendar represents OLA Activity Definition</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines data that is used as key for Activity Definition selection through Data Links</inlineHelpText>
+        <label>OLA Activity Linked By</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OLA_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The time amount for the process to finish before it goes into jeopardy.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The time amount for the process to finish before it goes into jeopardy.</inlineHelpText>
+        <label>OLA Time</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OLA_Unit__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Defines process level OLA unit.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>OLA unit on process level: day, hour, minute. If not defined the minute unit is used.</inlineHelpText>
+        <label>OLA Unit</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Priority</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 - Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 - Normal</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 - High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Process_Label__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Process_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>New Provide</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Upgrade/Downgrade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Processing_Mode__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Internal field for storing processing mode information</description>
+        <externalId>true</externalId>
+        <label>Processing Mode</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Orchestration Process Template</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Process_Label__c</columns>
+        <columns>Process_Type__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Orchestration Process Templates</pluralLabel>
+    <searchLayouts>
+        <listViewButtons>List_Export_to_JSON</listViewButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Export_to_JSON</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Export to JSON</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&apos;/resource/&apos;&amp;IF(ISBLANK($Setup.Constants__c.Package_Namespace__c),&apos;&apos;,$Setup.Constants__c.Package_Namespace__c&amp;&apos;__&apos;)&amp;&apos;jQuery_1_4_2_min&apos;)} 
+{!REQUIRESCRIPT(&apos;/resource/&apos;&amp;IF(ISBLANK($Setup.Constants__c.Package_Namespace__c),&apos;&apos;,$Setup.Constants__c.Package_Namespace__c&amp;&apos;__&apos;)&amp;&apos;JSON3/json3.min.js&apos;)}
+{!REQUIRESCRIPT(&apos;/soap/ajax/25.0/connection.js&apos;)} 
+{!REQUIRESCRIPT(&apos;/soap/ajax/25.0/apex.js&apos;)} 
+{!REQUIRESCRIPT(&apos;/resource/&apos;&amp;IF(ISBLANK($Setup.Constants__c.Package_Namespace__c),&apos;&apos;,$Setup.Constants__c.Package_Namespace__c&amp;&apos;__&apos;)&amp;&apos;csom_exp&apos;)}
+
+var objectName = &apos;{!$Setup.Constants__c.Package_Namespace__c}&apos;;
+if(objectName){
+    objectName += &apos;__&apos;
+}
+objectName += &apos;Orchestration_Process_Template__c&apos;;
+JsonExpImp.startJsonExport(objectName, &apos;{!Orchestration_Process_Template__c.Id}&apos;, &apos;{!JSENCODE(Orchestration_Process_Template__c.Name)}&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Export_to_XML</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Export to XML</masterLabel>
+        <openType>sidebar</openType>
+        <page>XMLExporter</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>List_Export_to_JSON</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Export to JSON</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&apos;/resource/&apos;&amp;IF(ISBLANK($Setup.Constants__c.Package_Namespace__c),&apos;&apos;,$Setup.Constants__c.Package_Namespace__c&amp;&apos;__&apos;)&amp;&apos;jQuery_1_4_2_min&apos;)} 
+{!REQUIRESCRIPT(&apos;/resource/&apos;&amp;IF(ISBLANK($Setup.Constants__c.Package_Namespace__c),&apos;&apos;,$Setup.Constants__c.Package_Namespace__c&amp;&apos;__&apos;)&amp;&apos;JSON3/json3.min.js&apos;)}
+{!REQUIRESCRIPT(&apos;/soap/ajax/25.0/connection.js&apos;)} 
+{!REQUIRESCRIPT(&apos;/soap/ajax/25.0/apex.js&apos;)} 
+{!REQUIRESCRIPT(&apos;/resource/&apos;&amp;IF(ISBLANK($Setup.Constants__c.Package_Namespace__c),&apos;&apos;,$Setup.Constants__c.Package_Namespace__c&amp;&apos;__&apos;)&amp;&apos;csom_exp&apos;)} 
+
+var objectName = &apos;{!$Setup.Constants__c.Package_Namespace__c}&apos;;
+if(objectName){
+    objectName += &apos;__&apos;
+}
+objectName += &apos;Orchestration_Process_Template__c&apos;;
+
+JsonExpImp.startJsonListExport(objectName, &apos;Selected Process Templates&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Process_Visualiser</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Process Visualiser</masterLabel>
+        <openType>sidebar</openType>
+        <page>OrchProcessTplVisualiser</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

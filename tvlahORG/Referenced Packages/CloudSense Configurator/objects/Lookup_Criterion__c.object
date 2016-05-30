@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Field__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The API name of the Field whose value will be evaluated. Lookup Criterion will filter by this Field to narrow down the Lookup Query results.</inlineHelpText>
+        <label>Field</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lookup_Query__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Lookup Query.</inlineHelpText>
+        <label>Lookup Query</label>
+        <referenceTo>Lookup_Query__c</referenceTo>
+        <relationshipLabel>Lookup Criteria</relationshipLabel>
+        <relationshipName>Lookup_Criteria</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Operator__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Operator used for evaluation.</inlineHelpText>
+        <label>Operator</label>
+        <picklist>
+            <picklistValues>
+                <fullName>equals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is not</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is greater than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is greater than or equal to</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is less than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is less than or equal to</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>contains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is in</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>is not in</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Value used for evaluation. Must be enclosed in curly brackets {} if Value is Attribute Reference.</inlineHelpText>
+        <label>Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Value_is_Expression__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Shows if the value contains an attribute name (to substitute it&apos;s value) or if unchecked, that the value is literal.  Attribute values can be inserted by using {AttributeName} syntax and checking this box.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, Value field must hold an Attribute Definition name enclosed in curly brackets {}.</inlineHelpText>
+        <label>Value is Attribute Reference</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Lookup Criterion</label>
+    <listViews>
+        <fullName>LkpCfgCriteria</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Field__c</columns>
+        <columns>Lookup_Query__c</columns>
+        <columns>Operator__c</columns>
+        <columns>Value__c</columns>
+        <columns>Value_is_Expression__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>LkpCfgCriteria</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>LC-{000000}</displayFormat>
+        <label>Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Lookup Criteria</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <fields>
+        <fullName>guid__c</fullName>
+        <deprecated>false</deprecated>
+        <description>GUID for JSON export/import</description>
+        <externalId>true</externalId>
+        <inlineHelpText>GUID for JSON export/import</inlineHelpText>
+        <label>GUID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <validationRules>
+        <fullName>Guid_Format_Check</fullName>
+        <active>true</active>
+        <description>Validates the format of GUID, but allows for it to remain blank.</description>
+        <errorConditionFormula>AND(NOT( REGEX( guid__c , &quot;\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}&quot;) )
+, NOT(ISBLANK(guid__c )))</errorConditionFormula>
+        <errorDisplayField>guid__c</errorDisplayField>
+        <errorMessage>Required format of the GUID is xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+With x being any alphanumeric character (letter or digit).</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Export_to_JSON</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Export to JSON</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>var recordId = &apos;[&quot;{!cscfga__Product_Definition__c.Id}&quot;]&apos;;
+document.location = &quot;/apex/csexpimp1__JsonExportJob?exportName=ProductDefinition&amp;recordIds=&quot; + encodeURI(recordId) + &quot;&amp;objectType=cscfga__Product_Definition__c&amp;retUrl=&quot; + encodeURI(window.location.href);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>List_Export_to_JSON</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Export to JSON</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>var selectedRecords = {!GETRECORDIDS($ObjectType.cscfga__Product_Definition__c)};
+if (!selectedRecords.length) {
+    window.alert(&quot;No records selected&quot;);
+} else {
+    var recordIds = JSON.stringify(selectedRecords);
+    document.location = &quot;/apex/csexpimp1__JsonExportJob?exportName=SelectedProducts&amp;recordIds=&quot; + encodeURI(recordIds) + &quot;&amp;objectType=cscfga__Product_Definition__c&amp;retUrl=&quot; + encodeURI(window.location.href);
+}</url>
+    </webLinks>
+</CustomObject>

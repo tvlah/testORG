@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <webLinks>
+        <fullName>New</fullName>
+        <availability>online</availability>
+        <description>Opens a page to create an Order Request linked to the current one.</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>New</masterLabel>
+        <openType>sidebar</openType>
+        <page>OrderRequest</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

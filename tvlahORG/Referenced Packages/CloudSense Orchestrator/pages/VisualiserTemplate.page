@@ -1,0 +1,47 @@
+<apex:page controller="CSPOFA.VisualiserController" id="VisualiserTemplate" >
+	<apex:includeScript id="jQueryInclude" value="{!URLFOR($Resource.CSPOFA__POFJQUERY,'min/jquery-1.4.1.min.js')}"/>
+	<apex:includeScript id="jsonInclude" value="{!URLFOR($Resource.CSPOFA__JSON3,'json3.min.js')}"/>
+
+	<!-- jQuery UI library -->
+	<apex:stylesheet id="jQCSS" value="{!URLFOR($Resource.CSPOFA__POFJQUERYUI,'css/cupertino/jquery-ui-1.8.20.custom.css')}"/>
+
+	<!-- for production -->
+	<apex:includeScript id="jQUIInclude" value="{!URLFOR($Resource.CSPOFA__POFJQUERYUI,'js/jquery-ui-1.8.20.custom.min.js')}"/>
+	<!---->
+	<!-- for development/debug --
+	<apex:includeScript id="jQUIInclude" value="{!URLFOR($Resource.POFJQUERYUI,'development-bundle/ui/jquery-ui-1.8.20.custom.js')}"/>
+	<!---->
+
+	<!-- Include Firebug Lite latest--
+	<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
+	<!---->
+	<!-- Include Firebug Lite--
+	<script type="text/javascript" src="https://getfirebug.com/releases/lite/1.2/firebug-lite.js"></script>
+	<!---->
+
+	<script type="text/javascript" charset="utf-8">
+		jQuery.noConflict();
+		(function(j$) {
+			j$(document).ready(function(){
+				window.setup = function() {
+					if(typeof CS.Designer !== 'undefined'){
+						CS.Designer.initialize();
+					}
+				}
+			});
+		})(jQuery);
+	</script>
+
+	<body id="body">
+		<div id="space" style="float:left; height:10px; width:100%;"></div>
+
+		<apex:outputPanel style="display:none;" id="dummy">
+		</apex:outputPanel>
+
+		<apex:outputPanel id="flows">
+			<apex:outputPanel id="flow0" style="display:block">
+				<c:DesignerRaphael id="designer" recordId="{!record}" onlyMove="{!onlyMove}" />
+			</apex:outputPanel>
+		</apex:outputPanel>
+	</body>
+</apex:page>

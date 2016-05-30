@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Attribute_Definition__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Related Product Attribute Definition Type that can be associated with a Product Category or a Product Definition.</inlineHelpText>
+        <label>Attribute Definition</label>
+        <referenceTo>Attribute_Definition__c</referenceTo>
+        <relationshipLabel>Available Product Options</relationshipLabel>
+        <relationshipName>Available_Product_Options</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Product_Category__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Product Category that this Related Product is associated with.</inlineHelpText>
+        <label>Product Category</label>
+        <referenceTo>Product_Category__c</referenceTo>
+        <relationshipLabel>Available Product Options</relationshipLabel>
+        <relationshipName>Available_Product_Options</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The Product Definition that this Related Product is associated with.</inlineHelpText>
+        <label>Product Definition</label>
+        <referenceTo>Product_Definition__c</referenceTo>
+        <relationshipLabel>Available Product Options</relationshipLabel>
+        <relationshipName>Available_Product_Options</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Available Product Option</label>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Available Product Options</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Cannot_be_a_child_of_iteself</fullName>
+        <active>true</active>
+        <description>Available product option cannot be a child of itself.</description>
+        <errorConditionFormula>Product_Definition__c  ==  Attribute_Definition__r.Product_Definition__c</errorConditionFormula>
+        <errorDisplayField>Product_Definition__c</errorDisplayField>
+        <errorMessage>A product definition cannot be an Available Product Option of itself.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Category_xor_Definition</fullName>
+        <active>true</active>
+        <description>Only one can be specified - failed if not xor between them.</description>
+        <errorConditionFormula>NOT(ISBLANK( Product_Category__c )) &amp;&amp; NOT(ISBLANK(Product_Definition__c))</errorConditionFormula>
+        <errorMessage>You can not specify both Category and Definition - choose only one field.</errorMessage>
+    </validationRules>
+</CustomObject>

@@ -1,0 +1,18 @@
+<apex:page standardController="cscfga__Rule_Predicate_Association__c" recordSetVar="tmp" extensions="cscfga.RulePredicateAssociationController" action="{!associateWithNewRule}">
+  <apex:form >
+      <apex:actionFunction name="doAssociateWithNewRule" action="{!doAssociateWithNewRule}"/>
+  </apex:form>
+
+  <apex:outputPanel rendered="{!counter > 0}">
+      <apex:form >
+        <p><apex:messages /></p>
+        <p><apex:commandLink value="Cancel" action="{!URLFOR($Action.Predicate__c.view, predicate.id)}" /></p>
+    </apex:form>
+  </apex:outputPanel>
+
+  <apex:outputPanel rendered="{!counter == 0}">
+      <script>
+          doAssociateWithNewRule();
+      </script>
+  </apex:outputPanel>  
+</apex:page>

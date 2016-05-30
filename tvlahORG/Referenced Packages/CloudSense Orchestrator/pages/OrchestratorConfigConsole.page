@@ -1,0 +1,335 @@
+<apex:page id="page" controller="CSPOFA.OrchestratorAdminConsoleController" tabStyle="Orchestrator_Configs__tab">
+
+	<apex:form id="theForm">
+
+		<apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"/>
+		<script type="text/javascript">
+		
+			var j$ = jQuery.noConflict();
+			j$.fn.highlight = function() {
+				j$(this).fadeTo(200, 0.3).fadeTo(800, 1.0);
+				j$(this).find("td").each(function() {
+					j$(this).css('font-weight', 'bold');
+				});
+			};
+			
+			var j$dropdowns;
+			var j$renameInputs;
+			var j$renamePanels;
+
+
+			var toggleAll = function(allBox) {
+				j$("input[id$='configselector']").each(function() {
+					j$(this).prop("checked", allBox.checked);
+				});
+				setConfigListButtons();
+			}
+			
+			var setConfigListButtons = function() {
+				var exportButton = j$("input[id$='ExportToJsonButton']");
+				var deleteButton = j$("input[id$='DeleteSelectedButton']");
+				j$(exportButton).prop("disabled", true).addClass("btnDisabled");
+				j$(deleteButton).prop("disabled", true).addClass("btnDisabled");
+				
+				j$("input[id$='configselector']").each(function() {
+					if(j$(this).prop("checked")) {
+						j$(exportButton).prop("disabled", false).removeClass("btnDisabled").addClass("btn");
+						j$(deleteButton).prop("disabled", false).removeClass("btnDisabled").addClass("btn");
+						return false;
+					}
+				});
+			}
+			
+			var setImportActionDropdowns = function() {
+
+				var maxWidth = 0;
+				j$dropdowns.each(function() {
+					maxWidth = (j$(this).width() > maxWidth) ? j$(this).width() : maxWidth;
+				});
+				
+				var disableProcessActionsButton = true;
+				
+				j$dropdowns.each(function(index, element) {
+					j$(this).width(maxWidth);
+					if(j$("option", this).length == 1) {
+						j$(this).prop('disabled', true);
+					} else {
+						disableProcessActionsButton = false;
+					};
+					j$(this).change(function() {
+						var renInput;
+						j$renameInputs.each(function(renameIndex, renameElement) {
+							if(renameIndex == index) {
+								renInput = renameElement;
+								return false;
+							}
+						});
+						var renPanel;
+						j$renamePanels.each(function(renameIndex, renameElement) {
+							if(renameIndex == index) {
+								renPanel = renameElement;
+								return false;
+							}
+						});
+						if(j$(this).find(":selected").val() == '{!ImportActionRename}') {
+							//var panelWidth = j$(renPanel).width(); 
+							j$(renPanel).hide();
+							//j$(renInput).width(panelWidth);
+							j$(renInput).show();
+							j$(renInput).focus();
+						} else {
+							j$(renPanel).show();
+							j$(renInput).hide()
+						}
+					});
+				});
+				j$dropdowns.change();
+				if(disableProcessActionsButton) {
+					j$("input[id$='ImportProcessButton']").prop("disabled", true).addClass("btnDisabled");
+				} else {
+					j$("input[id$='ImportProcessButton']").prop("disabled", false).removeClass("btnDisabled").addClass("btn");
+				}
+				
+				
+			}
+			
+			var makeHighlights = function() {
+				j$("input[id$='CheckboxHighlight']").each(function() {
+					if(j$(this).prop("checked")) {
+						j$(this).removeAttr('checked');
+						j$(this).closest("tr").highlight();
+					}
+				});
+			}
+
+			var refreshViews = function() {
+				j$dropdowns = j$("select[id$='selectListImportAction']");
+				j$renameInputs = j$("input[id$='inputTextNewKey']");
+				j$renamePanels = j$("div[id$='panelImportKey']");
+				setConfigListButtons();
+				setImportActionDropdowns();
+				makeHighlights();
+			}
+			
+			var doExport = function() {
+				var target = j$("input[id$='exportTarget']").val();
+				document.location = target;
+			}
+
+			j$(document).ready(function(){
+				refreshViews();
+			});
+			
+
+		</script>
+
+		<apex:pageBlock id="pageblock" title="Orchestrator Config Console">
+		
+		<apex:actionRegion id="actionRegionCriteriaDetails">
+			
+			<apex:actionFunction id="jsUpdateCriteriaDisplayLevel" name="displayChangeAtLevel" action="{!updateDisplayFromClient}" rerender="CriteriaDetailsSection">
+				<apex:param id="jsParamLevel" name="level" value=""/>
+			</apex:actionFunction>
+			<apex:pageBlockSection id="CriteriaDetailsSection" title="Specify New Configuration Key" columns="2" showHeader="True">
+	
+					<apex:pageBlockSectionItem id="IntroObjectPageBlockSectionItem">
+						<apex:outputLabel id="IntroObjectStartLabel" value="Starting SObject"/>
+						<apex:outputLabel id="IntroObjectValueLabel" value="Orchestration Process"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem id="IntroFieldPageBlockSectionItem">
+						<apex:outputLabel id="IntroFieldLabelStart" value="Choose Field"/>
+						<apex:SelectList id="IntroSelectListObject" value="{!condensedInfoL0}" size="1" onchange="displayChangeAtLevel('0');">
+							<apex:selectOptions id="L0ObjectSelectOptions" value="{!FieldsForL0}"></apex:selectOptions>
+						</apex:SelectList>
+					</apex:pageBlockSectionItem>
+	
+					 <apex:pageBlockSectionItem id="L0ObjectPageBlockSectionItem" rendered="{!LEN(levelLabels[0]) > 0}">
+						<apex:outputLabel id="L0ObjectStartLabel" value="Related SObject"/>
+						<apex:outputLabel id="L0ObjectValueLabel" value="{!levelLabels[0]}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem id="L0FieldPageBlockSectionItem" rendered="{!LEN(levelLabels[0]) > 0}">
+						<apex:outputLabel id="l0FieldLabelStart" value="Choose Field" />
+						<apex:selectList id="L0FieldSelectList" value="{!condensedInfoL1}" size="1" onchange="displayChangeAtLevel('1');">
+							<apex:selectOptions id="L0FieldSelectOptions" value="{!FieldsForL1}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+	
+					 <apex:pageBlockSectionItem id="L1ObjectPageBlockSectionItem" rendered="{!LEN(levelLabels[1]) > 0}" >
+						<apex:outputLabel id="L1ObjectStartLabel" value="Related SObject"/>
+						<apex:outputLabel id="L1ObjectValueLabel" value="{!levelLabels[1]}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem id="L1FieldPageBlockSectionItem" rendered="{!LEN(levelLabels[1]) > 0}">
+						<apex:outputLabel id="L1FieldLabelStart" value="Choose Field" />
+						<apex:selectList id="L1FieldSelectList" value="{!condensedInfoL2}" size="1" onchange="displayChangeAtLevel('2');">
+							<apex:selectOptions id="L1FieldSelectOptions" value="{!FieldsForL2}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+	
+					<apex:pageBlockSectionItem id="L2ObjectPageBlockSectionItem" rendered="{!LEN(levelLabels[2]) > 0}">
+						<apex:outputLabel id="L2ObjectStartLabel" value="Related SObject"/>
+						<apex:outputLabel id="L2ObjectValueLabel" value="{!levelLabels[2]}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem id="L2FieldPageBlockSectionItem" rendered="{!LEN(levelLabels[2]) > 0}" >
+						<apex:outputLabel id="L2FieldLabelStart" value="Choose Field" />
+						<apex:selectList id="L2FieldSelectList" value="{!condensedInfoL3}" size="1" onchange="displayChangeAtLevel('3');">
+							<apex:selectOptions id="L2FieldSelectOptions" value="{!FieldsForL3}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+	
+					<apex:pageBlockSectionItem id="L3ObjectPageBlockSectionItem" rendered="{!LEN(levelLabels[3]) > 0}">
+						<apex:outputLabel id="L3ObjectStartLabel" value="Related SObject"/>
+						<apex:outputLabel id="L3ObjectValueLabel" value="{!levelLabels[3]}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem id="L3FieldPageBlockSectionItem" rendered="{!LEN(levelLabels[3]) > 0}">
+						<apex:outputLabel id="L3FieldLabelStart" value="Choose Field" />
+						<apex:selectList id="L3FieldSelectList" value="{!condensedInfoL4}" size="1" onchange="displayChangeAtLevel('4');">
+							<apex:selectOptions id="L3FieldSelectOptions" value="{!FieldsForL4}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+	
+					<apex:pageBlockSectionItem id="L4ObjectPageBlockSectionItem" rendered="{!LEN(levelLabels[4]) > 0}">
+						<apex:outputLabel id="L4ObjectStartLabel" value="Related SObject"/>
+						<apex:outputLabel id="L4ObjectValueLabel" value="{!levelLabels[4]}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem id="L4FieldPageBlockSectionItem" rendered="{!LEN(levelLabels[4]) > 0}">
+						<apex:outputLabel id="L4FieldLabelStart" value="Choose Field" />
+						<apex:selectList id="L4FieldSelectList" value="{!condensedInfoL5}" size="1">
+							<apex:selectOptions id="L4FieldSelectOptions" value="{!FieldsForL5}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+	
+					<apex:pageBlockSectionItem id="sectionConfigKey">
+						<apex:outputLabel id="labelConfigKey" value="Config Key Name"/>
+						<apex:inputText id="textConfigName" value="{!configName}"/>
+					</apex:pageBlockSectionItem>
+					  <apex:commandLink id="linkAddConfig" action="{!addConfig}" rerender="configPanel, CriteriaDetailsSection, importSectionListPanel" oncomplete="refreshViews();"> Add Config </apex:commandLink>
+	
+			</apex:pageBlockSection>
+	
+			<apex:outputPanel id="configPanel">
+				<apex:pageBlockSection id="configSection" title="Configuration Keys" showHeader="True" columns="1">
+					<apex:outputPanel id="configTablePanel">
+
+						<apex:pageMessages id="messages" />
+
+						<apex:outputPanel id="listConfigFooterPanel" layout="block" style="text-align:left;margin:0 0 0 33%;">
+							<input type="hidden" id="exportTarget" value="{!exportTarget}" />
+							<apex:commandButton id="DeleteSelectedButton" title="Delete" value="Delete" action="{!deleteMultipleConfigs}" style="margin-right:5px;" />
+							<apex:commandButton id="ExportToJsonButton" title="Export to JSON" value="Export To JSON" action="{!exportToJSON}" rerender="listConfigFooterPanel" oncomplete="doExport();" />
+							<!-- input type="button" value="export POC" id="ExportToJsonButton" /-->
+						</apex:outputPanel>
+
+					   <apex:variable id="counterVariable" value="{!1}" var="rowNum"/>
+					   <apex:dataTable id="listConfig" value="{!wrapperList}" var="wrapper" rowClasses="odd,even" styleClass="tableClass" cellspacing="12">
+							<apex:column id="selectorColumn">
+								<apex:facet name="header"> <input type="checkbox" onclick="toggleAll(this);" /> </apex:facet>
+								<apex:inputCheckbox value="{!wrapper.selected}" id="configselector" onclick="setConfigListButtons();"/>
+								<apex:inputCheckbox value="{!wrapper.highlight}" id="configCheckboxHighlight" style="display:none;"/>
+							</apex:column>
+							<apex:column id="counterColumn">
+								<apex:outputText id="counterOutputText" value="{!FLOOR(rowNum)}"/>.
+							</apex:column>
+							<apex:column id="keyColumn">
+								<apex:facet name="header">Key</apex:facet>
+								{!wrapper.conf.key}
+							</apex:column>
+							<apex:column id="descriptionColumn">
+								<apex:facet name="header">Description</apex:facet>
+								{!wrapper.conf.relation}<br />{!wrapper.conf.theObject}
+							</apex:column>
+							<apex:column id="typeColumn">
+								<apex:facet name="header">Type</apex:facet>
+								{!wrapper.conf.type}
+							</apex:column>
+							<apex:column id="deleteButtonColumn">
+								 <apex:commandLink id="deleteCommandLink" action="{!deleteConfig}" rerender="configPanel, importSectionListPanel" oncomplete="refreshViews();"> Delete
+									 <apex:param id="rowNumtoDeleteParam" name="rowNumToDelete" value="{!rowNum}"/>
+								 </apex:commandLink>
+								<apex:variable id="IncreaseForCounterVariable" var="rowNum" value="{!rowNum + 1}"/>
+							</apex:column>
+						</apex:dataTable>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+
+			</apex:outputPanel>
+			
+			<apex:pageBlockSection id="importSectionList" title="Import Configuration Keys" showHeader="True" columns="1"  rendered="{!isClick == true}">
+				<apex:outputPanel id="importSectionListPanel">
+					<apex:variable id="counterVariable" value="{!1}" var="rowNum"/>
+					<apex:dataTable id="dataTableImportConfigWrappers" value="{!importCWList}" var="cw" rowClasses="odd,even" styleClass="tableClass" cellspacing="12" style="width:100%;vertical-align:bottom;">
+						<apex:column id="counterColumn" style="width:2%;">
+							<apex:outputText id="counterOutputText" value="{!FLOOR(rowNum)}"/>.
+							<apex:variable id="IncreaseForCounterVariable" var="rowNum" value="{!rowNum + 1}"/>
+							<apex:inputCheckbox value="{!cw.highlight}" id="importCheckboxHighlight" style="display:none;"/>
+						</apex:column>
+ 						<apex:column id="keyColumn" style="width:20%;">
+							<apex:facet name="header">Key</apex:facet>
+							<apex:outputPanel id="panelImportKey" layout="block" style="width:100%;">{!cw.conf.key}</apex:outputPanel>
+							<apex:inputText id="inputTextNewKey" value="{!cw.newKey}" style="width:90%;display:none;" />
+						</apex:column>
+						<apex:column id="descriptionColumn">
+							<apex:facet name="header">Description</apex:facet>
+							{!cw.conf.relation}<br />{!cw.conf.theObject}
+						</apex:column>
+						<apex:column id="typeColumn" style="width:5%;">
+							<apex:facet name="header">Type</apex:facet>
+							{!cw.conf.type}
+						</apex:column>
+						<apex:column id="statusColumn" style="width:20%;text-align:center;">
+							<apex:facet name="header">
+								<div style="text-align:center;">
+									Status
+								</div>
+							</apex:facet>
+							{!cw.importMessage}
+						</apex:column>
+						<apex:column id="actionColumn" style="width:15%;">
+							<apex:facet name="header">
+								Select Action:
+							</apex:facet>
+							<apex:selectList id="selectListImportAction" value="{!cw.actionString}" size="1">
+								<apex:selectOptions value="{!cw.importOptions}" />
+							</apex:selectList>
+						</apex:column>
+					</apex:dataTable>
+
+					<apex:outputPanel id="importConfigWrappersFooterPanel" layout="block" style="text-align:left;margin: 0 0 0 33%;">
+						<apex:commandButton id="ImportProcessButton" title="Process Actions" value="Process Actions" action="{!processImportActions}" style="margin-right:5px;" /> 
+						<apex:commandButton id="ImportCancelButton" title="Cancel Import" value="Cancel Import" action="{!cancelImport}" />
+					</apex:outputPanel> 
+
+				</apex:outputPanel>
+			</apex:pageBlockSection>
+				
+		</apex:actionRegion>
+
+			<apex:pageBlockSection id="importSectionFileUpload" title="Import Configuration Keys" showHeader="True" columns="1"  rendered="{!isClick != true}">
+
+				<apex:outputPanel id="panelImportFileUpload"  rendered="{!ISBLANK(importCWList)}">
+					<p id="messageJSONImport">Import a file previously exported from the Cloudsense Orchestrator as JSON</p> <br />
+		
+					<table id="table" width="600">
+						<tr>
+							<td> JSON file to Import (required): </td>
+							<td id="importFileCell">
+								<apex:inputFile id="import_file"
+									accept="*.json"
+									required="false"
+									fileName="{!fileName}"
+									value="{!fileContents}">
+							 	</apex:inputFile>
+							 </td>
+						</tr>
+						<tr>
+							<td id="buttonUploadCell" colspan="2">
+								<apex:commandButton id="buttonUpload" title="Upload JSON" value="Upload JSON" action="{!beginConfigsImport}" />
+							</td>
+						  </tr>
+					</table>
+				</apex:outputPanel>
+				
+			</apex:pageBlockSection>
+		
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

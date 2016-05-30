@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>33.0</apiVersion>
+    <description>Visual indicator component of tasks running over certain record by record id.</description>
+    <label>AsyncTask status component</label>
+</ApexComponent>

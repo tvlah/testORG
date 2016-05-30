@@ -1,0 +1,703 @@
+<apex:page id="MC_Reports" controller="CSPOFA.MC_ReportsController" doctype="html-5.0" extensions="CSPOFA.MC_RemoteActions,CSPOFA.PaginationController" sidebar="false">
+
+	<c:MC_Header jsModule="{!JSENCODE(jsTopNs)}"/>
+
+	<apex:include pageName="{!pluginPage}"></apex:include>
+
+	<style>
+	.contextParameter {
+		display: inline-block;
+		padding: 5px;
+		width: 400px;
+		white-space: nowrap;
+	}
+	</style>
+
+	<script type="text/javascript">
+	//{!JSENCODE(jsTopNs)}.setLogLevel({!JSENCODE(jsTopNs)}.logLevel.ALL); 			//TODO add in MC custom settings option for enable browser debugging
+	{!JSENCODE(jsTopNs)}.reports = (function(module) {
+		var App = {!JSENCODE(jsTopNs)},
+		log = App.log,
+		getField = App.getField,
+		setField = App.setField,
+		logLevel = App.logLevel,
+		j$ = App.j$,
+		clone = App.utility.clone,
+		execute = App.utility.execute,
+		parseDate = App.utility.parseDate,
+		vizualization = App.charting,
+
+		currentReportObject,
+		currentReportName,
+		reports = {},
+		context = {},
+		_module = {},               //container for externally attached functionality
+
+		//Remote actions
+		remote = (function(remote){
+			remote.getUsersAndRoles = function( callback ){
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.MC_ReportsController.getRoleTree}', callback, {escape: false}
+				);
+			};
+			remote.getAllReports = function(callback) {
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.MC_ReportsController.getAllReports}', callback, {escape: false}
+				);
+			};
+			remote.getReportObject = function(callback) {
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.MC_ReportsController.getReport}', currentReportName, callback, {escape: false}
+				);
+			};
+			remote.saveReport = function(reportObject, callback) {
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.MC_ReportsController.saveReport}', [reportObject], callback, {escape: false}
+				);
+			};
+			remote.deleteReport = function(reportId, callback) {
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.MC_ReportsController.deleteReport}', reportId, callback, {escape: false}
+				);
+			};
+			remote.getAccounts = function(accountName, callback) {
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.MC_RemoteActions.getAccounts}', accountName, callback, {escape: false}
+				);
+			};
+			return remote;
+		})({}),
+
+		//Menu
+		menu = (function(menu){
+			var current,
+			table,
+			dataTable,
+			setCurrent = function( item ){
+				if(typeof item === 'string'){
+					item = dataTable.getFilteredRows([{column: 0, value: item}])[0];
+				}
+				table.setSelection([{row:item}]);
+				current = item;
+			},
+			build = function(itemList){
+
+				//create data table
+				dataTable = new vizualization.DataTable();
+				dataTable.addColumn('string', 'Reports', 'Reports');
+				for(var i = 0, ii = itemList.length; i < ii; i++){
+					dataTable.addRow( [itemList[i]] );
+				}
+
+				//draw
+				table = new vizualization.Table( j$('#menuTable').get(0) );
+				var cssObj = {
+					headerRow : 'tableRowHeader',
+					oddTableRow : 'alt',
+					tableRow : 'tableRow',
+					hoverTableRow: 'tableRowHover',
+					selectedTableRow: 'tableRowSelected',
+					headerCell : 'tableCellHeader',
+					tableCell : 'tableCell'
+				};
+				var draw = function(){
+					table.draw( dataTable,
+						{
+						allowHtml: true,
+						showRowNumber: true,
+						sort: 'enable',
+						cssClassNames: cssObj
+						}
+					);
+				};
+				draw();
+
+				vizualization.events.addListener( table, 'select', selectHandler );
+				j$('#menuTable').resize( function(event){
+					draw();
+				});
+			},
+			selectHandler = function(event){
+				if(table.getSelection().length === 0 || loadingFlag){
+					table.setSelection([{row:current}]);
+				}
+				else{
+					current = table.getSelection()[0].row;
+					openReport( dataTable.getValue( current, 0) );
+				}
+			},
+			toogleFlag = true,
+			toogle = function(){
+				if(toogleFlag){
+					//hide
+					j$('#toogleMenuButton').removeClass('ui-icon-triangle-1-w');
+					j$('#toogleMenuButton').addClass('ui-icon-triangle-1-e');
+					j$('#toogleMenuButton').removeClass('showMenu');
+					j$('#toogleMenuButton').addClass('hideMenu');
+					j$('.menuContainer').css({width:'0%'});
+					j$('.contentContainer').css({width:'100%',left:'0%'});
+				}
+				else{
+					//show
+					j$('#toogleMenuButton').removeClass('ui-icon-triangle-1-e');
+					j$('#toogleMenuButton').addClass('ui-icon-triangle-1-w');
+					j$('#toogleMenuButton').removeClass('hideMenu');
+					j$('#toogleMenuButton').addClass('showMenu');
+					j$('.menuContainer').css({width:'15%'});
+					j$('.contentContainer').css({width:'85%',left:'15%'});
+				}
+				toogleFlag = !toogleFlag;
+			};
+
+			//expose
+			menu.toogle = toogle;
+			menu.build = build;
+			menu.setCurrent = setCurrent;
+			return menu;
+		})({}),
+
+
+		//Load report component handling
+		loadingFlag = false,
+		componentLoading = function(){
+			loadingFlag = true;
+			_module.indicator.start('.contentContainer');
+		},
+		componentLoaded = function(){
+			loadingFlag = false;
+			_module.indicator.stop();
+
+			if(currentReportObject && getField(currentReportObject,'Filter__c')){
+				module.currentReport.filter.setFilter( JSON.parse( getField(currentReportObject,'Filter__c') ) );
+			}
+			if(openReportFilter){
+				module.currentReport.filter.setFilter( openReportFilter );
+			}
+			context.apply();
+		},
+		openReportFilter,
+		openReport = function(name, filter){
+			if(loadingFlag){
+				log('Can not load report until loading of the previous report is finished.');
+				return false;
+			}
+
+			openReportFilter = filter;
+			if(reports.map[name]){
+				log('Disposing current report...');
+				module.currentReport.dispose();
+				log('Opening report: ' + name);
+				currentReportName = name;
+				setReportTitle( currentReportName );
+				menu.setCurrent( currentReportName );
+				setCurrentReportObject();
+				{!JSENCODE(jsTopNs)}.reports.loadComponent( getField(reports.map[currentReportName],'Component_Instantiator__c') );               //this is AJAX request, componentLoaded function will be called when this request completes
+			}
+			else{
+				log('Report: "' + name + '" ' + 'not exists!');
+				log('Available reports: ' + getReports());
+			}
+
+			return false;                     //return false, so it can be called from <a> without following the href
+		},
+		getReports = function(){
+			return reports.names;
+		},
+		getCurrent = function(){
+			return currentReportName;
+		},
+		refreshReports = function(callback){
+			remote.getAllReports(function(){
+				allReportsHandler.apply(null,arguments);
+				execute(callback);
+			});
+		},
+		allReportsHandler = function(result, event){
+			if(event.status){
+				reports.list = result;
+				generateReportMap();
+				menu.build( reports.names );
+
+				//Set first report as current report
+				if(reports.list && reports.list.length > 0){
+					currentReportName = reports.list[0].Name;
+					setReportTitle( currentReportName );
+					menu.setCurrent( 0 );
+					setCurrentReportObject();
+				}
+			}
+			else{
+				log('Error [allReportsHandler]: ' + event.message, logLevel.AJAX | logLevel.INFO);
+			}
+		},
+		generateReportMap = function(){
+			reports.map = {};
+			reports.names = [];
+			if(reports.list){
+				for(var i = 0; i < reports.list.length; i++){
+				reports.names.push( reports.list[i].Name );
+				reports.map[reports.list[i].Name] = reports.list[i];
+				}
+			}
+		},
+		setReportTitle = function(title){
+			j$('#reportTitle').html(title);
+		},
+		setCurrentReportObject = function(){
+			currentReportObject = reports.map[currentReportName];
+			if(getField(currentReportObject,'Type__c') === 'Standard'){
+				j$('#deleteViewButton').button('disable');
+			}
+			else{
+				j$('#deleteViewButton').button('enable');
+			}
+			if(currentReportObject.Name === 'Process History Report'){
+				j$('#saveViewButton').button('disable');
+			}
+			else{
+				j$('#saveViewButton').button('enable');
+			}
+			context.definition = JSON.parse( getField(currentReportObject,'Context__c') );
+			if(!context.definition.account) {
+				j$('#accountSelectSection').css("display","none");
+			}
+			else {
+				j$('#accountSelectSection').css("display","inline-block");
+			}
+		},
+
+		//Save and Error dialog
+		showErrorDialog = function(message){
+			j$('#errorDialog').html( message );
+			j$('#errorDialog').dialog('open');
+		},
+		openSaveDialog = function(){
+			j$('#saveDialog').dialog('open');
+			saveDialogName.val(currentReportName);
+		},
+		saveView = function(name, filter, callback){
+			var reportObject = currentReportObject;
+			if(reportObject.Name.toLowerCase() !== name.toLowerCase()){
+				reportObject = clone( currentReportObject );
+				reportObject.Name = name;
+				if(getField(reportObject,'Type__c') === 'Standard' || getField(reportObject,'Type__c') === 'Standard View'){
+					setField( reportObject, 'Type__c', 'Standard View' );
+				}
+				else{
+					setField( reportObject, 'Type__c', 'Custom' );
+				}
+				reportObject.Id = null;
+			}
+
+			setField( reportObject, 'Filter__c', JSON.stringify(filter) );
+			_module.indicator.start('#saveDialog');
+			remote.saveReport(reportObject, function(result, event){
+				_module.indicator.stop('#saveDialog');
+				if(event.status){
+					if(reportObject.Id === null){
+						refreshReports(function(){
+							openReport(name);
+						});
+					}
+				}
+				else {
+					var message = 'Save operation failed!'+
+					'<p>Please check the following:</p>'+
+					'<p> - View name must be unique.</p>'+
+					'<p> - Updates on the standard reports are not allowed.</p>';
+					showErrorDialog(message);
+					log(event.message, logLevel.AJAX | logLevel.INFO);
+				}
+				execute(callback);
+			});
+		},
+		components = (function(module){
+			var allComponents = {
+				'context1': false,
+				'context2': false,
+				'menu': false,
+				'report': false
+			},
+			allComponentsCount = 4,
+			ready = function(component){
+				if(allComponents[component] === false){
+					allComponents[component] = true;
+					allComponentsCount--;
+				}
+				if(allComponentsCount === 0){
+					//execute ready
+					componentLoaded();
+				}
+			}
+			//expose
+			module.areLoaded = function(){
+				return allComponentsCount === 0;
+			}
+			module.ready = ready;
+			return module;
+		})({});
+
+		//Indicator
+		_module.indicator = {};
+		App.indicatorable( _module.indicator );
+
+		//Context handling
+		//TODO: refactor into separate closure
+		context.userRole = {};
+		context.account = {};
+		context.startDate = {};
+		context.endDate = {};
+		context.startDate.operator = '>=';
+		context.endDate.operator = '<=';
+		context.userRole.operator = '=';
+		context.account.operator = '=';
+		context.apply = function(){
+			if (!components.areLoaded()) {
+				return;
+			}
+			var expressions = [],
+			field;
+			if(context.definition){
+				//create expressions
+				if(context.userRole.value){
+					field = context.definition.viewFor;
+					if(context.userRole.value.value !== 'ALL'){
+						if(context.userRole.value.isRole){
+						if(field.toLowerCase().indexOf('id',-2) !== -1){
+							field = field.slice(0,-2);
+						}
+						field += '.UserRoleId';
+						}
+						expressions.push({
+						field: field,
+						value: context.userRole.value.value,
+						operator: context.userRole.operator
+						});
+					}
+				}
+				if(context.account.value){
+					field = context.definition.account;
+					if(context.account.value.value !== 'ALL' && field){
+						expressions.push({
+							field: field,
+							value: context.account.value.value,
+							operator: context.account.operator
+						});
+					}
+				}
+				if(context.startDate.value){
+					expressions.push({
+					field: context.definition.startDate,
+					value: context.startDate.value,
+					operator: context.startDate.operator
+					});
+				}
+				if(context.endDate.value){
+					expressions.push({
+					field: context.definition.endDate,
+					value: context.endDate.value,
+					operator: context.endDate.operator
+					});
+				}
+
+				//Apply context to report if possible
+				if(module.currentReport){
+					module.currentReport.removeContext && module.currentReport.removeContext();
+					module.currentReport.setContext && module.currentReport.setContext( expressions );
+					module.currentReport.refresh && module.currentReport.refresh();
+				}
+			}
+		};
+
+	//expose methods
+	module.openReport = openReport;
+	module.getReports = getReports;
+	module.getCurrent = getCurrent;
+	module.toogleMenu = menu.toogle;
+	module.componentLoading = componentLoading;         //used in action function
+	module.componentLoaded = componentLoaded;           //used in action function
+	module.context = context;                           //expose context, WHY ?
+
+	userRoleReadyHandler = function(){
+		//populate user/role combobox
+		remote.getUsersAndRoles(function(result, event){
+				if(event.status){
+					result.push({value:'ALL',label:'ALL'});
+					context.userRole.combobox.addValues( result );
+					context.userRole.combobox.select( 0 );
+					context.userRole.value = context.userRole.combobox.getSelected().item;
+					components.ready('context1');
+				}
+				else{
+					log('Error [getUsersAndRoles]: ' + event.message, logLevel.AJAX | logLevel.INFO);
+				}
+		});
+		context.userRole.combobox.on('select', function(event, data){
+			context.userRole.value = context.userRole.combobox.getSelected().item;
+			context.apply();
+		});
+	};
+	accountReadyHandler = function(){
+		remote.getAccounts("", function(result, event){
+			if (event.status) {
+				result = [{value:'ALL',label:'ALL'}].concat(result);
+				context.account.combobox.addValues( result );
+				context.account.combobox.select( 0 );
+				context.account.value = context.account.combobox.getSelected().item;
+				components.ready('context2');
+			}
+			else {
+				log('Error [getAccounts]: ' + event.message, logLevel.AJAX | logLevel.INFO);
+			}
+			context.account.combobox.on('select', function(event, data){
+				context.account.value = context.account.combobox.getSelected().item;
+				context.apply();
+			});
+		});
+	}
+	module.userRoleComboReady = userRoleReadyHandler;
+	module.accountComboReady = accountReadyHandler
+
+	var saveDialogName;
+	//Initialize on ready
+	j$(document).ready(function(){
+		//populate reports menu
+		refreshReports(function(){
+			//componentLoaded();
+			components.ready('menu');
+		});
+
+		/*
+		 *  Create Date pickers with handlers
+		 *
+		 */
+		//UI components
+		var datetimeOptions = {
+			addSliderAccess: true,
+			sliderAccessArgs: { touchonly: false },
+			altFieldTimeOnly: false,
+			altFormat: "yy-mm-dd",
+			altTimeFormat: "'T'HH:mm:ssZ",
+			altSeparator: "",
+			pickerTimeFormat: "HH:mm:ss",
+			timeFormat: "HH:mm:ss",
+			dateFormat: "yy-mm-dd",
+			separator: " ",
+			showTimezone: false
+		};
+		context.startDate.value = null;
+		context.startDate.inputBox = j$('#startDatePicker').datetimepicker(
+			j$.extend(datetimeOptions, {
+				altField: "#actualStartDate",
+				onClose: function(e){
+					var val = j$('#actualStartDate').val(),
+					dateVal = Date.parse( val );
+					if(!dateVal){
+						val = null;
+					}
+					if (context.startDate.value !== val) {
+						if(!dateVal) {
+							context.endDate.inputBox.datetimepicker( 'option', 'minDateTime', Date.today());
+						}
+						else {
+							context.endDate.inputBox.datetimepicker( 'option', 'minDateTime', dateVal);
+						}
+						context.endDate.inputBox.datetimepicker( 'option', 'minDate', dateVal);
+						context.startDate.value = val;
+						context.apply();
+					}
+				}
+			})
+		).keyup(function(e) {
+			if(e.which == 8 || e.which == 46) {
+				context.startDate.inputBox.datetimepicker('setDate', null);
+			}
+		});
+		context.endDate.value = null;
+		context.endDate.inputBox = j$('#endDatePicker').datetimepicker(
+			j$.extend(datetimeOptions, {
+				altField: "#actualEndDate",
+				onClose: function(e){
+					var val = j$('#actualEndDate').val(),
+					dateVal = Date.parse( val );
+					if(!dateVal){
+						val = null;
+					}
+					if (context.endDate.value !== val) {
+						if(!dateVal) {
+							context.startDate.inputBox.datetimepicker( 'option', 'maxDateTime', Date.today().addMilliseconds(-1));
+						}
+						else {
+							context.startDate.inputBox.datetimepicker( 'option', 'maxDateTime', dateVal);
+						}
+						context.startDate.inputBox.datetimepicker( 'option', 'maxDate', dateVal);
+						context.endDate.value = val;
+						context.apply();
+					}
+				}
+			})
+		).keyup(function(e) {
+			if(e.which == 8 || e.which == 46) {
+				context.endDate.inputBox.datetimepicker('setDate', null);
+			}
+		}).click(function() {
+			//context.endDate.inputBox.datetimepicker('setDate', null);
+		});
+		/*
+		datepicker({
+		altField: "#actualStartDate",
+		altFormat: "yy-mm-dd"
+		}).keyup(function(e) {
+			if(e.keyCode == 8 || e.keyCode == 46) {
+				j$.datepicker._clearDate(this);
+			}
+		});
+		context.endDate.inputBox = j$('#endDatePicker').datepicker({
+		altField: "#actualEndDate",
+		altFormat: "yy-mm-dd"
+		}).keyup(function(e) {
+			if(e.keyCode == 8 || e.keyCode == 46) {
+				j$.datepicker._clearDate(this);
+			}
+		});
+		//handlers
+		j$('#endDatePicker').change(function(event){
+			//limit other date picker
+			var val = j$('#actualEndDate').val();
+			context.startDate.inputBox.datepicker( 'option', 'maxDate', parseDate( val ) );
+			context.endDate.value = val;
+			context.apply();
+
+		});
+		j$('#startDatePicker').change(function(event){
+			var val = j$('#actualStartDate').val();
+			context.endDate.inputBox.datepicker( 'option', 'minDate', parseDate( val ) );
+			context.startDate.value = val;
+			context.apply();
+		});
+		*/
+
+		//Create Save and Delete view buttons
+		j$('#saveViewButton').button().click(function( event ){
+			openSaveDialog();
+		});
+		j$('#deleteViewButton').button().click(function( event ){
+			remote.deleteReport( currentReportObject.Id, function(result,event){
+				if(event.status){
+					refreshReports(function(){
+						openReport( reports.list[0].Name );
+					});
+				}
+			});
+		});
+
+		//Create toogle menu button + bar handler so a user can click on button or bar
+		j$('#toogleMenuButton').button();
+		j$('#menuBar').click( function(){
+			menu.toogle();
+		});
+
+
+		//Create dialogs
+		saveDialogName = j$('#saveDialog').find('#name');               //text input element for view name
+		j$('#saveDialog form').submit(function(){                       //disable submit
+			return false;
+		});
+		j$('#saveDialog').dialog({
+			modal: true,
+			autoOpen: false,
+			title: "Save View",
+			zIndex: -1,
+			dialogClass: 'saveDialogStyle',
+			buttons: {
+			Save: function() {
+				var selfRef = this;
+				saveView(saveDialogName.val(), module.currentReport.filter.getFilterObject(), function(){
+				j$( selfRef ).dialog( "close" );
+				});
+			},
+			Cancel: function() {
+				j$( this ).dialog( "close" );
+			}
+			}
+		});
+		j$('#errorDialog').dialog({
+			modal: true,
+			autoOpen: false,
+			title: "Error",
+			zIndex: -1,
+			dialogClass: 'saveDialogStyle'
+		});
+	});
+		components.ready('report');
+		return module;
+	})({});
+
+	//expose to top window
+	window.top.OMC = {!JSENCODE(jsTopNs)};
+	</script>
+
+	<!--Action function for rendering current component-->
+	<apex:form id="form" >
+		<apex:actionStatus id="statusLoading" for="loadingComponent" onstart="{!JSENCODE(jsTopNs)}.reports.componentLoading();"></apex:actionStatus>
+		<apex:actionRegion id="loadingComponent">
+			<apex:actionFunction id="jsLoadComponent" name="{!JSENCODE(jsTopNs)}.reports.loadComponent" action="{!setComponent}" reRender="component" oncomplete="{!JSENCODE(jsTopNs)}.reports.componentLoaded();" >
+				<apex:param id="jsLoadComponentParam" name="componentNameParam" assignTo="{!componentName}" value=""></apex:param>
+			</apex:actionFunction>
+		</apex:actionRegion>
+	</apex:form>
+
+	<apex:messages id="messages" />
+
+	<div class="container">
+		<div class="headerContainer"><!-- comment whitespace because of display:inline-block style
+		--><div class="header gradientBackgroundTop"><!--
+			--><div class="logo">
+					{!$Label.MC_Reports_Title}
+				</div><!--
+			--><div class="context"><!--
+				--><span class="contextParameter">View for:<c:ComboBoxAutoComplete id="usersAndRoles" jsTopModule="{!JSENCODE(jsTopNs)}" jsModule="{!JSENCODE(jsTopNs)}.reports.context.userRole.combobox" onReady="{!JSENCODE(jsTopNs)}.reports.userRoleComboReady"></c:ComboBoxAutoComplete></span><!--
+				--><span class="contextParameter">Timeframe: <input type="text" class="readonly" id="startDatePicker" readonly="readonly"/>-<input type="text" class="readonly" id="endDatePicker" readonly="readonly"/></span><!--
+				--><span id="accountSelectSection" class="contextParameter">Account:<c:ComboBoxAutoComplete id="accountSelect" jsTopModule="{!JSENCODE(jsTopNs)}" jsModule="{!JSENCODE(jsTopNs)}.reports.context.account.combobox" onReady="{!JSENCODE(jsTopNs)}.reports.accountComboReady"></c:ComboBoxAutoComplete></span><!--
+				--><span style="float:right;"><a id="saveViewButton" href="#">Save View</a><a id="deleteViewButton" href="#">Delete View</a></span><!--
+		--><input id="actualStartDate" type="text" style="display: none;" /><!--
+		--><input id="actualEndDate" type="text" style="display: none;" /><!--
+			--></div><!--
+		--></div><!--
+	--></div>
+		<div class="bodyContainer">
+			<div class="body" >
+				<div class="menuContainer menuTransition">
+					<div class="menu">
+						<div id="menuBar" class="ui-state-default" style="height: 16px;">
+							<div id="toogleMenuButton" class="ui-icon ui-icon-triangle-1-w showMenu"></div>
+						</div>
+						<div id="tableContainer" style="height: 100%; overflow-y: auto">
+							<div id="menuTable" class="googleTable"></div>
+						</div>
+					</div>
+				</div>
+				<div class="contentContainer contentTransition" style="min-height: 500px"><div class="content"><!--
+				--><span id="reportTitle" class="title"></span><!--
+				--><span id="reportComponent" class="report"><!--
+				--><apex:outputPanel id="component" >
+						<apex:dynamicComponent id="dynamicVFC" componentValue="{!GeneratedComponent}" rendered="{!componentName != null}"></apex:dynamicComponent>
+					</apex:outputPanel><!--
+				--></span>
+				</div></div>
+			</div>
+		</div>
+
+		<div id="saveDialog">
+			<form>
+				<fieldset style="border: 0;">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+				</fieldset>
+			</form>
+		</div>
+		<div id="errorDialog">
+		</div>
+	</div>
+
+</apex:page>

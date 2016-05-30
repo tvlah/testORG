@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>The object holding all data needed to create and process an Order. A data container for communication with Orders &amp; Subscriptions. The model/instruction data is attached to a record as an attachment.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Callback_Responder_Classname__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The class which processes the response after the processing of the Order Request has finished. If defined, the class specified in the Order Request overrides the one defined by the module.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The class which processes the response after the processing of the Order Request has finished. If defined, the class specified in the Order Request overrides the one defined by the module.</inlineHelpText>
+        <label>Callback Responder Classname</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Completion_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Marks the status of processing after the process has finished.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Marks the status of processing after the process has finished.</inlineHelpText>
+        <label>Completion Status</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_DateTime__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The time when the request processing was completed (either successfully or failed).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The time when the request processing was completed (either successfully or failed).</inlineHelpText>
+        <label>End DateTime</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Execution_Attempt_Count__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The number of execution attempts on the order request. Counts each read of the object on trying to process it. A high count can point to a failed/aborted ancestral order request.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The number of execution attempts on the order request. Counts each read of the object on trying to process it. A high count can point to a failed/aborted ancestral order request.</inlineHelpText>
+        <label>Execution Attempt Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initial_Order_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The initial Order Request in this Order Request family. In any group of related Order Requests, there is only one Order Request which is the initial one (which has no previous Order Request).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The initial Order Request in this Order Request family. In any group of related Order Requests, there is only one Order Request which is the initial one (which has no previous Order Request).</inlineHelpText>
+        <label>Initial Order Request</label>
+        <referenceTo>Order_Request__c</referenceTo>
+        <relationshipLabel>Order Requests (Initial Order Request)</relationshipLabel>
+        <relationshipName>Initial_Order_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Module_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Module Name identifying all registered handlers &amp; processes registered in the Order &amp; Subscriptions package that will process the Order Request</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Module Name identifying all registered handlers &amp; processes registered in the Order &amp; Subscriptions package that will process the Order Request</inlineHelpText>
+        <label>Module Name</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Module_Version__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The version of the requested module to be used to process this order request.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The version of the requested module to be used to process this order request.</inlineHelpText>
+        <label>Module Version</label>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Next_Execution_Attempt__c</fullName>
+        <defaultValue>NOW()</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The earliest next execution attempt time. The processing of the order request will not be attempted prior to this time. This field can be used to ensure a delay in processing (e.g. to give time for ancestral requests to be processed).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The earliest next execution attempt time. The processing of the order request will not be attempted prior to this time. This field can be used to ensure a delay in processing (e.g. to give time for ancestral requests to be processed).</inlineHelpText>
+        <label>Next Execution Attempt</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Order_Request_Ancestry__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A CSV list of all OrderRequests in the track of changes to this Order Request (a list that can be read by walking up the lookups all the way to the initial Order Request).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A CSV list of all OrderRequests in the track of changes to this Order Request (a list that can be read by walking up the lookups all the way to the initial Order Request).</inlineHelpText>
+        <label>Order Request Ancestry</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Previous_Execution_Attempt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The previous (last so far) attempt at execution of the order request.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The previous (last so far) attempt at execution of the order request.</inlineHelpText>
+        <label>Previous Execution Attempt</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Previous_Order_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The previous OrderRequest object being changed by this OrderRequest.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The previous OrderRequest object being changed by this OrderRequest.</inlineHelpText>
+        <label>Previous Order Request</label>
+        <referenceTo>Order_Request__c</referenceTo>
+        <relationshipLabel>Order Requests (Previous Order Request)</relationshipLabel>
+        <relationshipName>Order_Requests1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Process_Status__c</fullName>
+        <defaultValue>&quot;Requested&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The current status of the order request processing.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The current status of the order request processing.</inlineHelpText>
+        <label>Process Status</label>
+        <length>80</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Processing_DateTime__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The time when the request processing was initiated.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The time when the request processing was initiated.</inlineHelpText>
+        <label>Processing DateTime</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Processing_Mode__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The processing mode for the Order Request.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The processing mode for the Order Request.</inlineHelpText>
+        <label>Processing Mode</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Process</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Future</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Batch</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Request_DateTime__c</fullName>
+        <defaultValue>NOW()</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The time when the request was placed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The time when the request was placed.</inlineHelpText>
+        <label>Request DateTime</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <label>Order Request</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Order Request Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Order Requests</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

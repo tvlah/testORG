@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A model of a service provided to a customer. A Service has a recurring component.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Activation_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The date of activation.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date of activation.</inlineHelpText>
+        <label>Activation Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Deactivation_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The date of deactivation.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date of deactivation.</inlineHelpText>
+        <label>Deactivation Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Deactivation_Reason__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A reason to deactivate the service.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A reason to deactivate the service.</inlineHelpText>
+        <label>Deactivation Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>External_Identifier2__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</inlineHelpText>
+        <label>External Identifier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>External_Identifier__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DEPRECATED. External Id field used for bulk inserts of Orders &amp; Subscriptions objects.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>DEPRECATED. Use External Identifier2 field instead.</inlineHelpText>
+        <label>DEPRECATED External Identifier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Identification__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Identification string for the object, used as the reference from external systems.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>E.g. &quot;spokeServiceAmsterdam&quot; in Hub&amp;Spokes scenario.</inlineHelpText>
+        <label>Identification</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order_Request__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Order Request object which introduced the latest changes to this object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Order Request object which introduced the latest changes to this object.</inlineHelpText>
+        <label>Order Request</label>
+        <referenceTo>Order_Request__c</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The parent Order of this Service.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent Order of this Service.</inlineHelpText>
+        <label>Order</label>
+        <referenceTo>Order__c</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The parent Service of this Service.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent Service of this Service.</inlineHelpText>
+        <label>Parent Service</label>
+        <referenceTo>Service__c</referenceTo>
+        <relationshipLabel>Child Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Solution__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The parent Solution of this Service</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent Solution of this Service</inlineHelpText>
+        <label>Solution</label>
+        <referenceTo>Solution__c</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The status of the Service in the fulfillment process.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used for state transitions.</inlineHelpText>
+        <label>Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subscription__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The parent Subscription of this Service.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent Subscription of this Service.</inlineHelpText>
+        <label>Subscription</label>
+        <referenceTo>Subscription__c</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Total_One_Off_Charges__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of all the one-off charges of the service’s line items</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of all the one-off charges of the service’s line items</inlineHelpText>
+        <label>Total One-Off Charges</label>
+        <summarizedField>Service_Line_Item__c.Total_Price__c</summarizedField>
+        <summaryFilterItems>
+            <field>Service_Line_Item__c.Is_Active__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Service_Line_Item__c.Is_Recurring__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Service_Line_Item__c.Service__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Recurring_Charges__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of all the recurring charges of the service’s line items</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of all the recurring charges of the service’s line items</inlineHelpText>
+        <label>Total Recurring Charges</label>
+        <summarizedField>Service_Line_Item__c.Total_Price__c</summarizedField>
+        <summaryFilterItems>
+            <field>Service_Line_Item__c.Is_Active__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Service_Line_Item__c.Is_Recurring__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Service_Line_Item__c.Service__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <label>Service</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Service Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Services</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

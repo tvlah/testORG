@@ -1,0 +1,23 @@
+<apex:page id="page" standardController="CSPOFA__Orchestration_Step_Dependency_Template__c" Title="Create Orchestration Template Step Dependency" extensions="CSPOFA.CreateOrchStepDependencyTplController" tabStyle="CSPOFA__Orchestration_Process_Template__c">
+	<apex:form id="form">
+		<apex:actionFunction id="jsUpdateDependency" name="updateDependency" reRender="pageblock" />
+		<apex:pageBlock id="pageblock" title="Dependency Template">
+			<apex:pageMessages id="pageMessages"/>
+			<apex:pageBlockButtons id="blockButtons" >
+				<apex:commandButton id="save" value="Save" action="{!save}"/>
+				<apex:commandButton id="cancel" value="Cancel" action="{!cancel}"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection id="pageblocksection" columns="2" showHeader="False">
+				<apex:inputField id="fieldName" value="{!CSPOFA__Orchestration_Step_Dependency_Template__c.Name}"/>
+				<apex:inputField id="fieldProcessTemplate" value="{!CSPOFA__Orchestration_Step_Dependency_Template__c.CSPOFA__Orchestration_Process_Template__c}" required="true"/>
+				<apex:inputField id="fieldDependent" value="{!CSPOFA__Orchestration_Step_Dependency_Template__c.CSPOFA__Dependent__c}" required="true" onchange="updateDependency();"/>
+				<apex:inputField id="fieldDependency" value="{!CSPOFA__Orchestration_Step_Dependency_Template__c.CSPOFA__Dependency__c}" required="true" onchange="updateDependency();"/>
+
+				<apex:inputField id="fieldRequiredProgress" value="{!CSPOFA__Orchestration_Step_Dependency_Template__c.CSPOFA__Required_progress__c}" rendered="{!IF(DependencyType == 'Condition',false,true)}" />
+				<apex:inputField id="fieldDependentCondition" value="{!CSPOFA__Orchestration_Step_Dependency_Template__c.CSPOFA__Dependent_Condition__c}" rendered="{!IF(DependencyType == 'Condition',true,false)}"/>
+
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

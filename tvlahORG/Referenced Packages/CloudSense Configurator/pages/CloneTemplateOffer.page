@@ -1,0 +1,2 @@
+<apex:page standardController="cscfga__Configuration_Offer__c" extensions="cscfga.ConfigurationOfferController" action="{!cloneTemplateOffer}">
+</apex:page>

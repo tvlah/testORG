@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Attribute_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Attribute. It is derived from Attribute Definition‘s name based on which Attribute was created.</inlineHelpText>
+        <label>Attribute Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Billing Frequency for Recurring Products in the Product Configuration. It can be derived from Product‘s Default Billing Frequency or with Set Billing Frequency action during configuration process.</inlineHelpText>
+        <label>Line Item Billing Frequency</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Configuration_Offer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>Configuration Offer</label>
+        <referenceTo>Configuration_Offer__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Configuration_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Describes if a configuration contains errors or not</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Status of the Product Configuration. Automatically set when Product Configuration is saved.</inlineHelpText>
+        <label>Configuration Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Valid</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Requires Update</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is Valid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contains Errors or Incomplete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contains Expired Products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Contract_Term_Period_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>case ( Contract_Term_Period__c,
+  1, &apos;Year&apos;,
+  4, &apos;Quarter&apos;,
+  12, &apos;Month&apos;,
+  56, &apos;Week&apos;,
+  365, &apos;Day&apos;,
+  text(Contract_Term_Period__c) &amp; &apos; times per year&apos;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Description of the Contract Term Period: e.g. 6 times per year, monthly, weekly, etc.</inlineHelpText>
+        <label>Contract Term Period Description</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contract_Term_Period__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The measure of time used by the Contract Term field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The measure of time used along with Contract Term to define the contract-binding period. Expressed as the number of times the period occurs in a year, for example: Annually (1), Quarterly (4), Monthly (12), Fortnightly (26) and so on.</inlineHelpText>
+        <label>Contract Term Period</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contract_Term__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Contract Term for this Product Configuration. It can be derived from Product‘s Contract Term or with Set Contract Term action during configuration process. It is a number which combined with Contract Term Period value defines the contract-binding period.</inlineHelpText>
+        <label>Contract Term</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Description of the Product Configuration. Automatically set when Product Configuration is saved.</inlineHelpText>
+        <label>Description</label>
+        <length>2048</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Entry_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Dummy date used during the product coinfigurator to allow us to
+&apos;hand roll&apos; own date picker classes (you need one &apos;real&apos; date picker
+to be created by an &lt;inputField&gt; which has to be data bound to  sObject).
+So this is the date we use to create our dummy hidden date picker.
+All the hand-rolled ones work once this is rendered.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Dummy input date field to enable hand-rolled date pickers to be built dynamically.</inlineHelpText>
+        <label>Entry Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Index__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The ordinal number of Product Configuration, set automatically.</inlineHelpText>
+        <label>Index</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Key__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>A case sensitive unique key for this configuration. The value of this field is not guaranteed to remain constant.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A key used for Help Test methods.</inlineHelpText>
+        <label>Key</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Screen_Index__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Index used to indicate the current screen during product configuration.</inlineHelpText>
+        <label>Last Screen Index</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>One_Off_Charge__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of non-recurring charges of all Line Items in the configuration.</inlineHelpText>
+        <label>One Off Charge</label>
+        <summarizedField>Attribute__c.Price__c</summarizedField>
+        <summaryFilterItems>
+            <field>Attribute__c.Is_Line_Item__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Attribute__c.Recurring__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Attribute__c.is_active__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Attribute__c.Is_rate_line_item__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Attribute__c.Product_Configuration__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Parent_Configuration__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Parent Configuration.</inlineHelpText>
+        <label>Parent Configuration</label>
+        <referenceTo>Product_Configuration__c</referenceTo>
+        <relationshipLabel>Related Configurations</relationshipLabel>
+        <relationshipName>Related_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Basket__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of associated Product Basket.</inlineHelpText>
+        <label>Product Basket</label>
+        <referenceTo>Product_Basket__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Bundle__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of associated Product Bundle.</inlineHelpText>
+        <label>Product Bundle</label>
+        <referenceTo>Product_Bundle__c</referenceTo>
+        <relationshipLabel>Configured Products</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of Product Definition from which this Configuration was derived.</inlineHelpText>
+        <label>Product Definition</label>
+        <referenceTo>Product_Definition__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Family__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field will be mapped to the Product2.Family field at Opportunity sync time.
+Default value is taken from Product_Definition__c.Name.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is used for better control over the process, enabling fine-grained forecasting capabilities. By default Product Defn name will auto-populate this field, overridden using Set Product Family action during config. Is mapped to Product2.Family fld at Opp sync</inlineHelpText>
+        <label>Product Family</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <defaultValue>1</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Quantity of this Product Configurations in the bundle.</inlineHelpText>
+        <label>Quantity</label>
+        <precision>5</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recurrence_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Recurrence Frequency for Recurring Products of the Product Configuration. It can be derived from Product‘s Default Recurrence Frequency or with Set Recurrence Frequency Action during configuration process.</inlineHelpText>
+        <label>Line Item Recurrence Frequency</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recurring_Charge__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of recurring charges of all Line Items in the configuration.</inlineHelpText>
+        <label>Recurring Charge</label>
+        <summarizedField>Attribute__c.Price__c</summarizedField>
+        <summaryFilterItems>
+            <field>Attribute__c.Is_Line_Item__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Attribute__c.is_active__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Attribute__c.Recurring__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Attribute__c.Is_rate_line_item__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Attribute__c.Product_Configuration__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Root_Configuration__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The root configuration in the hierarchy, if any</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Parent (Root) Configuration.</inlineHelpText>
+        <label>Root Configuration</label>
+        <referenceTo>Product_Configuration__c</referenceTo>
+        <relationshipLabel>All Descendent Configurations</relationshipLabel>
+        <relationshipName>Descendent_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Screen_Flow__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Used for associating a Screen Flow to the configuration. When editing Product Configuration associated Screen Flow will be displayed instead of regular Configuration Screen.</inlineHelpText>
+        <label>Screen Flow</label>
+        <referenceTo>Screen_Flow__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Serial_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <displayFormat>PC-{00000000}</displayFormat>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically assigned by the system.</inlineHelpText>
+        <label>Serial Number</label>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Total_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Unit Price multiplied with Quantity.</inlineHelpText>
+        <label>Total Price</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Unit_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of recurring charges within one year and non-recurring charges for all Line Items in the configuration.</inlineHelpText>
+        <label>Unit Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>User_Session__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Field not in use.</inlineHelpText>
+        <label>User Session</label>
+        <referenceTo>User_Session__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Validation_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Message field that should appear if Configuration Validation fails.</inlineHelpText>
+        <label>Validation Message</label>
+        <length>1024</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>originating_offer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Link to the offer from which this configuration was cloned.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Link to the offer from which this configuration was cloned.</inlineHelpText>
+        <label>Originating Offer</label>
+        <referenceTo>Configuration_Offer__c</referenceTo>
+        <relationshipLabel>Configuration Offer</relationshipLabel>
+        <relationshipName>Configuration_Offer</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>package_guid__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Allows the configurations to be grouped together as an immutable group based on being cloned from the same offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Allows the configurations to be grouped together as an immutable group based on being cloned from the same offer.</inlineHelpText>
+        <label>Package GUID</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>package_slot__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>If the configuration is part of a package, this lookup will link it to the slot were it is attached to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If the configuration is part of a package, this lookup will link it to the slot were it is attached to</inlineHelpText>
+        <label>Package slot</label>
+        <referenceTo>Attribute__c</referenceTo>
+        <relationshipLabel>Product Configurations</relationshipLabel>
+        <relationshipName>Product_Configurations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>total_contract_value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>It has total value as one-off charge plus total recurring occurrences in whole contract term period.</description>
+        <externalId>false</externalId>
+        <label>Total Contract Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>total_one_off_charge__c</fullName>
+        <deprecated>false</deprecated>
+        <description>One Off Charge plus sum of all Related Product Total One Off Charges</description>
+        <externalId>false</externalId>
+        <inlineHelpText>One Off Charge plus sum of all Related Product Total One Off Charges</inlineHelpText>
+        <label>Total One Off Charge</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>total_recurring_charge__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Recurring Charge plus all Related Products Total Recurring Charge</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Recurring Charge plus all Related Products Total Recurring Charge</inlineHelpText>
+        <label>Total Recurring Charge</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Product Configuration</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Product_Definition__c</columns>
+        <columns>Entry_Date__c</columns>
+        <columns>Product_Bundle__c</columns>
+        <columns>Total_Price__c</columns>
+        <columns>Unit_Price__c</columns>
+        <columns>Quantity__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Product Configurations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

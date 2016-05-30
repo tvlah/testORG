@@ -1,0 +1,150 @@
+<apex:page standardController="cscfga__Product_Definition__c" extensions="cscfga.StatelessUIController" action="{!captureAllDefinitionUIs}">
+	<style type="text/css">
+		.screenStatusIcon {
+			width: 12px;
+			height: 12px;
+			margin: 2px;
+			background-repeat: no-repeat;
+		}
+		.screenStatusIcon.ok {
+			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAhxJREFUeNpMkd1LUwEYxp9zdjxtaztnm9PMkZuexCiiGYpozovUChUKwpu8iaA777qU/oIobxoEXXSVQXixpElBRV84oQ8p51q1eXIfbMeceObm2cf56Bwp6IHfzfs+z/vy8hLQZeUI2AMkDnRoXrer6brP4x0hAHOtVt/8KcTndjeq87l7akktA5QRqEsawCgTA6fPBId7R9pcTic0PQFVA5/jR8NvwlN5V/IaykgbZVi60Tt5d+jpoD/QzItJrAvfoVEy6rICL3sU7a5OPHr4+MnyjfQUBQso7zhz1cf5mpdybxHb/gJSBTKFImxpBiR9GPRwFv7RYxdXuEw/RVjg6xz0XdiQeES+RZD6IcPWDtBbDObPv8eJtpMY+3gcLM2Au+y4RJKAs2quMCuFT/AzA3g3/gH9e2cROhfeN8+sTSOaS0Akd0DbGzyUJkER1gtbIrfnLkFBT1cPFrpeGqdh5us0ZuNBHGFs2JFEeTu++5tUJfzKPyuutnjcWBYjGHvRh5JcxK3YTdxeC8JLOWBmaZTFUmnzuRQ16YMkKam66VbllCfA2lfzCeJVdhGL2RCarAxMh0g0NMrV/Kz0WVxS7xsBaDKy4mulkWJltqXPjpSaMlkPmmWL21RHpSYId6SEMKc80K3h/T/8lUfniiNADtGthNPkILRaRlUrvJYpx7QFvRfSqf4fMGRs7NbhjH/qFHSiOvw/wx8BBgD7H9Z3uYq+UgAAAABJRU5ErkJggg==);
+		}
+		.screenStatusIcon.fail {
+			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAbVJREFUeNpMkt9qFDEUxr9kMpnZnZld3HangxYqLf5B2kuht73wwieobyBovS6Cl30Hr+wL+A5e+QaCoMULpZRdLO7a3fmTSSYxZ3HRwEdy8v2SwzkcNnk/wHo5r0AgW0zVJ4qzreigM1gw/Fs8CDnWkr0AurLPZBbuyDTcaens7/5nuG4dVjJAU9pBXdrT7ce3sH04ovi0WXYD8tYcNwogWR+Uv/RxkoZ7l18Uri4NhuNob3Gtj8lbc7xrHKxyqOddrJburLif4t35Nc7fTrF5L0Fb4Yw8YojlpvIHr+XMvE6SMIfk6McMcZ8DcYC0J3LyiCGW+yKha7uhKve82JDAjcVs1mH2uwNKi61RBPKIITY4OZKY/mzfFJvR03wkYWuHcRFi/1GM3CeRmkE1Lr2aKJPGwQfeKHvHabzKB6GHsfr14muDi+++Qp/Elg75UIIYYsV8bk527/ay7EEfaD2RCpjPFZhgYIUEcwZZj2P3RmffftQv2ccXwhW3Q0QjAechCP8mDfzvvhEL63vpwLSD8jVNJxrs4RhPqgpDqxH42XCr+XB/54Bmgq92xgW6pI/yjwADAEGB6p95sxLfAAAAAElFTkSuQmCC);
+		}
+
+		h1.infoTitle { font-size: 1.3em; }
+		.hidden { display: none; }
+		#modelInfoContainer, #uiRulesInfoContainer { margin-top: 1em; }
+		#progressTable th { background-color: #EEE; }
+		#progressTable th, #progressTable td { padding: 5px; }
+	</style>
+	<div class="bPageTitle">
+		<div class="ptBody">
+			<div class="content">
+				<img src="/s.gif" alt="Product Definition" class="pageTitleIcon" title="Product Definition" />
+				<h1 class="pageType">Product Definition</h1>
+				<h2 class="pageDescription"><apex:outputText escape="true" value="{!definition.Name}" /></h2>
+				<div class="blank">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="modelInfoContainer" class="hidden">
+		<h1 class="infoTitle">Compiling product model...</h1>
+	</div>
+
+	<div id="uiRulesInfoContainer" class="hidden">
+		<h1 class="infoTitle">Compiling UX Engine UI and Rules:</h1>
+		<table id="progressTable">
+			<tr>
+				<th>&nbsp;</th>
+				<th>Screenflow</th>
+				<th>Template</th>
+				<th>&nbsp;</th>
+			</tr>
+		</table>
+	</div>
+
+	<div id="returnButtonContainer" class="hidden">
+		<input type="button" value="Return to Product Definition" onclick="window.self.location.href = '/{!JSENCODE(definition.id)}';" />
+	</div>
+
+	<script type="text/javascript" src="{!URLFOR($Resource.jQuery_min)}"></script>
+	<script>
+		(function compileTemplates() {
+			var compileUrl = "{!JSENCODE(compileModelPageUrl)}";
+			var hasErrors = false;
+
+			function compileModel(params) {
+				params["phase"] = "model";
+
+				var deferred = $.Deferred();
+
+				$("#modelInfoContainer").removeClass("hidden");
+				$.get(compileUrl, params, function handleResponse(data, status, xhr) {
+					$("#modelInfoContainer h1").first().append("<span> complete.</span>");
+					deferred.resolve();
+				});
+
+				return deferred.promise();
+			}
+
+			function compileTemplate(params) {
+				params["phase"] = "template";
+
+				var deferred = $.Deferred();
+
+				$("#uiRulesInfoContainer").removeClass("hidden");
+
+				var tableRow = document.createElement("tr");
+				var indicator = $('<div class="screenStatusIcon">...</div>');
+				$(tableRow).append($("<td></td>").append(indicator));
+				$(tableRow).append($("<td>" + (params.hasOwnProperty("screenFlowName") ? params.screenFlowName : "(default)") + "</td>"));
+				$(tableRow).append($("<td>" + params.template + "</td>"));
+
+				$("#progressTable").append(tableRow);
+				$.get(compileUrl, params, function handleResponse(data, status, xhr) {
+					if (data.indexOf("theErrorPage:theError") > 0) {
+						$(indicator).text("").addClass("fail");
+						$(tableRow).append($("<td>" + $(data).find("#theErrorPage\\:theError").text() + "</td>"));
+						hasErrors = true;
+					} else {
+						$(indicator).text("").addClass("ok");
+					}
+					deferred.resolve();
+				});
+
+				return deferred.promise();
+			}
+
+			function cloneObject(obj) {
+				return JSON.parse(JSON.stringify(obj));
+			}
+
+			function getCompileFunctionClosure(fn, p) {
+				return function() {
+					return fn(p);
+				}
+			}
+
+			var executionChain = $.Deferred();
+			var promise = executionChain.promise();
+
+			var templatesByScreenflowName = {!definitionDataJson};
+			var params = {
+				"id": "{!JSENCODE(definition.id)}",
+				"template": templatesByScreenflowName[""]
+			};
+			promise = promise.then(
+				getCompileFunctionClosure(compileModel, cloneObject(params))
+			).then(
+				getCompileFunctionClosure(compileTemplate, cloneObject(params))
+			);
+
+
+			for (var screenFlowName in templatesByScreenflowName) {
+				if (screenFlowName === "") {
+					continue;
+				}
+				if (templatesByScreenflowName.hasOwnProperty(screenFlowName)) {
+					var p = cloneObject(params);
+					p["template"] = templatesByScreenflowName[screenFlowName];
+					p["screenFlowName"] = screenFlowName;
+
+					promise = promise.then(
+						getCompileFunctionClosure(compileTemplate, p)
+					);
+				}
+			}
+			promise.done(function redirectToDefinitionPage() {
+				if (hasErrors) {
+					$("#returnButtonContainer").removeClass("hidden");
+				} else {
+					window.self.location.href = '/{!JSENCODE(definition.id)}';
+				}
+			});
+			executionChain.resolve();
+		})();
+	</script>
+</apex:page>

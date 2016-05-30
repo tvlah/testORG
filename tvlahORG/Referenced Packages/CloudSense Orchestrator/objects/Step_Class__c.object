@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Category__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Step class categorization: 
+Custom - steps registered by client after package installation
+Standard - steps that are part of the package</description>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Standard</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Custom</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Execution_Handler__c</fullName>
+        <defaultValue>&apos;NullHandler&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Apex class that will be used to execute the step(s) of this class (type).
+Class has to support bulk execution of steps and it has to implement Handler interface.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Apex class that will be used to execute the steps of this class (type).</inlineHelpText>
+        <label>Execution Handler</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Instance_Constructor__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A class to be called at the point when the step instance is created from template.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A class to be called at the point when the step instance is created from template.</inlineHelpText>
+        <label>Instance Constructor</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UI_Constructor__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A class responsible for creation of VF component. The component defines UI for the step type. The class must implement interface ComponentConstructor.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A class responsible for creation of VF component defining the UI for the step template.</inlineHelpText>
+        <label>UI Constructor</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Step Class</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Category__c</columns>
+        <columns>NAME</columns>
+        <columns>Execution_Handler__c</columns>
+        <columns>UI_Constructor__c</columns>
+        <columns>Instance_Constructor__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Step Class</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Unique_Name</fullName>
+        <active>true</active>
+        <description>Validates name uniqueness.</description>
+        <errorConditionFormula>Name = VLOOKUP( $ObjectType.Step_Class__c.Fields.Name , $ObjectType.Step_Class__c.Fields.Name , Name ) &amp;&amp; Id &lt;&gt; VLOOKUP( $ObjectType.Step_Class__c.Fields.Id , $ObjectType.Step_Class__c.Fields.Name , Name )</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Step class name must be unique.</errorMessage>
+    </validationRules>
+</CustomObject>

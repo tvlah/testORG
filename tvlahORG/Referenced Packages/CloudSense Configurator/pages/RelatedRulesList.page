@@ -1,0 +1,14 @@
+<apex:page standardController="cscfga__Product_Definition__c" extensions="cscfga.RelatedRulesController" title="Related Rules" tabStyle="cscfga__Product_Definition__c">
+	<apex:messages />
+	<apex:sectionHeader title="Related Rules" />
+	<apex:form >
+		<apex:pageBlock title="Rules related through Actions">
+			<apex:pageBlockTable value="{!relatedRules}" var="r">
+				<apex:column headerValue="Rule Number" title="Number">
+					<apex:outputLink value="/{!r.id}" target="_parent" id="rLink">{!r.Name}</apex:outputLink>
+				</apex:column>
+				<apex:column value="{!r.cscfga__Description__c}" title="Description" />
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

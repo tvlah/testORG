@@ -1,0 +1,10 @@
+<apex:page standardController="cscfga__Product_Bundle__c" extensions="cscfga.DeleteBundleController">
+	<apex:form >
+		<apex:actionFunction name="deleteBundle" action="{!deleteBundle}" />
+	</apex:form>
+<apex:pageMessages />
+		<script>
+			deleteBundle();
+		</script>
+{!$Label.dltbndl_Click} <a href="{!failRetUrl}">{!$Label.dltbndl_here}</a> {!$Label.dltbndl_to_return_to_the_previous_page}
+</apex:page>

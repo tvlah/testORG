@@ -1,0 +1,27 @@
+<apex:page standardController="cscfga__Product_Definition__c" extensions="cscfga.ReinstateDefinitionController">
+
+<apex:form >
+<apex:pageBlock title="Reinstate Product Definition" rendered="{!cscfga__Product_Definition__c.cscfga__IsArchived__c == true}">
+    <h2>Reinstate product definition '{!cscfga__Product_Definition__c.Name}' from archive?</h2>
+    <apex:pageBlockButtons location="bottom" >
+        <apex:commandButton id="btnunArchive" Action="{!doUnarchive}" value="Reinstate now"/>
+        <apex:commandButton id="btnCancel" Action="{!cancel}" value="Cancel"/>
+    </apex:pageBlockButtons>
+    
+    <apex:messages />
+
+</apex:pageBlock>
+
+<apex:pageBlock title="Reinstate Product Definition" rendered="{!cscfga__Product_Definition__c.cscfga__IsArchived__c == false}">
+    <h2>Product definition '{!cscfga__Product_Definition__c.Name}' is not archived, so cannot be reinstated</h2>
+    <apex:pageBlockButtons location="bottom" >
+        <apex:commandButton id="btnCancel" Action="{!cancel}" value="Return To Product Definition" />
+    </apex:pageBlockButtons>
+    
+    <apex:messages />
+
+</apex:pageBlock>
+
+
+</apex:form>
+</apex:page>

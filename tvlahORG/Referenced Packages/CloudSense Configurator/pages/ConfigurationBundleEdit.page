@@ -1,0 +1,30 @@
+<apex:page standardController="cscfga__Product_Bundle__c" extensions="cscfga.ProductBundleController" tabStyle="Solution">
+    <style type="text/css">
+        .numberCol {
+            text-align: right
+        }
+        .main {
+            padding-top: 8px;
+        }
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+    <apex:form >
+        <apex:pageBlock title="{!$Label.probunded_Product_Bundle_Edit}">
+        
+            <apex:pageBlockButtons location="both">
+                <apex:commandButton value="{!$Label.prodbundedit_Save}" action="{!save}" />
+                <apex:commandButton value="{!$Label.prodbundedit_Cancel}" action="{!cancel}" />
+            </apex:pageBlockButtons>
+			
+			<apex:pageBlockSection title="{!$Label.probunded_Information}">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.probunded_Name}" for="name" />
+					<apex:inputField id="name" value="{!cscfga__Product_Bundle__c.name}" />
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+        </apex:pageBlock>
+
+    </apex:form>
+</apex:page>

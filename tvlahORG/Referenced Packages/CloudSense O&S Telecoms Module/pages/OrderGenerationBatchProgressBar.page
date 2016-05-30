@@ -1,0 +1,10 @@
+<apex:page standardController="Opportunity" showHeader="false" sidebar="false">
+    	<apex:form id="generalform">
+        		<apex:outputPanel >
+
+                        <c:BatchProgressComponent batchComponentLabel1="" numberOfJobs1="1" rerenderOnComplete1="true" theBatchJobId="{!Opportunity.csordtelcoa__Order_Generation_Batch_Job_Id__c}" 
+                        rendered="{!NOT(ISNULL(Opportunity.csordtelcoa__Order_Generation_Batch_Job_Id__c))}"/>
+
+        		</apex:outputPanel>
+     	</apex:form>
+</apex:page>

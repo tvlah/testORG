@@ -1,0 +1,5 @@
+<apex:page standardController="CSPOFA__Orchestration_Process__c" extensions="CSPOFA.ProcessVisualiserDispatcherController" action="{!resolveReference}">
+	<apex:form >
+		<apex:inputHidden value="{!CSPOFA__Orchestration_Process__c.CSPOFA__Processing_Mode__c}" id="processingMode"/>
+	</apex:form>
+</apex:page>

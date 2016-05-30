@@ -1,0 +1,28 @@
+<apex:page standardController="csord__Service__c" extensions="csordtelcoa.ModifyServiceConfigurationController" action="{!checkQuantity}" showHeader="true" sidebar="true">
+	<apex:form >
+        <apex:sectionHeader title="Modify Service Configuration" subtitle="Modify Service Configuration" />
+        <apex:pageMessages />
+        <apex:pageBlock title="" rendered="{!NOT(AllowChange)}">
+            <apex:outputText value="{!csord__Service__c.id}" rendered="false"/> 
+            <apex:outputText value="{!csord__Service__c.Name}" rendered="false"/> 
+            <apex:outputText value="{!csord__Service__c.csord__Status__c}" rendered="false"/> 
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Return to Service" title="Return to Service" action="{!cancel}"/>                
+            </apex:pageBlockButtons>            
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Select services for In-Flight Change" rendered="{!IF(quantity > 1, true, false)}">
+            <apex:outputLabel value="This service is a part of Quantity Grouping. Modifying it will remove it from the grouping. Would you 
+                like to modify only this service, or all services in this grouping? 
+                Please consult user manual for more information." rendered="true"/>
+            <apex:selectRadio value="{!serviceChangeChoice}">
+                <apex:selectOptions value="{!serviceChangeChoices}" />
+            </apex:selectRadio>
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Continue" action="{!detectChoice}" />
+                <apex:commandButton value="Return to Service" title="Return to Service" action="{!cancel}"/>                
+            </apex:pageBlockButtons>
+            <!-- -->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

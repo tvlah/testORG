@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Automatically_Create_New_Process_Steps__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Automatically Create New Process Steps</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Callout_Instruction_Query_Rows_Factor__c</fullName>
+        <defaultValue>10</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The number of query rows required to process each callout instruction (defaults to 10)</description>
+        <externalId>false</externalId>
+        <label>Callout Instruction Query Rows Factor</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Create_Case_Trigger_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If active, cases will be created by the built-in trigger. Deactivate to override standard case creation behaviour.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If active, cases will be created by the built-in trigger. Deactivate to override standard case creation behaviour.</inlineHelpText>
+        <label>Create Case Trigger Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Create_Task_Trigger_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If active, tasks will be created by the built-in trigger. Deactivate to override standard task creation behaviour.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If active, tasks will be created by the built-in trigger. Deactivate to override standard task creation behaviour.</inlineHelpText>
+        <label>Create Task Trigger Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Custom_Steps_Per_Batch__c</fullName>
+        <defaultValue>10</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The number of custom steps processed in each batch (when BatchApex is used) and each scheduled Engine invocation (when ScheduledApex is used).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The number of custom steps processed in each batch (when BatchApex is used) and each scheduled Engine invocation (when ScheduledApex is used).</inlineHelpText>
+        <label>Custom Steps Per Batch</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_queue_run_frequency__c</fullName>
+        <defaultValue>10</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Min. value: 1 (the engine is scheduled to run every minute)
+Max. value: 525 599 (the engine is scheduled to run just below every year; 60*24*365 - 1 = 525 599 minutes)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Min. value: 1 (the engine is scheduled to run every minute)
+Max. value: 525 599 (the engine is scheduled to run just below every year; 60*24*365 - 1 = 525 599 minutes)</inlineHelpText>
+        <label>Default queue run frequency (mins)</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Enable_Case_Creation_For_Jeopardy_Step__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable Case Creation For  Jeopardy Step</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Debug_Logging__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable &apos;Debug&apos; level logging messages</description>
+        <externalId>false</externalId>
+        <label>Enable Debug Logging</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Info_Logging__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable &apos;Info&apos; level logging messages</description>
+        <externalId>false</externalId>
+        <label>Enable Info Logging</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Notifications__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable Orchestrator notifications.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Email is sent for Cases and Tasks created by respective steps.
+Process notifications for jeopardy, completion and milestone events are posted to process feed.</inlineHelpText>
+        <label>Enable Notifications</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Warning_Logging__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable &apos;Warning&apos; level logging messages</description>
+        <externalId>false</externalId>
+        <label>Enable Warning Logging</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>External_Polling_Enabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>External Polling Enabled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>History_Trigger_On__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>History Trigger Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Jeopardy_Queue_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Jeopardy Queue Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OLA_Time_Unit__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <defaultValue>&apos;minute&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Value should be one of the following: &apos;minute&apos;, &apos;hour&apos;, &apos;day&apos;.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Value should be one of the following: &apos;minute&apos;, &apos;hour&apos;, &apos;day&apos;.</inlineHelpText>
+        <label>OLA Time Unit</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Process_Trigger_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Process Trigger Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Processing__c</fullName>
+        <defaultValue>&apos;BatchApex&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Engine processing configuration.
+Valid values are:
+BatchApex
+ScheduledApex</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Engine processing configuration.
+Valid values are:
+BatchApex
+ScheduledApex</inlineHelpText>
+        <label>Processing</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Require_Close_Reason_To_Close_A_Case__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Requires the Orchestrator Step Close Reason to have a value when closing a case, if the case is linked to an Orchestrator step</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Requires the Orchestrator Step Close Reason to have a value when closing a case, if the case is linked to an Orchestrator step</inlineHelpText>
+        <label>Require Close Reason To Close A Case</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Send_Email_Trigger_On__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If active, emails will be sent by the built-in trigger. Deactivate to override standard email sending behaviour.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If active, emails will be sent by the built-in trigger. Deactivate to override standard email sending behaviour.</inlineHelpText>
+        <label>Send Email Trigger Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Wait_For_External_Email_Feedback__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Wait For External Email Feedback</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Work_Day_End_Hour__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Work Day End Hour</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Orchestrator Constants</label>
+    <visibility>Public</visibility>
+</CustomObject>

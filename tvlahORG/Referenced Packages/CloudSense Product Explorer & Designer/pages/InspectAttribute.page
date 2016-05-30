@@ -1,0 +1,572 @@
+<apex:page standardController="cscfga__Attribute_Definition__c" extensions="cspduia.InspectAttributeController" showHeader="false" sidebar="false" standardStylesheets="true">
+    <apex:includeScript value="{!$Resource.cspduia__jQuery}" />
+    <apex:includeScript value="{!$Resource.cspduia__JQueryUI}" />
+    <apex:includeScript value="{!$Resource.cspduia__jQueryBlockUI}"/>
+    <apex:includeScript value="{!$Resource.cspduia__jQueryDDSlick}"/>
+    <apex:includeScript value="{!$Resource.cspduia__JQueryHighlight}"/>
+    <style type="text/css">
+        body {
+            background: #ddd;
+        }
+        fieldset {
+            background: #eee;
+        }
+        div.details {
+            width: 100%;
+            min-height: 580px;
+            max-height: 580px;
+            overflow: auto;
+            border-left: solid 1px #000000;
+        }
+        td {
+            vertical-align: top;
+        }
+        
+        .close-image {
+            display: block;
+            float:right;
+            position:relative;
+            top:0px;
+            margin-right: 10px;
+            right: 0px;
+            cursor: pointer;
+            width:24px;
+            height:24px;
+            z-index:10;
+        }
+        .item-options { 
+            border:solid 1px #ccc; 
+            border-top:none; 
+            list-style:none; 
+            box-shadow:0px 1px 5px #ddd; 
+            //display:none; 
+            //position:absolute; 
+            //z-index:2000; 
+            margin:0; 
+            padding:0;
+            background:#fff; 
+            overflow:auto;
+            margin-left: 0px;
+            width: 250px;
+        }
+        .item-option { 
+            width:225px;
+            padding:10px; 
+            display:inline-block; 
+            border-bottom:solid 1px #ddd; 
+            overflow:hidden; 
+            text-decoration:none; 
+            color:#333; 
+            cursor:pointer;
+            -webkit-transition: all 0.25s ease-in-out; 
+            -moz-transition: all 0.25s ease-in-out;
+            -o-transition: all 0.25s ease-in-out;
+            -ms-transition: all 0.25s ease-in-out; 
+            margin-left: 0px;
+            height: 20px;
+        }
+        .subitem { 
+            width:225px;
+            padding:10px; 
+            display:inline-block; 
+            border-bottom:solid 1px #ddd; 
+            overflow:hidden; 
+            text-decoration:none; 
+            color:#333; 
+            background:#e8edff; 
+            cursor:pointer;
+            -webkit-transition: all 0.25s ease-in-out; 
+            -moz-transition: all 0.25s ease-in-out;
+            -o-transition: all 0.25s ease-in-out;
+            -ms-transition: all 0.25s ease-in-out; 
+            margin-left: 0px;
+            height: 20px;
+        }
+        .item-options > li:last-child > .dd-option { 
+            border-bottom:none;
+        }
+        .item-option:hover { 
+            background:#f3f3f3; 
+            color:#000;
+        }
+        .subitem:hover { 
+            background:#e8ffff; 
+            color:#000;
+        }
+        .item-item-image {
+            display: block;
+            float: left;
+            position:relative;
+            top:0px;
+            margin: 2px;
+            right: 4px;
+            cursor: pointer;
+            width:12px;
+            height:12px;
+            z-index:10;
+        }
+        img.ruleImageClass {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'rule-20.png')});
+          margin-right: 10px;
+        }
+        img.calculation {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'calculation-20.png')});
+          margin-right: 10px;
+        }
+        
+        img.checkbox {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'checkbox-20.png')});
+          margin-right: 10px;
+        }
+        
+        img.date {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'date-20.png')});
+          margin-right: 10px;
+        }
+        
+        img.lookup {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'lookup-20.png')});
+          margin-right: 10px;
+          padding-left: 0px;
+        }
+        
+        img.radio-button {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'radio-20.png')});
+          margin-right: 10px;
+        }
+        
+        img.related-product {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'related-product-20.png')});
+          margin-right: 10px;
+        }
+        
+        img.select-list {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'select-list-20.png')});
+          margin-right: 10px;
+        }
+        
+        img.text-display {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'text-display-20.png')});
+          margin-right: 10px;
+        }
+        
+        img.user-input {
+          content: url({!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'user-input-20.png')});
+          margin-right: 10px;
+        }
+        
+        .dd-select {
+            overflow: hidden;
+            display: block;
+            padding: 10px;
+            font-weight: bold;
+            max-height: 35px;
+            min-height: 35px;
+            height: 35px;
+        }
+        
+        td.header-short {
+            vertical-align: bottom;
+            border-bottom: 1px solid #000000;
+        }
+        td.header {
+            margin-top: 10px;
+            min-height: 30px;
+            height: 30px;
+            vertical-align: bottom;
+            border-bottom: 1px solid #000000;
+        }
+        tr.odd {
+            margin: 0px;
+            padding: 0px;
+            vertical-align: top;
+            background: #e8edff;
+            border-spacing: 0px;
+        }
+        tr.even {
+            margin: 0px;
+            padding: 0px;
+            vertical-align: top;
+            background: #e8ffff;
+            border-spacing: 0px;
+        }
+        tr.header {
+            background: #aaa;
+            border-spacing: 0px;
+        }
+        
+        .highlightYellow { background-color: yellow }
+        .highlightGreen { background-color: green; color: #fff; }
+    </style>
+    <script>
+        
+            $('document').ready(function () {   
+                // unblock when ajax activity stops 
+                $(document).ajaxStop($.unblockUI);
+                //
+                blockScreenElement('html');
+                //
+                makeMenuSlick();
+                $('#menu').ddslick('select', {index: 1 });
+                $('.dd-select').css('width','230');
+                //
+                getRulesAssociatedWithThisAttribute('{!cscfga__Attribute_Definition__c.Id}');
+                getAttributesInfluencedByThisAttribute('{!cscfga__Attribute_Definition__c.Id}');
+                getAttributesInfluencingThisAttribute('{!cscfga__Attribute_Definition__c.Id}');    //EP NEW
+                //
+            });
+            //
+            function blockScreenElement(elementSelector) {
+                $(elementSelector).block({
+                    message: '<div style="width:300px;height:300px"></div>',
+                    css: {
+                        border: '0px solid #A4D48C',
+                        background: 'url("{!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, "ProgressWheel.gif")}") 50% 50% no-repeat',
+                        cursor: 'default'
+                    },
+                    overlayCSS: {
+                        backgroundColor: '#ccc',
+                        opacity: 0.6,
+                        cursor: 'default'
+                    },
+                });
+            }
+            //
+            function getRulesAssociatedWithThisAttribute(id) {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.InspectAttributeController.getRulesAssociatedWithThisAttribute}',
+                    id,
+                    handleGetRulesAssociatedWithThisAttributeThisAttributeResponse,
+                    {escape: false}
+                );
+            }
+            //
+            function handleGetRulesAssociatedWithThisAttributeThisAttributeResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    ruleList = result;
+                    
+                     console.log('**result on rules associated');
+                    console.log(result);
+                    
+                    for(var i = 0; i < ruleList.length; i++) {
+                        var rule = ruleList[i];
+                        var li = createRuleLi(rule,'associatedrule');
+                        console.log(li);
+                        $('#rules-ul').append(li);
+                    }
+                    //
+                    $('.details').siblings().hide();
+                    $('html').unblock();
+                    //
+                }
+            } 
+            //
+            function getAttributesInfluencedByThisAttribute(id) {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.InspectAttributeController.getAttributesInfluencedByThisAttribute}',
+                    id,
+                    handleGetAttributesInfluencedByThisAttributeResponse,
+                    {escape: false}
+                );
+            }
+            //
+            function handleGetAttributesInfluencedByThisAttributeResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    attributeRuleCollectionList = result;
+                    
+                    console.log('**result on influencedAtts');
+                    console.log(result);
+                    
+                    for(var i = 0; i < attributeRuleCollectionList.length; i++) {
+                        var attRuleCollection = attributeRuleCollectionList[i];
+                        var li = createLi(attRuleCollection.AttDef,attRuleCollection.associatedRuleList);
+                        console.log(li);
+                        $('#influenced-attributes-ul').append(li);
+                    }
+                    //
+                    $('.details').siblings().hide();
+                    $('html').unblock();
+                    //
+                    /****
+                    $.each(attributeRuleCollectionList, function(key,valueObj) {
+                        //console.log(key+'-'+valueObj);
+                        $.each(valueObj, function(key2,vObj) {
+                            console.log(key2+'-'+vObj);
+                        });
+                    });
+                    ****/
+                }
+            } 
+            
+            //EP NEW
+            function getAttributesInfluencingThisAttribute(id) {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.InspectAttributeController.getAttributesInfluencingThisAttributeNew}',
+                    id,
+                    handleGetAttributesInfluencingThisAttributeResponse,
+                    {escape: false}
+                );
+            }
+            
+            function handleGetAttributesInfluencingThisAttributeResponse(result, event) {
+                if (event.type == 'exception') {
+                    alert(event.message);
+                } else {
+                    attributeRuleCollectionList = result;
+                    //
+                    console.log('**result on influencingAtts');
+                    console.log(result);
+                    
+                    for(var i = 0; i < attributeRuleCollectionList.length; i++) {
+                        var attRuleCollection = attributeRuleCollectionList[i];
+                        var li = createLi(attRuleCollection.AttDef,attRuleCollection.associatedRuleList);
+                        console.log(li);
+                        $('#influencing-attributes-ul').append(li);
+                    }
+                    //
+                    $('.details').siblings().hide();
+                    $('html').unblock();
+                    //
+                    /****
+                    $.each(attributeRuleCollectionList, function(key,valueObj) {
+                        //console.log(key+'-'+valueObj);
+                        $.each(valueObj, function(key2,vObj) {
+                            console.log(key2+'-'+vObj);
+                        });
+                    });
+                    ****/
+                }
+            } 
+            
+            //
+            function createLi(att, associatedRuleList) {
+                var attTypeClass = att.cscfga__Type__c.split(' ').join('-').toLowerCase();
+                var li = '<li class="item-option" onClick="$(\'.'+att.Id+'\').toggle();">';
+                li += '<a>';
+                li += '<img  class="'+attTypeClass+'" src=""/>';
+                li += '<label>'+att.Name+'</label>';
+                li += '</a>';
+                li += '</li>';
+                //
+                for (var i = 0; i < associatedRuleList.length; i++) {
+                    li += createRuleLi(associatedRuleList[i],'influencedBy',true,att);
+                }
+                //
+                return li;
+            } 
+            //
+            function createRuleLi(rule,divPrefix,subItem,att) {
+                var styleClass = 'item-option';
+                if (subItem !== undefined && subItem) styleClass = 'subitem '+att.Id;
+                var li = '<li title="'+rule.cscfga__Description__c+'" class="'+styleClass+'" onClick="viewRuleDetails(\''+divPrefix+'-'+rule.Id+'\',\''+(att == undefined ? '' : att.Name)+'\');">';
+                li += '<a>';
+                li += '<img  class="ruleImageClass" src=""/>';
+                li += '<label>'+rule.Name+'</label>';
+                li += '</a>';
+                li += '</li>';
+                //
+                // Create the associated details div
+                var div = '<div  class="details" id="'+divPrefix+'-'+rule.Id+'">';
+                div += '<table border="0" width="100%">';
+                div += '  <tr><td class="header-short"><b>'+rule.Name+'</b> (<a onClick="$(\'#'+rule.Name.split(" ").join("")+'-desc\').toggle();">toggle rule description</a>)</td></tr>';
+                div += '  <tr class="even" id="'+rule.Name.split(" ").join("")+'-desc"><td>'+rule.cscfga__Description__c+'</td></tr>';
+                div += '  <tr><td class="header"><b>Rule Logic</b></td></tr>';
+                if (rule.cscfga__Logic__c != undefined) {
+                    div += '  <tr class="even"><td>'+rule.cscfga__Logic__c+'</td></tr>';
+                } else {
+                    div += '  <tr class="even"><td>Default rule <b>AND</b> logic applied</td></tr>';
+                }
+                div += '  <tr><td class="header"><b>Conditions</b></td></tr>';
+                div += '  <tr>';
+                div += '  <td>';
+                div += '    <table width="100%">';
+                if (rule.cscfga__Predicate_Associations__r != undefined && rule.cscfga__Predicate_Associations__r.length > 0) div += '    <tr class="header"><td style="width:100px;"><b>Short Code</b></td><td><b>Number</b></td><td><b>Condition</b></td></tr>';
+                for(var i = 0; i < (rule.cscfga__Predicate_Associations__r == undefined ? 0 : rule.cscfga__Predicate_Associations__r.length); i++) {
+                    var rowClass = 'odd';
+                    if (i % 2 == 0) rowClass = 'even';
+                    var pred = rule.cscfga__Predicate_Associations__r[i];
+                    div += '      <tr class="'+rowClass+'">';
+                    div += '         <td>'+pred.Name+'</td><td>'+pred.cscfga__Predicate__r.Name+'</td><td>'+pred.cscfga__Predicate__r.cscfga__Label__c+'</td>';
+                    div += '      </tr>';
+                }
+                div += '    </table>';
+                div += '  </td>';
+                div += '  </tr>';
+                div += '  <tr><td class="header"><b>Actions (if conditions are true) </b></td></tr>';
+                div += '  <tr>';
+                div += '  <td>';
+                div += '    <table width="100%">';
+                if (rule.cscfga__Rule_Action_Associations__r != undefined && rule.cscfga__Rule_Action_Associations__r.length > 0) {
+                    div += '    <tr class="header"><td style="width:100px;"><b>Number</b></td><td><b>Type</b></td><td><b>Target</b></td></tr>';
+                }
+                for(var i = 0; i < (rule.cscfga__Rule_Action_Associations__r == undefined ? 0 : rule.cscfga__Rule_Action_Associations__r.length); i++) {
+                    var rowClass = 'odd';
+                    if (i % 2 == 0) rowClass = 'even';
+                    var action = rule.cscfga__Rule_Action_Associations__r[i];
+                    if (action.cscfga__Execution_type__c.indexOf('Normal') == 0) {
+                        div += '      <tr class="'+rowClass+'">';
+                        div += '        <td>'+
+                            '<img id="expand-collapse-'+action.Id+'" onClick="toggleActionDetailsRow(this)" src="{!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'expand.png')}"/> '+
+                            action.cscfga__Action__r.Name+'</td><td>'+action.cscfga__Action__r.RecordType.Name+'</td>';
+                        div += '        <td>{'+action.cscfga__Action__r.cscfga__Target__r.cscfga__Product_Definition__r.Name+'.'+action.cscfga__Action__r.cscfga__Target__r.Name+'}</td>';
+                        
+                        div += '      </tr>';
+                        if (action.cscfga__Action__r.cscfga__Value__c != undefined && action.cscfga__Action__r.cscfga__Value__c != 'null') {
+                            div += '<tr id="'+action.Id+'" style="display:none"><td><b>Value</b></td><td colspan="2">'+action.cscfga__Action__r.cscfga__Value__c+'</td></tr>';
+                        } else if (action.cscfga__Action__r.cscfga__JavaScript__c != undefined && action.cscfga__Action__r.cscfga__JavaScript__c != 'null') {
+                            div += '<tr id="'+action.Id+'" style="display:none"><td><b>Javascript</b></td><td colspan="2">'+action.cscfga__Action__r.cscfga__JavaScript__c+'</td></tr>';
+                        } else {
+                            div += '<tr id="'+action.Id+'" style="display:none"><td colspan="3">No details to display for this action</td></tr>';
+                        }
+                    }
+                }
+                div += '    </table>';
+                div += '  <tr><td class="header"><b>Actions (if conditions are false) </b></td></tr>';
+                div += '  <tr>';
+                div += '  <td>';
+                div += '    <table width="100%">';
+                if (rule.cscfga__Rule_Action_Associations__r != undefined && rule.cscfga__Rule_Action_Associations__r.length > 0) {
+                    div += '    <tr class="header"><td style="width:100px;"><b>Number</b></td><td><b>Action</b></td><td><b>Target</b></td></tr>';
+                }
+                for(var i = 0; i < (rule.cscfga__Rule_Action_Associations__r == undefined ? 0 : rule.cscfga__Rule_Action_Associations__r.length); i++) {
+                    var rowClass = 'odd';
+                    if (i % 2 == 0) rowClass = 'even';
+                    var action = rule.cscfga__Rule_Action_Associations__r[i];
+                    if (action.cscfga__Execution_type__c.indexOf('Else') == 0) {
+                        div += '      <tr class="'+rowClass+'">';
+                        div += '        <td>'+
+                            '<img id="expand-collapse-'+action.Id+'" onClick="toggleActionDetailsRow(this)" src="{!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'expand.png')}"/> '+
+                            action.cscfga__Action__r.Name+'</td><td>'+action.cscfga__Action__r.RecordType.Name+'</td>';
+                        if (action.cscfga__Action__r.cscfga__Target__r != undefined) {
+                            div += '        <td>{'+action.cscfga__Action__r.cscfga__Target__r.cscfga__Product_Definition__r.Name+'.'+action.cscfga__Action__r.cscfga__Target__r.Name+'}</td>';
+                        } else {
+                            div += '        <td>{'+action.cscfga__Action__r.cscfga__Product_Definition__r.Name+'}</td>';
+                        }
+                        div += '      </tr>';
+                        if (action.cscfga__Action__r.cscfga__Value__c != undefined && action.cscfga__Action__r.cscfga__Value__c != 'null') {
+                            div += '<tr id="'+action.Id+'" style="display:none"><td><b>Value</b></td><td colspan="2">'+action.cscfga__Action__r.cscfga__Value__c+'</td></tr>';
+                        } else if (action.cscfga__Action__r.cscfga__JavaScript__c != undefined && action.cscfga__Action__r.cscfga__JavaScript__c != 'null') {
+                            div += '<tr id="'+action.Id+'" style="display:none"><td><b>Javascript</b></td><td colspan="2">'+action.cscfga__Action__r.cscfga__JavaScript__c+'</td></tr>';
+                        } else {
+                            div += '<tr id="'+action.Id+'" style="display:none"><td colspan="3">No details to display for this action</td></tr>';
+                        }
+                    }
+                }
+                div += '    </table>';
+                div += '  </td>';
+                div += '  </tr>';
+                div += '</div>'; 
+                //
+                $('#details-div').append(div);
+                console.log('hide:'+'#'+divPrefix+'-'+rule.Id);
+                $('#'+divPrefix+'-'+rule.Id).hide();
+                //
+                return li;
+            }
+            //
+            function viewRuleDetails(Id,influencedAttName) {
+                $('#'+Id).siblings().hide();
+                $('#'+Id).show();
+                $('#'+Id).removeHighlight();
+                $('#'+Id).highlight('{!cscfga__Attribute_Definition__c.Name}','highlightYellow');
+                if (influencedAttName != '') 
+                    $('#'+Id).highlight(influencedAttName,'highlightGreen');
+            }
+            //
+            function makeMenuSlick() {
+                $('#menu').ddslick({
+                    onSelected: function (data) {
+                        console.log('>>>>>data.selectedData.value: '+data.selectedData.value);
+                        if (data.selectedData.value == 'rules-list-div') {
+                            $('#rules-list-div').show();
+                            $('#influenced-attributes-list-div').hide();
+                            $('#influencing-attributes-list-div').hide();
+                            $('.details').siblings().hide();
+                        } else if (data.selectedData.value == 'influenced-attributes-list-div') {
+                            $('#rules-list-div').hide();
+                            $('#influenced-attributes-list-div').show();
+                            $('#influencing-attributes-list-div').hide();
+                            $('.subitem').hide();
+                            $('.details').siblings().hide();
+                        } else if (data.selectedData.value == 'influencing-attributes-list-div') {
+                            $('#rules-list-div').hide();
+                            $('#influenced-attributes-list-div').hide();
+                            $('#influencing-attributes-list-div').show();
+                            $('.details').siblings().hide();
+                        } else {
+                            $('#rules-list-div').hide();
+                            $('#influenced-attributes-list-div').hide();
+                            $('#influencing-attributes-list-div').hide();
+                            $('.details').siblings().hide();
+                        }
+                    }
+                });
+            }
+            //
+            function toggleActionDetailsRow(image) {
+                var imageSrc = $(image).attr('src');
+                if (imageSrc.match('expand.png$')) {
+                    $(image).attr('src',
+                        "{!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'collapse.png')}"
+                    );
+                    //console.log('imageId: '+imageId);
+                    //console.log('elemId: '+elemId);
+                    //$('#' + elemId).show();
+                    $(image).parent().parent().next().show();
+                } else {
+                    $(image).attr('src',
+                        "{!URLFOR($Resource.cspduia__ProductDefinitionBuilderIcons, 'expand.png')}"
+                    );
+                    //$('#' + elemId).hide();
+                    $(image).parent().parent().next().hide();
+                }
+            }
+            //
+            function closeOverlay() {
+                var msg = '{"action": "CloseWindow"';
+                msg += '}';
+                window.top.postMessage(msg, '*');
+            }
+    </script>
+    <apex:form id="fullform">
+        <img class="close-image" title="Close dialog" src="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'close.png')}" id="closedialog" onClick="closeOverlay();"/>
+        <table cellspacing="8" border="0" id="containerTable" width="100%">
+            <tr>
+                <td colspan="1">
+                    <select id="menu">
+                        <option value="-1"> Make a Selection</option>
+                        <option value="rules-list-div" data-description="" data-imagesrc="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'rule-20.png')}">Rules associated with "{!cscfga__Attribute_Definition__c.Name}"</option>
+                        <option value="influenced-attributes-list-div" data-description="" data-imagesrc="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'attribute-20.png')}">Attributes influenced by "{!cscfga__Attribute_Definition__c.Name}"</option>
+                        <option value="influencing-attributes-list-div" data-description="" data-imagesrc="{!URLFOR($Resource.ProductDefinitionBuilderIcons, 'attribute-20.png')}">Attributes influencing "{!cscfga__Attribute_Definition__c.Name}"</option>
+                    </select>
+                </td>
+                <td id="right-column" rowspan="2" width="75%">
+                    <div class="details" id="details-div">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td id="left-column" width="25%">
+                    <div id="influenced-attributes-list-div" style="min-height:500px; max-height:500px; overflow:auto;">
+                        <ul class="item-options" id="influenced-attributes-ul">
+                        </ul>
+                    </div>
+                    <div id="influencing-attributes-list-div" style="min-height:500px; max-height:500px; overflow:auto;">
+                        <ul class="item-options" id="influencing-attributes-ul">
+                        </ul>
+                    </div>
+                    <div id="rules-list-div" style="min-height:500px; max-height:500px; overflow:auto;">
+                        <ul class="item-options" id="rules-ul">
+                        </ul>
+                    </div>
+                </td>
+                <td id="right-column" width="75%">
+                </td>
+            </tr>
+        </table>
+    </apex:form>
+</apex:page>

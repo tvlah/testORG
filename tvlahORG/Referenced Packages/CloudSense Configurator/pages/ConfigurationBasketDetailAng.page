@@ -1,0 +1,102 @@
+<apex:page standardController="cscfga__Product_Basket__c" extensions="cscfga.ProductBasketAngController">
+	<apex:stylesheet value="{!$Resource.cscfga__BundleDetail_css}"/>
+	<c:FixUIStyles />
+	<c:EmbedAngular />
+	<apex:includeScript value="{!$Resource.cscfga__cs_core}" />
+
+	<c:AsyncTaskStatus linkedObjectId="{!id}" indicatorTitle="Asynchronous tasks running over - {!basketName}"/>
+
+	<apex:pageMessages />
+
+	<div ng-app="BasketApp">
+
+		<apex:detail relatedList="true" />
+
+		<apex:pageBlock title="{!$Label.confbundet_Configured_Products}" html-ng-controller="BasketCtrl" html-ng-keydown="key($event, true)"  html-ng-keyup="key($event, false)">
+
+			<apex:pageBlockButtons location="top">
+				<input value=" {!$Label.confbundet_New_Product_Configuration} " class="btn" title="{!$Label.confbundet_New_Product_Configuration}" name="new_config" type="button" ng-click="newConfig()" />
+				<input value=" {!$Label.confbundet_delete_selected} " class="btn" title="{!$Label.confbundet_delete_selected}" name="delete_selection" type="button" ng-click="deleteConfigs(getSelection())" />
+			</apex:pageBlockButtons>
+
+			<div ng-include="'{!URLFOR($Resource.AngularComponents, 'weakassoc/basket/basket.html')}'"></div>
+		</apex:pageBlock>
+	</div>
+
+	<script type="text/javascript">
+		angular.module("BasketData", []).config(["$provide", function($provide) {
+			$provide.value("BasketData", {
+				basket: {!basketJson},
+				config: {
+					"showListPriceAndDiscountAmount": {!showListPriceAndDiscountAmount},
+					"showRateLineItemsInSeparateColumn": {!showRateLineItemsInSeparateColumn},
+					"displayRecurringInvoiceColumn": {!displayRecurringInvoiceColumn},
+					"displayTCVColumn": {!displayTCVColumn}
+				},
+				labels: {
+					"action": "{!JSENCODE($Label.confbundet_Action)}",
+					"status": "{!JSENCODE($Label.confbundet_Status)}",
+					"item": "{!JSENCODE($Label.confbundet_Item)}",
+					"quantity": "{!JSENCODE($Label.confbundet_Quantity)}",
+					"rate": "{!JSENCODE($Label.confbundet_Rate)}",
+					"non-recurring": "{!JSENCODE($Label.Non_recurring_header)}",
+					"recurring": "{!JSENCODE($Label.Recurring_header)}",
+					"recurring-invoice": "{!JSENCODE($Label.Recurring_invoice_header)}",
+					"contract-total": "{!JSENCODE($Label.Total_contract_value_header)}",
+					"annual-total": "{!JSENCODE($Label.Annualised_total_header)}",
+					"list-price": "{!JSENCODE($Label.confbundet_ListPrice)}",
+					"sales-price": "{!JSENCODE($Label.confbundet_SalesPrice)}",
+					"discount": "{!JSENCODE($Label.confbundet_Discount)}",
+					"edit": "{!JSENCODE($Label.confbundet_Edit)}",
+					"copy": "{!JSENCODE($Label.confbundet_Copy)}",
+					"del": "{!JSENCODE($Label.confbundet_Del)}",
+					"totals-for": "{!JSENCODE($Label.confbundet_Totals_for)}",
+					"grand-total": "{!JSENCODE($Label.confbundet_Grand_Total)}",
+
+					"delete-dialog-question": "{!JSENCODE($Label.basksumm_delete_dialog_question)}",
+					"are-you-sure": "{!JSENCODE($Label.basksumm_delete_sure)}",
+					"starting-delete-batch": "{!JSENCODE($Label.basksumm_starting_delete_batch)}",
+					"delete-batch-id": "{!JSENCODE($Label.basksumm_delete_batch_id)}",
+					"delete-batch-failed": "{!JSENCODE($Label.basksumm_delete_batch_failed)}",
+
+					"copy-dialog-title": "{!JSENCODE($Label.basksumm_copy_related)}",
+					"number-of-copies": "{!JSENCODE($Label.basksumm_number_of_copies)}",
+					"starting-batch-copy": "{!JSENCODE($Label.basksumm_starting_copy_batch)}",
+					"copy-batch-id": "{!JSENCODE($Label.basksumm_copy_batch_id)}",
+					"monitor-batch": "{!JSENCODE($Label.basksumm_monitor_batch)}",
+					"reload-after-batch": "{!JSENCODE($Label.basksumm_reload_after_batch)}",
+					"copy-batch-failed": "{!JSENCODE($Label.basksumm_copy_batch_failed)}",
+
+					"cancel": "{!JSENCODE($Label.basksumm_cancel)}",
+					"confirm": "{!JSENCODE($Label.basksumm_delete_confirm)}",
+					"copy": "{!JSENCODE($Label.basksumm_copy_button)}",
+					"close": "{!JSENCODE($Label.basksumm_close)}",
+					"loading": "{!JSENCODE($Label.basksumm_loading)}"
+				},
+				resources: {
+					"progress": "{!$Resource.ProgressBar}"
+				},
+				contents: {!allBasketItemsJson},
+				grandTotal: {!grandTotal}
+			});
+		}]);
+	</script>
+	<script type="text/javascript">
+		angular.module("BasketRemote", []).config(["$provide", function($provide) {
+			$provide.value("BasketRemote", {
+				packagePrefix: "{!packagePrefix}",
+				fetchGroupDataAction: "{!$RemoteAction.ProductBasketAngController.loadAssociationGroup}",
+				copyConfigurations: "{!$RemoteAction.ProductBasketAngController.copyConfigurations}",
+				deleteConfigurations: "{!$RemoteAction.ProductBasketAngController.deleteConfigurations}",
+				loadAsyncTasksOverBasket : "{!$RemoteAction.ProductBasketAngController.loadAsyncTasksOverBasket}",
+				selectCategoryPage: "{!JSENCODE(URLFOR($Page.SelectProductCategoryForBasket))}",
+				configureProductPage: "{!JSENCODE(URLFOR($Page.Configuration))}"
+			});
+		}]);
+	</script>
+
+	<script src="{!URLFOR($Resource.AngularComponents, 'common/common.js')}" type="text/javascript"></script>
+	<script src="{!URLFOR($Resource.AngularComponents, 'weakassoc/basket/basket.js')}" type="text/javascript"></script>
+
+	<c:CustomResources resources="{!additionalBasketResources}" />
+</apex:page>
